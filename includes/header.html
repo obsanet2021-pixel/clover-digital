@@ -1,0 +1,40 @@
+<!-- Header Component -->
+<header class="main-header">
+    <div class="nav-container">
+        <a href="index.html" class="logo">
+            <svg class="logo-icon" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                <path d="M16 2L2 9L16 16L30 9L16 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M2 16L16 23L30 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M2 23L16 30L30 23" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            APEX DIGITAL
+        </a>
+        <ul class="nav-menu">
+            <li><a href="index.html" class="nav-link">Home</a></li>
+            <li><a href="about.html" class="nav-link">About</a></li>
+            <li><a href="services.html" class="nav-link">Services</a></li>
+            <li><a href="portfolio.html" class="nav-link">Portfolio</a></li>
+            <li><a href="pricing.html" class="nav-link">Pricing</a></li>
+            <li><a href="blog.html" class="nav-link">Insights</a></li>
+            <li><a href="contact.html" class="nav-link">Contact</a></li>
+        </ul>
+        <a href="contact.html" class="btn btn-primary">Start a Project →</a>
+        <div class="mobile-menu-btn">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</header>
+
+<script>
+    // Set active class based on current page
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    const navLinks = document.querySelectorAll('.nav-link');
+    
+    navLinks.forEach(link => {
+        if (link.getAttribute('href') === currentPage) {
+            link.classList.add('active');
+        }
+    });
+</script>

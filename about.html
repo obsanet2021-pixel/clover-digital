@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apex Digital - About Us | Our Story</title>
+    <meta name="description" content="Learn about Apex Digital's journey, mission, and the team behind our success">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
+    <link rel="stylesheet" href="assets/css/animations.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .about-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 8rem 0 4rem;
+            text-align: center;
+            color: white;
+        }
+        .about-hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+        }
+        .mission-section {
+            padding: 5rem 0;
+            background: white;
+        }
+        .mission-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        .mission-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .mission-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .stat-box {
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #667eea;
+        }
+        .team-section {
+            padding: 5rem 0;
+            background: #f8fafc;
+        }
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        .team-card {
+            background: white;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+            text-align: center;
+        }
+        .team-card:hover {
+            transform: translateY(-5px);
+        }
+        .team-card img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+        .team-info {
+            padding: 1.5rem;
+        }
+        .team-info h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.25rem;
+        }
+        .team-info p {
+            color: #667eea;
+            font-weight: 600;
+        }
+        .values-section {
+            padding: 5rem 0;
+        }
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        .value-card {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .value-card i {
+            font-size: 2.5rem;
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+        @media (max-width: 768px) {
+            .mission-grid {
+                grid-template-columns: 1fr;
+            }
+            .about-hero h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <svg class="logo-icon" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <path d="M16 2L2 9L16 16L30 9L16 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M2 16L16 23L30 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M2 23L16 30L30 23" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                APEX DIGITAL
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html" class="active">About</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="portfolio.html">Portfolio</a></li>
+                <li><a href="pricing.html">Pricing</a></li>
+                <li><a href="blog.html">Insights</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <a href="contact.html" class="btn btn-primary">Start a Project →</a>
+            <div class="mobile-menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="about-hero">
+            <div class="container">
+                <h1>Our <span class="gradient-text">Story</span></h1>
+                <p>Building digital excellence since 2014</p>
+            </div>
+        </section>
+
+        <section class="mission-section">
+            <div class="container">
+                <div class="mission-grid">
+                    <div class="mission-content">
+                        <h2>Our <span class="gradient-text">Mission</span></h2>
+                        <p>To empower businesses with innovative digital solutions that drive growth, efficiency, and exceptional user experiences.</p>
+                        <div class="mission-stats">
+                            <div class="stat-box">
+                                <div class="stat-number">10+</div>
+                                <p>Years Experience</p>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-number">500+</div>
+                                <p>Projects Complete</p>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-number">200+</div>
+                                <p>Happy Clients</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mission-image">
+                        <img src="https://via.placeholder.com/500x400" alt="Our Mission" style="width:100%; border-radius:1rem;">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="values-section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">Our Values</span>
+                    <h2>What Drives <span class="gradient-text">Us</span></h2>
+                </div>
+                <div class="values-grid">
+                    <div class="value-card">
+                        <i class="fas fa-star"></i>
+                        <h3>Excellence</h3>
+                        <p>We strive for perfection in everything we do</p>
+                    </div>
+                    <div class="value-card">
+                        <i class="fas fa-lightbulb"></i>
+                        <h3>Innovation</h3>
+                        <p>Always pushing boundaries and exploring new possibilities</p>
+                    </div>
+                    <div class="value-card">
+                        <i class="fas fa-handshake"></i>
+                        <h3>Integrity</h3>
+                        <p>Building trust through transparency and honesty</p>
+                    </div>
+                    <div class="value-card">
+                        <i class="fas fa-users"></i>
+                        <h3>Collaboration</h3>
+                        <p>Working together to achieve extraordinary results</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="team-section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">Leadership</span>
+                    <h2>Meet Our <span class="gradient-text">Team</span></h2>
+                </div>
+                <div class="team-grid">
+                    <div class="team-card">
+                        <img src="https://randomuser.me/api/portraits/men/1.jpg" alt="Team Member">
+                        <div class="team-info">
+                            <h3>John Anderson</h3>
+                            <p>CEO & Founder</p>
+                        </div>
+                    </div>
+                    <div class="team-card">
+                        <img src="https://randomuser.me/api/portraits/women/2.jpg" alt="Team Member">
+                        <div class="team-info">
+                            <h3>Sarah Chen</h3>
+                            <p>Creative Director</p>
+                        </div>
+                    </div>
+                    <div class="team-card">
+                        <img src="https://randomuser.me/api/portraits/men/3.jpg" alt="Team Member">
+                        <div class="team-info">
+                            <h3>Michael Rodriguez</h3>
+                            <p>Lead Developer</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-logo">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                        <path d="M16 2L2 9L16 16L30 9L16 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2 16L16 23L30 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2 23L16 30L30 23" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <h3>APEX DIGITAL</h3>
+                </div>
+                <p>Reach your peak performance with cutting-edge digital solutions that drive real business growth.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="portfolio.html">Portfolio</a></li>
+                    <li><a href="pricing.html">Pricing</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <p><i class="fas fa-map-marker-alt"></i> 123 Peak Avenue, Silicon Valley, CA 94025</p>
+                <p><i class="fas fa-phone"></i> +1 (888) 123-APEX</p>
+                <p><i class="fas fa-envelope"></i> hello@apexdigital.com</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Apex Digital. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/animations.js"></script>
+</body>
+</html>

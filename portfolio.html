@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apex Digital - Portfolio | Our Work</title>
+    <meta name="description" content="Explore our portfolio of successful digital projects and client success stories">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
+    <link rel="stylesheet" href="assets/css/animations.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .portfolio-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 8rem 0 4rem;
+            text-align: center;
+            color: white;
+        }
+        .portfolio-hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+        }
+        .portfolio-filter {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 3rem 0;
+            flex-wrap: wrap;
+        }
+        .filter-btn {
+            padding: 0.75rem 1.5rem;
+            background: transparent;
+            border: 2px solid #e2e8f0;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-color: transparent;
+        }
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            padding: 2rem 0;
+        }
+        .portfolio-item {
+            position: relative;
+            border-radius: 1rem;
+            overflow: hidden;
+            cursor: pointer;
+            aspect-ratio: 16/11;
+        }
+        .portfolio-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        .portfolio-overlay {
+            position: absolute;
+            bottom: -100%;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(102, 126, 234, 0.95), rgba(118, 75, 162, 0.95));
+            color: white;
+            padding: 2rem;
+            transition: bottom 0.3s;
+        }
+        .portfolio-item:hover .portfolio-overlay {
+            bottom: 0;
+        }
+        .portfolio-item:hover img {
+            transform: scale(1.1);
+        }
+        .portfolio-category {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: rgba(255,255,255,0.2);
+            border-radius: 0.25rem;
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+        }
+        @media (max-width: 768px) {
+            .portfolio-hero h1 {
+                font-size: 2rem;
+            }
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <svg class="logo-icon" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <path d="M16 2L2 9L16 16L30 9L16 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M2 16L16 23L30 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M2 23L16 30L30 23" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                APEX DIGITAL
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="portfolio.html" class="active">Portfolio</a></li>
+                <li><a href="pricing.html">Pricing</a></li>
+                <li><a href="blog.html">Insights</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <a href="contact.html" class="btn btn-primary">Start a Project →</a>
+            <div class="mobile-menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="portfolio-hero">
+            <div class="container">
+                <h1>Our <span class="gradient-text">Work</span></h1>
+                <p>Showcasing our best projects and success stories</p>
+            </div>
+        </section>
+
+        <div class="container">
+            <div class="portfolio-filter">
+                <button class="filter-btn active" data-filter="all">All Projects</button>
+                <button class="filter-btn" data-filter="web">Web Development</button>
+                <button class="filter-btn" data-filter="design">UI/UX Design</button>
+                <button class="filter-btn" data-filter="marketing">Digital Marketing</button>
+            </div>
+
+            <div class="portfolio-grid" id="portfolio-grid">
+                <!-- Portfolio items will be loaded here -->
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-logo">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                        <path d="M16 2L2 9L16 16L30 9L16 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2 16L16 23L30 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2 23L16 30L30 23" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <h3>APEX DIGITAL</h3>
+                </div>
+                <p>Reach your peak performance with cutting-edge digital solutions.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="portfolio.html">Portfolio</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <p><i class="fas fa-map-marker-alt"></i> 123 Peak Avenue, Silicon Valley, CA</p>
+                <p><i class="fas fa-phone"></i> +1 (888) 123-APEX</p>
+                <p><i class="fas fa-envelope"></i> hello@apexdigital.com</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Apex Digital. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Portfolio data
+        const portfolioItems = [
+            {
+                id: 1,
+                title: "E-Commerce Platform",
+                category: "web",
+                description: "Full-featured online store with payment integration",
+                image: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=600"
+            },
+            {
+                id: 2,
+                title: "Banking App Redesign",
+                category: "design",
+                description: "Modern UI/UX for mobile banking application",
+                image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600"
+            },
+            {
+                id: 3,
+                title: "SEO Campaign",
+                category: "marketing",
+                description: "200% increase in organic traffic",
+                image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600"
+            },
+            {
+                id: 4,
+                title: "Corporate Website",
+                category: "web",
+                description: "Modern corporate presence for global brand",
+                image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=600"
+            },
+            {
+                id: 5,
+                title: "Mobile App Design",
+                category: "design",
+                description: "Intuitive mobile experience for startup",
+                image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600"
+            },
+            {
+                id: 6,
+                title: "Social Media Strategy",
+                category: "marketing",
+                description: "Comprehensive social media campaign",
+                image: "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=600"
+            }
+        ];
+
+        function renderPortfolio(category = 'all') {
+            const grid = document.getElementById('portfolio-grid');
+            const filtered = category === 'all' ? portfolioItems : portfolioItems.filter(item => item.category === category);
+            
+            grid.innerHTML = filtered.map(item => `
+                <div class="portfolio-item" data-category="${item.category}">
+                    <img src="${item.image}" alt="${item.title}">
+                    <div class="portfolio-overlay">
+                        <span class="portfolio-category">${item.category === 'web' ? 'Web Development' : item.category === 'design' ? 'UI/UX Design' : 'Digital Marketing'}</span>
+                        <h3>${item.title}</h3>
+                        <p>${item.description}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Filter functionality
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const category = btn.dataset.filter;
+                renderPortfolio(category);
+                
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            });
+        });
+
+        // Initial render
+        renderPortfolio();
+    </script>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/animations.js"></script>
+</body>
+</html>

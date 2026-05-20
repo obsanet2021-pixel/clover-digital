@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apex Digital - Pricing | Transparent Plans</title>
+    <meta name="description" content="Choose the perfect plan for your business needs. Transparent pricing with no hidden fees">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
+    <link rel="stylesheet" href="assets/css/animations.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .pricing-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 8rem 0 4rem;
+            text-align: center;
+            color: white;
+        }
+        .pricing-hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+        }
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            padding: 4rem 0;
+        }
+        .pricing-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+            position: relative;
+        }
+        .pricing-card:hover {
+            transform: translateY(-10px);
+        }
+        .pricing-card.popular {
+            border: 2px solid #667eea;
+            transform: scale(1.05);
+        }
+        .popular-badge {
+            position: absolute;
+            top: -12px;
+            right: 20px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 0.25rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        .price {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #667eea;
+            margin: 1rem 0;
+        }
+        .price span {
+            font-size: 1rem;
+            color: #64748b;
+        }
+        .features-list {
+            list-style: none;
+            margin: 2rem 0;
+            text-align: left;
+        }
+        .features-list li {
+            padding: 0.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .features-list li i {
+            color: #10b981;
+        }
+        .btn-pricing {
+            width: 100%;
+            text-align: center;
+            justify-content: center;
+        }
+        .faq-section {
+            padding: 4rem 0;
+            background: #f8fafc;
+        }
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        .faq-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 1rem;
+        }
+        .faq-item h4 {
+            margin-bottom: 0.5rem;
+            color: #667eea;
+        }
+        @media (max-width: 768px) {
+            .pricing-hero h1 {
+                font-size: 2rem;
+            }
+            .pricing-card.popular {
+                transform: scale(1);
+            }
+            .faq-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <svg class="logo-icon" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <path d="M16 2L2 9L16 16L30 9L16 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M2 16L16 23L30 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M2 23L16 30L30 23" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                APEX DIGITAL
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="portfolio.html">Portfolio</a></li>
+                <li><a href="pricing.html" class="active">Pricing</a></li>
+                <li><a href="blog.html">Insights</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <a href="contact.html" class="btn btn-primary">Start a Project →</a>
+            <div class="mobile-menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="pricing-hero">
+            <div class="container">
+                <h1>Simple, <span class="gradient-text">Transparent</span> Pricing</h1>
+                <p>Choose the perfect plan for your business needs</p>
+            </div>
+        </section>
+
+        <div class="container">
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3>Starter</h3>
+                    <div class="price">$999 <span>/ project</span></div>
+                    <p>Perfect for small businesses starting out</p>
+                    <ul class="features-list">
+                        <li><i class="fas fa-check-circle"></i> 5 Pages Website</li>
+                        <li><i class="fas fa-check-circle"></i> Basic SEO</li>
+                        <li><i class="fas fa-check-circle"></i> Mobile Responsive</li>
+                        <li><i class="fas fa-check-circle"></i> 1 Month Support</li>
+                        <li><i class="fas fa-check-circle"></i> Contact Form</li>
+                    </ul>
+                    <a href="contact.html" class="btn btn-primary btn-pricing">Get Started →</a>
+                </div>
+
+                <div class="pricing-card popular">
+                    <div class="popular-badge">Most Popular</div>
+                    <h3>Professional</h3>
+                    <div class="price">$2,499 <span>/ project</span></div>
+                    <p>Ideal for growing businesses</p>
+                    <ul class="features-list">
+                        <li><i class="fas fa-check-circle"></i> 15 Pages Website</li>
+                        <li><i class="fas fa-check-circle"></i> Advanced SEO</li>
+                        <li><i class="fas fa-check-circle"></i> E-commerce Ready</li>
+                        <li><i class="fas fa-check-circle"></i> 6 Months Support</li>
+                        <li><i class="fas fa-check-circle"></i> Custom Design</li>
+                        <li><i class="fas fa-check-circle"></i> Analytics Setup</li>
+                    </ul>
+                    <a href="contact.html" class="btn btn-primary btn-pricing">Get Started →</a>
+                </div>
+
+                <div class="pricing-card">
+                    <h3>Enterprise</h3>
+                    <div class="price">Custom</div>
+                    <p>For large organizations with complex needs</p>
+                    <ul class="features-list">
+                        <li><i class="fas fa-check-circle"></i> Unlimited Pages</li>
+                        <li><i class="fas fa-check-circle"></i> Enterprise SEO</li>
+                        <li><i class="fas fa-check-circle"></i> Custom Features</li>
+                        <li><i class="fas fa-check-circle"></i> 12 Months Support</li>
+                        <li><i class="fas fa-check-circle"></i> Dedicated Team</li>
+                        <li><i class="fas fa-check-circle"></i> SLA Agreement</li>
+                    </ul>
+                    <a href="contact.html" class="btn btn-primary btn-pricing">Contact Us →</a>
+                </div>
+            </div>
+        </div>
+
+        <section class="faq-section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">FAQ</span>
+                    <h2>Frequently Asked <span class="gradient-text">Questions</span></h2>
+                </div>
+                <div class="faq-grid">
+                    <div class="faq-item">
+                        <h4>What's included in the price?</h4>
+                        <p>All our packages include design, development, testing, and deployment. Additional features can be added as custom work.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h4>How long does a project take?</h4>
+                        <p>Typical projects take 4-8 weeks depending on complexity. We'll provide a detailed timeline during consultation.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h4>Do you offer payment plans?</h4>
+                        <p>Yes, we offer flexible payment plans. 50% upfront, 50% upon completion.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h4>What about ongoing maintenance?</h4>
+                        <p>We offer maintenance packages starting at $199/month for ongoing support and updates.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-logo">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                        <path d="M16 2L2 9L16 16L30 9L16 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2 16L16 23L30 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2 23L16 30L30 23" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <h3>APEX DIGITAL</h3>
+                </div>
+                <p>Reach your peak performance with cutting-edge digital solutions.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="portfolio.html">Portfolio</a></li>
+                    <li><a href="pricing.html">Pricing</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <p><i class="fas fa-map-marker-alt"></i> 123 Peak Avenue, Silicon Valley, CA</p>
+                <p><i class="fas fa-phone"></i> +1 (888) 123-APEX</p>
+                <p><i class="fas fa-envelope"></i> hello@apexdigital.com</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Apex Digital. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/animations.js"></script>
+</body>
+</html>

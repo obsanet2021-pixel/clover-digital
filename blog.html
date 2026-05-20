@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apex Digital - Insights | Digital Trends & Tips</title>
+    <meta name="description" content="Latest insights, trends, and tips from our digital experts">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
+    <link rel="stylesheet" href="assets/css/animations.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .blog-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 8rem 0 4rem;
+            text-align: center;
+            color: white;
+        }
+        .blog-hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+        }
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 2rem;
+            padding: 4rem 0;
+        }
+        .blog-card {
+            background: white;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        .blog-card:hover {
+            transform: translateY(-5px);
+        }
+        .blog-image {
+            height: 240px;
+            overflow: hidden;
+        }
+        .blog-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+        .blog-card:hover .blog-image img {
+            transform: scale(1.05);
+        }
+        .blog-content {
+            padding: 1.5rem;
+        }
+        .blog-meta {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            font-size: 0.8rem;
+            color: #64748b;
+        }
+        .blog-category {
+            color: #667eea;
+            font-weight: 600;
+        }
+        .blog-content h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+        .read-more {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        .sidebar {
+            padding: 4rem 0;
+            background: #f8fafc;
+        }
+        .sidebar-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+        }
+        .categories-list {
+            list-style: none;
+        }
+        .categories-list li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .categories-list a {
+            color: #334155;
+            text-decoration: none;
+        }
+        @media (max-width: 768px) {
+            .blog-hero h1 {
+                font-size: 2rem;
+            }
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+            .sidebar-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <svg class="logo-icon" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <path d="M16 2L2 9L16 16L30 9L16 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M2 16L16 23L30 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M2 23L16 30L30 23" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                APEX DIGITAL
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="portfolio.html">Portfolio</a></li>
+                <li><a href="pricing.html">Pricing</a></li>
+                <li><a href="blog.html" class="active">Insights</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <a href="contact.html" class="btn btn-primary">Start a Project →</a>
+            <div class="mobile-menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="blog-hero">
+            <div class="container">
+                <h1>Digital <span class="gradient-text">Insights</span></h1>
+                <p>Expert tips, trends, and strategies for digital success</p>
+            </div>
+        </section>
+
+        <div class="container">
+            <div class="sidebar-grid">
+                <div class="blog-grid">
+                    <article class="blog-card">
+                        <div class="blog-image">
+                            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600" alt="SEO Trends">
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span>March 15, 2024</span>
+                                <span class="blog-category">SEO</span>
+                            </div>
+                            <h3>10 SEO Trends That Will Dominate 2024</h3>
+                            <p>Stay ahead of the curve with these upcoming SEO trends that will shape digital marketing...</p>
+                            <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </article>
+
+                    <article class="blog-card">
+                        <div class="blog-image">
+                            <img src="https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?w=600" alt="Web Development">
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span>March 10, 2024</span>
+                                <span class="blog-category">Development</span>
+                            </div>
+                            <h3>The Future of Web Development: What's Next?</h3>
+                            <p>Explore emerging technologies and frameworks shaping the future of web development...</p>
+                            <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </article>
+
+                    <article class="blog-card">
+                        <div class="blog-image">
+                            <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?w=600" alt="UI Design">
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span>March 5, 2024</span>
+                                <span class="blog-category">Design</span>
+                            </div>
+                            <h3>UI/UX Trends: Creating Memorable Digital Experiences</h3>
+                            <p>Discover the latest design trends that are transforming user experiences...</p>
+                            <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </article>
+                </div>
+
+                <aside class="sidebar">
+                    <div style="background: white; padding: 1.5rem; border-radius: 1rem; margin-bottom: 2rem;">
+                        <h3>Search</h3>
+                        <input type="text" placeholder="Search articles..." style="width:100%; padding:0.75rem; border:1px solid #e2e8f0; border-radius:0.5rem;">
+                    </div>
+                    
+                    <div style="background: white; padding: 1.5rem; border-radius: 1rem; margin-bottom: 2rem;">
+                        <h3>Categories</h3>
+                        <ul class="categories-list">
+                            <li><a href="#">Web Development (12)</a></li>
+                            <li><a href="#">UI/UX Design (8)</a></li>
+                            <li><a href="#">Digital Marketing (15)</a></li>
+                            <li><a href="#">SEO (10)</a></li>
+                            <li><a href="#">Business (6)</a></li>
+                        </ul>
+                    </div>
+
+                    <div style="background: linear-gradient(135deg, #667eea, #764ba2); padding: 2rem; border-radius: 1rem; text-align: center; color: white;">
+                        <h3>Subscribe</h3>
+                        <p>Get the latest insights delivered to your inbox</p>
+                        <input type="email" placeholder="Your email" style="width:100%; padding:0.75rem; border-radius:0.5rem; border:none; margin:1rem 0;">
+                        <button class="btn btn-primary" style="background:white; color:#667eea;">Subscribe</button>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-logo">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                        <path d="M16 2L2 9L16 16L30 9L16 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2 16L16 23L30 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2 23L16 30L30 23" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <h3>APEX DIGITAL</h3>
+                </div>
+                <p>Reach your peak performance with cutting-edge digital solutions.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="portfolio.html">Portfolio</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <p><i class="fas fa-map-marker-alt"></i> 123 Peak Avenue, Silicon Valley, CA</p>
+                <p><i class="fas fa-phone"></i> +1 (888) 123-APEX</p>
+                <p><i class="fas fa-envelope"></i> hello@apexdigital.com</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Apex Digital. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/animations.js"></script>
+</body>
+</html>

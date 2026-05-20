@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apex Digital - Our Services | Digital Solutions</title>
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
+    <link rel="stylesheet" href="assets/css/animations.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .services-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 8rem 0 4rem;
+            text-align: center;
+            color: white;
+        }
+        .services-hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+        }
+        .service-detail-section {
+            padding: 5rem 0;
+        }
+        .service-detail {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 4rem;
+            align-items: center;
+        }
+        .service-detail:nth-child(even) {
+            direction: rtl;
+        }
+        .service-detail:nth-child(even) .service-info {
+            direction: ltr;
+        }
+        .service-info h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        .service-features {
+            list-style: none;
+            margin-top: 1.5rem;
+        }
+        .service-features li {
+            padding: 0.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .service-features li i {
+            color: #667eea;
+        }
+        .service-image {
+            background: linear-gradient(135deg, #667eea20, #764ba220);
+            padding: 2rem;
+            border-radius: 1rem;
+            text-align: center;
+        }
+        .service-image i {
+            font-size: 6rem;
+            color: #667eea;
+        }
+        @media (max-width: 768px) {
+            .service-detail {
+                grid-template-columns: 1fr;
+            }
+            .service-detail:nth-child(even) {
+                direction: ltr;
+            }
+            .services-hero h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <svg class="logo-icon" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <path d="M16 2L2 9L16 16L30 9L16 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M2 16L16 23L30 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M2 23L16 30L30 23" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                APEX DIGITAL
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="services.html" class="active">Services</a></li>
+                <li><a href="portfolio.html">Portfolio</a></li>
+                <li><a href="pricing.html">Pricing</a></li>
+                <li><a href="blog.html">Insights</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <a href="contact.html" class="btn btn-primary">Start a Project →</a>
+            <div class="mobile-menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="services-hero">
+            <div class="container">
+                <h1>Our <span class="gradient-text">Services</span></h1>
+                <p>Comprehensive digital solutions tailored to your needs</p>
+            </div>
+        </section>
+
+        <section class="service-detail-section">
+            <div class="container">
+                <div class="service-detail">
+                    <div class="service-info">
+                        <h3>Web <span class="gradient-text">Development</span></h3>
+                        <p>Custom web applications built with cutting-edge technologies for unparalleled performance and scalability.</p>
+                        <ul class="service-features">
+                            <li><i class="fas fa-check-circle"></i> React, Vue, Angular</li>
+                            <li><i class="fas fa-check-circle"></i> Node.js, Python, PHP</li>
+                            <li><i class="fas fa-check-circle"></i> E-commerce Solutions</li>
+                            <li><i class="fas fa-check-circle"></i> CMS Development</li>
+                        </ul>
+                    </div>
+                    <div class="service-image">
+                        <i class="fas fa-code"></i>
+                    </div>
+                </div>
+
+                <div class="service-detail">
+                    <div class="service-info">
+                        <h3>UI/UX <span class="gradient-text">Design</span></h3>
+                        <p>Beautiful, intuitive interfaces that captivate users and drive engagement.</p>
+                        <ul class="service-features">
+                            <li><i class="fas fa-check-circle"></i> User Research & Testing</li>
+                            <li><i class="fas fa-check-circle"></i> Wireframing & Prototyping</li>
+                            <li><i class="fas fa-check-circle"></i> Responsive Design</li>
+                            <li><i class="fas fa-check-circle"></i> Design Systems</li>
+                        </ul>
+                    </div>
+                    <div class="service-image">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                </div>
+
+                <div class="service-detail">
+                    <div class="service-info">
+                        <h3>Digital <span class="gradient-text">Marketing</span></h3>
+                        <p>Data-driven strategies that boost visibility, engagement, and conversions.</p>
+                        <ul class="service-features">
+                            <li><i class="fas fa-check-circle"></i> SEO Optimization</li>
+                            <li><i class="fas fa-check-circle"></i> Content Marketing</li>
+                            <li><i class="fas fa-check-circle"></i> Social Media Management</li>
+                            <li><i class="fas fa-check-circle"></i> PPC Campaigns</li>
+                        </ul>
+                    </div>
+                    <div class="service-image">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-logo">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                        <path d="M16 2L2 9L16 16L30 9L16 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2 16L16 23L30 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2 23L16 30L30 23" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <h3>APEX DIGITAL</h3>
+                </div>
+                <p>Reach your peak performance with cutting-edge digital solutions.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="portfolio.html">Portfolio</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <p><i class="fas fa-map-marker-alt"></i> 123 Peak Avenue, Silicon Valley, CA</p>
+                <p><i class="fas fa-phone"></i> +1 (888) 123-APEX</p>
+                <p><i class="fas fa-envelope"></i> hello@apexdigital.com</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Apex Digital. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/animations.js"></script>
+</body>
+</html>
