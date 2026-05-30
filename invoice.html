@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Invoice Generator — CLOVER DIGITAL</title>
+<meta name="description" content="Generate professional PDF invoices with Clover Digital branding">
+<link rel="stylesheet" href="assets/css/main.css">
+<link rel="stylesheet" href="assets/css/responsive.css">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+  /* ── Page layout ── */
+  .invoice-page { padding: 6rem 0 4rem; min-height: 100vh; }
+  .invoice-container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+  .invoice-heading { margin-bottom: 2rem; }
+  .invoice-heading .section-tag { display: inline-block; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: .1em; color: #4ade80; background: rgba(74,222,128,.1); border: 1px solid rgba(74,222,128,.2); border-radius: 50px; padding: .35rem .9rem; margin-bottom: 1rem; }
+  .invoice-heading h1 { font-size: clamp(1.8rem, 3vw, 2.5rem); font-weight: 800; margin-bottom: .5rem; }
+  .invoice-heading p { color: var(--text-secondary, #94a3b8); font-size: 1rem; }
+
+  /* ── Layout grid ── */
+  .inv-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start; }
+  @media(max-width:900px){ .inv-layout { grid-template-columns: 1fr; } }
+
+  /* ── Form panels ── */
+  .inv-panel { background: var(--card-bg, rgba(255,255,255,.04)); border: 1px solid var(--border-color, rgba(255,255,255,.08)); border-radius: 16px; padding: 1.5rem; margin-bottom: 1.25rem; }
+  .inv-panel-title { font-size: .75rem; font-weight: 600; text-transform: uppercase; letter-spacing: .1em; color: #4ade80; margin-bottom: 1rem; display: flex; align-items: center; gap: 7px; }
+  .inv-panel label { display: block; font-size: .8rem; color: var(--text-secondary, #94a3b8); margin-bottom: 4px; margin-top: 10px; }
+  .inv-panel label:first-of-type { margin-top: 0; }
+  .inv-panel input, .inv-panel select, .inv-panel textarea {
+    width: 100%; padding: 9px 12px; border: 1px solid var(--border-color, rgba(255,255,255,.12));
+    border-radius: 8px; background: rgba(255,255,255,.05); color: inherit;
+    font-family: 'Plus Jakarta Sans', sans-serif; font-size: .875rem; outline: none; transition: border-color .2s;
+  }
+  .inv-panel input:focus, .inv-panel select:focus, .inv-panel textarea:focus { border-color: #4ade80; }
+  .inv-panel textarea { resize: vertical; min-height: 70px; }
+  .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+  /* ── Items table ── */
+  .inv-items-tbl { width: 100%; border-collapse: collapse; font-size: .8rem; }
+  .inv-items-tbl th { text-align: left; font-size: .7rem; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--text-secondary, #94a3b8); padding: 6px 6px; border-bottom: 1px solid var(--border-color, rgba(255,255,255,.1)); }
+  .inv-items-tbl td { padding: 5px 3px; vertical-align: middle; }
+  .inv-items-tbl td input { padding: 6px 8px; font-size: .8rem; }
+  .del-btn { background: none; border: none; cursor: pointer; color: var(--text-secondary, #94a3b8); font-size: .9rem; padding: 4px 6px; border-radius: 6px; transition: color .2s; }
+  .del-btn:hover { color: #f87171; }
+  .add-item-btn { margin-top: .75rem; width: 100%; background: none; border: 1px dashed rgba(74,222,128,.4); color: #4ade80; border-radius: 8px; padding: 8px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: .8rem; cursor: pointer; transition: background .2s; }
+  .add-item-btn:hover { background: rgba(74,222,128,.07); }
+
+  /* ── Totals summary (form side) ── */
+  .inv-totals { margin-top: 1rem; border-top: 1px solid var(--border-color, rgba(255,255,255,.1)); padding-top: 1rem; }
+  .tot-row { display: flex; justify-content: space-between; font-size: .875rem; padding: 3px 0; color: var(--text-secondary, #94a3b8); }
+  .tot-row.grand { font-weight: 700; font-size: 1.05rem; color: #4ade80; padding-top: 8px; border-top: 1px solid rgba(74,222,128,.3); margin-top: 6px; }
+
+  /* ── Action buttons ── */
+  .inv-actions { display: flex; gap: .75rem; margin-top: 1.25rem; }
+  .inv-actions .btn { flex: 1; justify-content: center; display: flex; align-items: center; gap: 8px; padding: .75rem 1.25rem; border-radius: 10px; font-size: .9rem; font-weight: 600; cursor: pointer; transition: all .2s; border: none; font-family: 'Plus Jakarta Sans', sans-serif; }
+  .btn-download { background: linear-gradient(135deg, #22c55e, #16a34a); color: #fff; }
+  .btn-download:hover { transform: translateY(-1px); box-shadow: 0 8px 25px rgba(34,197,94,.3); }
+  .btn-print { background: rgba(255,255,255,.06); color: inherit; border: 1px solid var(--border-color, rgba(255,255,255,.12)) !important; }
+  .btn-print:hover { background: rgba(255,255,255,.1); }
+
+  /* ═══════════════════════════════════════
+     INVOICE PREVIEW (always white / print-ready)
+  ═══════════════════════════════════════ */
+  #invoice-preview {
+    background: #ffffff !important;
+    color: #1a1a1a !important;
+    border-radius: 16px;
+    overflow: hidden;
+    font-family: 'DM Sans', 'Plus Jakarta Sans', sans-serif;
+    border: 1px solid rgba(0,0,0,.1);
+    position: sticky;
+    top: 6.5rem;
+  }
+  .p-header { background: #1a3d1a; padding: 1.75rem 2rem 1.5rem; position: relative; }
+  .p-logo-name { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 600; color: #fff; }
+  .p-logo-name span { color: #4ade80; }
+  .p-tagline { font-size: .65rem; text-transform: uppercase; letter-spacing: .12em; color: #86efac; margin-top: 2px; }
+  .p-header-right { position: absolute; top: 1.75rem; right: 2rem; text-align: right; }
+  .p-inv-word { font-size: 1.6rem; font-weight: 300; letter-spacing: 3px; text-transform: uppercase; color: #fff; opacity: .9; }
+  .p-inv-num { font-size: .8rem; color: #86efac; margin-top: 3px; }
+  .p-accent-bar { background: #166534; height: 3px; }
+  .p-body { padding: 1.5rem 2rem; }
+  .p-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.25rem; }
+  .p-meta-block label { font-size: .65rem; text-transform: uppercase; letter-spacing: .1em; color: #16a34a; font-weight: 600; display: block; margin-bottom: 3px; }
+  .p-meta-block p { font-size: .8rem; color: #1a1a1a; line-height: 1.55; }
+  .p-meta-block p strong { font-size: .9rem; font-weight: 700; }
+  .p-dates { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.25rem; }
+  .p-date-cell { background: #f0fdf4; border-left: 3px solid #22c55e; padding: .5rem .75rem; border-radius: 0 8px 8px 0; }
+  .p-date-cell .dl { font-size: .65rem; text-transform: uppercase; letter-spacing: .06em; color: #16a34a; }
+  .p-date-cell .dv { font-size: .8rem; font-weight: 600; color: #1a1a1a; margin-top: 2px; }
+  .p-tbl { width: 100%; border-collapse: collapse; font-size: .78rem; }
+  .p-tbl thead tr { background: #f0fdf4; }
+  .p-tbl th { padding: 8px 8px; text-align: left; font-size: .65rem; text-transform: uppercase; letter-spacing: .06em; color: #16a34a; font-weight: 600; border-bottom: 1px solid #bbf7d0; }
+  .p-tbl th.r, .p-tbl td.r { text-align: right; }
+  .p-tbl td { padding: 8px 8px; border-bottom: .5px solid #dcfce7; color: #1a1a1a; }
+  .p-tbl tr:last-child td { border-bottom: none; }
+  .p-totals { margin-top: 1rem; display: flex; justify-content: flex-end; }
+  .p-totals-box { min-width: 210px; }
+  .p-tot-row { display: flex; justify-content: space-between; font-size: .78rem; padding: 3px 0; color: #555; }
+  .p-tot-row.grand { border-top: 1.5px solid #16a34a; margin-top: 5px; padding-top: 7px; font-size: .95rem; font-weight: 700; color: #1a1a1a; }
+  .p-tot-row.grand .gv { color: #16a34a; }
+  .p-notes { margin-top: 1.25rem; padding-top: 1.1rem; border-top: .5px solid #dcfce7; }
+  .p-notes-lbl { font-size: .65rem; text-transform: uppercase; letter-spacing: .1em; color: #16a34a; margin-bottom: 4px; }
+  .p-notes-txt { font-size: .75rem; color: #555; line-height: 1.6; }
+  .p-footer { background: #f0fdf4; padding: .85rem 2rem; display: flex; justify-content: space-between; align-items: center; margin-top: 1.25rem; }
+  .p-footer-brand { font-size: .7rem; color: #16a34a; font-weight: 600; }
+  .p-footer-thanks { font-size: .7rem; color: #888; font-style: italic; }
+</style>
+</head>
+<body>
+
+<!-- ── HEADER (reuses site nav) ── -->
+<header class="main-header">
+  <div class="nav-container">
+    <a href="index.html" class="logo">
+      <img class="logo-img" src="assets/images/logo/clover%20p1.png" alt="Clover Digital logo">
+      <span>CLOVER DIGITAL</span>
+    </a>
+    <ul class="nav-menu">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="portfolio.html">Portfolio</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="blog.html">Insights</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="invoice.html" class="active">Invoice</a></li>
+    </ul>
+    <a href="contact.html" class="btn btn-primary">Start a Project →</a>
+    <div class="mobile-menu-btn"><span></span><span></span><span></span></div>
+  </div>
+</header>
+
+<!-- ── MAIN ── -->
+<main class="invoice-page">
+  <div class="invoice-container">
+
+    <div class="invoice-heading">
+      <span class="section-tag">Internal Tool</span>
+      <h1>Invoice <span class="gradient-text">Generator</span></h1>
+      <p>Create clean, branded PDF invoices for your clients in seconds.</p>
+    </div>
+
+    <div class="inv-layout">
+
+      <!-- ───── LEFT: FORM ───── -->
+      <div>
+
+        <!-- Sender info -->
+        <div class="inv-panel">
+          <div class="inv-panel-title"><i class="fas fa-building"></i> Your Company</div>
+          <label>Company Name</label>
+          <input id="f-from-name" value="CLOVER DIGITAL" oninput="render()">
+          <label>Address / City</label>
+          <input id="f-from-addr" value="Adama, Ethiopia" oninput="render()">
+          <label>Email</label>
+          <input id="f-from-email" value="hello@cloverdigital.com" oninput="render()">
+          <label>Phone</label>
+          <input id="f-from-phone" value="+251 998 065 377" oninput="render()">
+        </div>
+
+        <!-- Client info -->
+        <div class="inv-panel">
+          <div class="inv-panel-title"><i class="fas fa-user"></i> Bill To</div>
+          <label>Client / Company Name</label>
+          <input id="f-to-name" placeholder="Client Name" oninput="render()">
+          <label>Address</label>
+          <input id="f-to-addr" placeholder="Client Address" oninput="render()">
+          <label>Email</label>
+          <input id="f-to-email" placeholder="client@company.com" oninput="render()">
+        </div>
+
+        <!-- Invoice details -->
+        <div class="inv-panel">
+          <div class="inv-panel-title"><i class="fas fa-file-invoice"></i> Invoice Details</div>
+          <div class="row-2">
+            <div><label>Invoice #</label><input id="f-inv-num" value="INV-001" oninput="render()"></div>
+            <div><label>Issue Date</label><input id="f-date" type="date" oninput="render()"></div>
+          </div>
+          <div class="row-2">
+            <div><label>Due Date</label><input id="f-due" type="date" oninput="render()"></div>
+            <div><label>Tax %</label><input id="f-tax" type="number" value="15" min="0" max="100" step="1" oninput="render()"></div>
+          </div>
+        </div>
+
+        <!-- Line items -->
+        <div class="inv-panel">
+          <div class="inv-panel-title"><i class="fas fa-list"></i> Line Items</div>
+          <table class="inv-items-tbl">
+            <thead><tr>
+              <th style="width:42%">Description</th>
+              <th style="width:15%">Qty</th>
+              <th style="width:28%">Unit Price (ETB)</th>
+              <th style="width:8%"></th>
+            </tr></thead>
+            <tbody id="items-body"></tbody>
+          </table>
+          <button class="add-item-btn" onclick="addItem()"><i class="fas fa-plus"></i> Add Line Item</button>
+          <div class="inv-totals">
+            <div class="tot-row"><span>Subtotal</span><span id="sub-display">ETB 0.00</span></div>
+            <div class="tot-row"><span>Tax (<span id="tax-pct-lbl">15</span>%)</span><span id="tax-display">ETB 0.00</span></div>
+            <div class="tot-row grand"><span>Total</span><span id="total-display">ETB 0.00</span></div>
+          </div>
+        </div>
+
+        <!-- Notes -->
+        <div class="inv-panel">
+          <div class="inv-panel-title"><i class="fas fa-sticky-note"></i> Notes</div>
+          <label>Payment Terms / Notes</label>
+          <textarea id="f-notes" oninput="render()">Payment due within 30 days. Bank transfer preferred.
+Thank you for choosing CLOVER DIGITAL!</textarea>
+        </div>
+
+        <div class="inv-actions">
+          <button class="btn btn-download" onclick="downloadPDF()"><i class="fas fa-download"></i> Download PDF</button>
+          <button class="btn btn-print" onclick="printInvoice()"><i class="fas fa-print"></i> Print</button>
+        </div>
+      </div>
+
+      <!-- ───── RIGHT: PREVIEW ───── -->
+      <div>
+        <div id="invoice-preview">
+          <div class="p-header">
+            <div class="p-logo-name" id="p-logo">CLOVER<span>.</span>DIGITAL</div>
+            <div class="p-tagline">Digital Agency — Adama, Ethiopia</div>
+            <div class="p-header-right">
+              <div class="p-inv-word">Invoice</div>
+              <div class="p-inv-num" id="p-inv-num">#INV-001</div>
+            </div>
+          </div>
+          <div class="p-accent-bar"></div>
+          <div class="p-body">
+            <div class="p-meta">
+              <div class="p-meta-block">
+                <label>From</label>
+                <p><strong id="p-from-name">CLOVER DIGITAL</strong><br>
+                <span id="p-from-addr">Adama, Ethiopia</span><br>
+                <span id="p-from-email">hello@cloverdigital.com</span><br>
+                <span id="p-from-phone">+251 998 065 377</span></p>
+              </div>
+              <div class="p-meta-block">
+                <label>Bill To</label>
+                <p><strong id="p-to-name" style="color:#16a34a">—</strong><br>
+                <span id="p-to-addr"></span><br>
+                <span id="p-to-email"></span></p>
+              </div>
+            </div>
+            <div class="p-dates">
+              <div class="p-date-cell"><div class="dl">Issue Date</div><div class="dv" id="p-date">—</div></div>
+              <div class="p-date-cell"><div class="dl">Due Date</div><div class="dv" id="p-due">—</div></div>
+            </div>
+            <table class="p-tbl">
+              <thead><tr>
+                <th>Description</th>
+                <th class="r">Qty</th>
+                <th class="r">Unit Price</th>
+                <th class="r">Amount</th>
+              </tr></thead>
+              <tbody id="p-items"></tbody>
+            </table>
+            <div class="p-totals">
+              <div class="p-totals-box">
+                <div class="p-tot-row"><span>Subtotal</span><span id="p-sub">ETB 0.00</span></div>
+                <div class="p-tot-row"><span>Tax (<span id="p-tax-pct">15</span>%)</span><span id="p-tax">ETB 0.00</span></div>
+                <div class="p-tot-row grand"><span>Total Due</span><span class="gv" id="p-total">ETB 0.00</span></div>
+              </div>
+            </div>
+            <div class="p-notes">
+              <div class="p-notes-lbl">Notes & Payment Terms</div>
+              <div class="p-notes-txt" id="p-notes">Payment due within 30 days. Thank you for choosing CLOVER DIGITAL!</div>
+            </div>
+          </div>
+          <div class="p-footer">
+            <div class="p-footer-brand">🍀 cloverdigital.com</div>
+            <div class="p-footer-thanks">Thank you for your business!</div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /.inv-layout -->
+  </div><!-- /.invoice-container -->
+</main>
+
+<!-- ── FOOTER (reuses site footer) ── -->
+<footer class="main-footer">
+  <div class="footer-content">
+    <div class="footer-section">
+      <div class="footer-logo">
+        <img class="logo-img" src="assets/images/logo/clover%20p1.png" alt="Clover Digital logo">
+        <h3>CLOVER DIGITAL</h3>
+      </div>
+      <p>Reach your peak performance with cutting-edge digital solutions.</p>
+      <div class="social-links">
+        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+      </div>
+    </div>
+    <div class="footer-section">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="pricing.html">Pricing</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-section">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="services.html#web">Web Development</a></li>
+        <li><a href="services.html#design">UI/UX Design</a></li>
+        <li><a href="services.html#marketing">Digital Marketing</a></li>
+        <li><a href="services.html#marketing">Graphic Design</a></li>
+      </ul>
+    </div>
+    <div class="footer-section">
+      <h4>Contact</h4>
+      <p><i class="fas fa-map-marker-alt"></i> Adama, Ethiopia</p>
+      <p><i class="fas fa-phone"></i> +251 998 065 377</p>
+      <p><i class="fas fa-envelope"></i> hello@cloverdigital.com</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 CLOVER DIGITAL. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+<script>
+/* ═══ Invoice Generator Logic ═══ */
+let items = [
+  { desc: 'Brand Identity Design', qty: 1, price: 15000 },
+  { desc: 'Website Development',   qty: 1, price: 45000 },
+];
+
+function fmt(n) {
+  return 'ETB ' + n.toLocaleString('en-ET', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+function fmtDate(v) {
+  if (!v) return '—';
+  const d = new Date(v + 'T00:00:00');
+  return d.toLocaleDateString('en-ET', { year: 'numeric', month: 'long', day: 'numeric' });
+}
+
+function addItem() {
+  items.push({ desc: '', qty: 1, price: 0 });
+  renderItems();
+  render();
+}
+function removeItem(i) {
+  items.splice(i, 1);
+  renderItems();
+  render();
+}
+
+function renderItems() {
+  const tb = document.getElementById('items-body');
+  tb.innerHTML = '';
+  items.forEach((it, i) => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><input value="${it.desc}" placeholder="Service" oninput="items[${i}].desc=this.value;render()" style="font-size:.78rem;padding:5px 8px"></td>
+      <td><input type="number" value="${it.qty}" min="0" step="1" oninput="items[${i}].qty=parseFloat(this.value)||0;render()" style="font-size:.78rem;padding:5px 8px;text-align:right"></td>
+      <td><input type="number" value="${it.price}" min="0" step="1" oninput="items[${i}].price=parseFloat(this.value)||0;render()" style="font-size:.78rem;padding:5px 8px;text-align:right"></td>
+      <td><button class="del-btn" onclick="removeItem(${i})"><i class="fas fa-trash"></i></button></td>
+    `;
+    tb.appendChild(tr);
+  });
+}
+
+function render() {
+  // Text field mirrors
+  [
+    ['f-from-name','p-from-name'],
+    ['f-from-addr','p-from-addr'],
+    ['f-from-email','p-from-email'],
+    ['f-from-phone','p-from-phone'],
+    ['f-to-name','p-to-name'],
+    ['f-to-addr','p-to-addr'],
+    ['f-to-email','p-to-email'],
+  ].forEach(([fid, pid]) => {
+    const el = document.getElementById(pid);
+    const val = document.getElementById(fid).value;
+    el.textContent = val || '—';
+  });
+
+  document.getElementById('p-inv-num').textContent = '#' + document.getElementById('f-inv-num').value;
+  document.getElementById('p-date').textContent   = fmtDate(document.getElementById('f-date').value);
+  document.getElementById('p-due').textContent    = fmtDate(document.getElementById('f-due').value);
+  document.getElementById('p-notes').textContent  = document.getElementById('f-notes').value;
+
+  const taxPct = parseFloat(document.getElementById('f-tax').value) || 0;
+  ['tax-pct-lbl','p-tax-pct'].forEach(id => document.getElementById(id).textContent = taxPct);
+
+  // Logo text
+  const name = document.getElementById('f-from-name').value || 'CLOVER DIGITAL';
+  document.getElementById('p-logo').innerHTML = name.replace(' ', '<span>.</span>');
+
+  // Items preview
+  const ptb = document.getElementById('p-items');
+  ptb.innerHTML = '';
+  let sub = 0;
+  items.forEach(it => {
+    const amt = (it.qty || 0) * (it.price || 0);
+    sub += amt;
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td>${it.desc || '—'}</td><td class="r">${it.qty}</td><td class="r">${fmt(it.price)}</td><td class="r">${fmt(amt)}</td>`;
+    ptb.appendChild(tr);
+  });
+
+  const tax   = sub * taxPct / 100;
+  const total = sub + tax;
+
+  ['sub-display','p-sub'].forEach(id => document.getElementById(id).textContent = fmt(sub));
+  ['tax-display','p-tax'].forEach(id => document.getElementById(id).textContent = fmt(tax));
+  ['total-display','p-total'].forEach(id => document.getElementById(id).textContent = fmt(total));
+}
+
+function downloadPDF() {
+  const el = document.getElementById('invoice-preview');
+  html2canvas(el, { scale: 2, useCORS: true, backgroundColor: '#ffffff' }).then(canvas => {
+    const imgData = canvas.toDataURL('image/png');
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF('p', 'mm', 'a4');
+    const w   = pdf.internal.pageSize.getWidth();
+    const h   = (canvas.height * w) / canvas.width;
+    pdf.addImage(imgData, 'PNG', 0, 0, w, h);
+    const num = document.getElementById('f-inv-num').value || 'invoice';
+    pdf.save(`${num}-clover-digital.pdf`);
+  });
+}
+
+function printInvoice() {
+  const content = document.getElementById('invoice-preview').outerHTML;
+  const win = window.open('', '_blank');
+  win.document.write(`<!DOCTYPE html><html><head>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+    <style>
+      *{box-sizing:border-box;margin:0;padding:0}body{font-family:'DM Sans',sans-serif;background:#fff}
+      .p-header{background:#1a3d1a;padding:1.75rem 2rem 1.5rem;position:relative}
+      .p-logo-name{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:600;color:#fff}
+      .p-logo-name span{color:#4ade80}.p-tagline{font-size:.65rem;text-transform:uppercase;letter-spacing:.12em;color:#86efac;margin-top:2px}
+      .p-header-right{position:absolute;top:1.75rem;right:2rem;text-align:right}
+      .p-inv-word{font-size:1.6rem;font-weight:300;letter-spacing:3px;text-transform:uppercase;color:#fff;opacity:.9}
+      .p-inv-num{font-size:.8rem;color:#86efac;margin-top:3px}.p-accent-bar{background:#166534;height:3px}
+      .p-body{padding:1.5rem 2rem}.p-meta{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.25rem}
+      .p-meta-block label{font-size:.65rem;text-transform:uppercase;letter-spacing:.1em;color:#16a34a;font-weight:600;display:block;margin-bottom:3px}
+      .p-meta-block p{font-size:.8rem;color:#1a1a1a;line-height:1.55}.p-meta-block p strong{font-size:.9rem;font-weight:700}
+      .p-dates{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.25rem}
+      .p-date-cell{background:#f0fdf4;border-left:3px solid #22c55e;padding:.5rem .75rem;border-radius:0 8px 8px 0}
+      .p-date-cell .dl{font-size:.65rem;text-transform:uppercase;letter-spacing:.06em;color:#16a34a}
+      .p-date-cell .dv{font-size:.8rem;font-weight:600;color:#1a1a1a;margin-top:2px}
+      .p-tbl{width:100%;border-collapse:collapse;font-size:.78rem}.p-tbl thead tr{background:#f0fdf4}
+      .p-tbl th{padding:8px;text-align:left;font-size:.65rem;text-transform:uppercase;letter-spacing:.06em;color:#16a34a;font-weight:600;border-bottom:1px solid #bbf7d0}
+      .p-tbl th.r,.p-tbl td.r{text-align:right}.p-tbl td{padding:8px;border-bottom:.5px solid #dcfce7;color:#1a1a1a}
+      .p-totals{margin-top:1rem;display:flex;justify-content:flex-end}.p-totals-box{min-width:210px}
+      .p-tot-row{display:flex;justify-content:space-between;font-size:.78rem;padding:3px 0;color:#555}
+      .p-tot-row.grand{border-top:1.5px solid #16a34a;margin-top:5px;padding-top:7px;font-size:.95rem;font-weight:700;color:#1a1a1a}
+      .p-tot-row.grand .gv{color:#16a34a}.p-notes{margin-top:1.25rem;padding-top:1.1rem;border-top:.5px solid #dcfce7}
+      .p-notes-lbl{font-size:.65rem;text-transform:uppercase;letter-spacing:.1em;color:#16a34a;margin-bottom:4px}
+      .p-notes-txt{font-size:.75rem;color:#555;line-height:1.6}
+      .p-footer{background:#f0fdf4;padding:.85rem 2rem;display:flex;justify-content:space-between;align-items:center;margin-top:1.25rem}
+      .p-footer-brand{font-size:.7rem;color:#16a34a;font-weight:600}.p-footer-thanks{font-size:.7rem;color:#888;font-style:italic}
+    </style></head><body>${content}</body></html>`);
+  win.document.close();
+  win.print();
+}
+
+// Defaults
+const today = new Date().toISOString().split('T')[0];
+document.getElementById('f-date').value = today;
+const due = new Date(); due.setDate(due.getDate() + 30);
+document.getElementById('f-due').value = due.toISOString().split('T')[0];
+
+renderItems();
+render();
+</script>
+</body>
+</html>
