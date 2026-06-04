@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard — CLOVER DIGITAL</title>
+    <meta name="description" content="CLOVER DIGITAL Admin Dashboard">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- CSS files -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="admin-dashboard-page">
+    <!-- Sidebar Navigation -->
+    <aside class="admin-sidebar">
+        <div class="sidebar-header">
+            <img src="assets/images/logo/clover%20p1.png" alt="Clover Digital" class="sidebar-logo">
+            <h2>CLOVER</h2>
+        </div>
+
+        <nav class="sidebar-menu">
+            <a href="#dashboard" class="sidebar-link active" data-section="dashboard">
+                <i class="fas fa-chart-line"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="#portfolio" class="sidebar-link" data-section="portfolio">
+                <i class="fas fa-images"></i>
+                <span>Portfolio</span>
+            </a>
+            <a href="#services" class="sidebar-link" data-section="services">
+                <i class="fas fa-cogs"></i>
+                <span>Services</span>
+            </a>
+            <a href="#team" class="sidebar-link" data-section="team">
+                <i class="fas fa-users"></i>
+                <span>Team</span>
+            </a>
+            <a href="#content" class="sidebar-link" data-section="content">
+                <i class="fas fa-file-alt"></i>
+                <span>Content</span>
+            </a>
+            <a href="#analytics" class="sidebar-link" data-section="analytics">
+                <i class="fas fa-chart-bar"></i>
+                <span>Analytics</span>
+            </a>
+            <a href="#settings" class="sidebar-link" data-section="settings">
+                <i class="fas fa-sliders-h"></i>
+                <span>Settings</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <button id="logoutBtn" class="btn-logout">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="admin-main">
+        <!-- Top Bar -->
+        <div class="admin-topbar">
+            <div class="topbar-left">
+                <button id="sidebarToggle" class="sidebar-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <h1 id="pageTitle">Dashboard</h1>
+            </div>
+
+            <div class="topbar-right">
+                <div class="admin-profile">
+                    <img src="assets/images/logo/clover%20p1.png" alt="Admin" class="profile-avatar">
+                    <div class="profile-info">
+                        <p class="profile-name" id="adminName">Admin</p>
+                        <p class="profile-role">Administrator</p>
+                    </div>
+                    <div class="profile-menu">
+                        <a href="#profile">Profile</a>
+                        <a href="#security">Security</a>
+                        <button id="logoutBtnTop">Logout</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content Container -->
+        <div class="admin-content">
+            <!-- Dashboard Section -->
+            <section id="dashboard-section" class="content-section active">
+                <div class="section-header">
+                    <h2>Dashboard</h2>
+                    <p>Welcome back! Here's your overview.</p>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Portfolio Items</h3>
+                            <p class="stat-number">12</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Services</h3>
+                            <p class="stat-number">8</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Team Members</h3>
+                            <p class="stat-number">5</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Messages</h3>
+                            <p class="stat-number">24</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="recent-activity">
+                    <h3>Recent Updates</h3>
+                    <ul class="activity-list">
+                        <li class="activity-item">
+                            <span class="activity-badge">New</span>
+                            <p>Portfolio item "E-Commerce Platform" added</p>
+                            <span class="activity-time">2 hours ago</span>
+                        </li>
+                        <li class="activity-item">
+                            <span class="activity-badge">Update</span>
+                            <p>Team member profile updated</p>
+                            <span class="activity-time">5 hours ago</span>
+                        </li>
+                        <li class="activity-item">
+                            <span class="activity-badge">New</span>
+                            <p>New contact form submission received</p>
+                            <span class="activity-time">1 day ago</span>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Portfolio Section -->
+            <section id="portfolio-section" class="content-section">
+                <div class="section-header">
+                    <h2>Portfolio Management</h2>
+                    <button class="btn btn-primary" id="addPortfolioBtn">
+                        <i class="fas fa-plus"></i> Add New Project
+                    </button>
+                </div>
+
+                <div class="table-container">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Project Name</th>
+                                <th>Category</th>
+                                <th>Status</th>
+                                <th>Date Added</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>E-Commerce Platform</td>
+                                <td>Web Development</td>
+                                <td><span class="badge badge-success">Published</span></td>
+                                <td>Jan 15, 2026</td>
+                                <td>
+                                    <button class="btn-icon" title="Edit"><i class="fas fa-edit"></i></button>
+                                    <button class="btn-icon" title="Delete"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Mobile App Design</td>
+                                <td>UI/UX Design</td>
+                                <td><span class="badge badge-success">Published</span></td>
+                                <td>Jan 10, 2026</td>
+                                <td>
+                                    <button class="btn-icon" title="Edit"><i class="fas fa-edit"></i></button>
+                                    <button class="btn-icon" title="Delete"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Services Section -->
+            <section id="services-section" class="content-section">
+                <div class="section-header">
+                    <h2>Services Management</h2>
+                    <button class="btn btn-primary" id="addServiceBtn">
+                        <i class="fas fa-plus"></i> Add Service
+                    </button>
+                </div>
+
+                <div class="table-container">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Service Name</th>
+                                <th>Description</th>
+                                <th>Price</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Web Development</td>
+                                <td>Custom web solutions for your business</td>
+                                <td>From $2,000</td>
+                                <td><span class="badge badge-success">Active</span></td>
+                                <td>
+                                    <button class="btn-icon" title="Edit"><i class="fas fa-edit"></i></button>
+                                    <button class="btn-icon" title="Delete"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Team Section -->
+            <section id="team-section" class="content-section">
+                <div class="section-header">
+                    <h2>Team Management</h2>
+                    <button class="btn btn-primary" id="addTeamBtn">
+                        <i class="fas fa-plus"></i> Add Team Member
+                    </button>
+                </div>
+
+                <div class="grid-container">
+                    <div class="card-item">
+                        <img src="assets/images/team/default.jpg" alt="Team Member" onerror="this.src='assets/images/logo/clover%20p1.png'">
+                        <h3>John Doe</h3>
+                        <p>Lead Developer</p>
+                        <div class="card-actions">
+                            <button class="btn-icon" title="Edit"><i class="fas fa-edit"></i></button>
+                            <button class="btn-icon" title="Delete"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Content Section -->
+            <section id="content-section" class="content-section">
+                <div class="section-header">
+                    <h2>Website Content</h2>
+                    <p>Edit website pages and content</p>
+                </div>
+
+                <div class="content-pages">
+                    <div class="page-card">
+                        <h3>Home Page</h3>
+                        <p>Hero section and main content</p>
+                        <button class="btn btn-secondary">Edit Page</button>
+                    </div>
+                    <div class="page-card">
+                        <h3>About Page</h3>
+                        <p>Company information and story</p>
+                        <button class="btn btn-secondary">Edit Page</button>
+                    </div>
+                    <div class="page-card">
+                        <h3>Services Page</h3>
+                        <p>Service offerings and details</p>
+                        <button class="btn btn-secondary">Edit Page</button>
+                    </div>
+                    <div class="page-card">
+                        <h3>Contact Page</h3>
+                        <p>Contact form and information</p>
+                        <button class="btn btn-secondary">Edit Page</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Analytics Section -->
+            <section id="analytics-section" class="content-section">
+                <div class="section-header">
+                    <h2>Analytics & Reports</h2>
+                    <p>Website performance and visitor data</p>
+                </div>
+
+                <div class="analytics-cards">
+                    <div class="analytics-card">
+                        <h3>Total Visitors</h3>
+                        <p class="analytics-number">2,847</p>
+                        <p class="analytics-change">↑ 12% from last month</p>
+                    </div>
+                    <div class="analytics-card">
+                        <h3>Page Views</h3>
+                        <p class="analytics-number">5,293</p>
+                        <p class="analytics-change">↑ 8% from last month</p>
+                    </div>
+                    <div class="analytics-card">
+                        <h3>Conversion Rate</h3>
+                        <p class="analytics-number">3.2%</p>
+                        <p class="analytics-change">↑ 0.5% from last month</p>
+                    </div>
+                    <div class="analytics-card">
+                        <h3>Bounce Rate</h3>
+                        <p class="analytics-number">42%</p>
+                        <p class="analytics-change">↓ 5% from last month</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Settings Section -->
+            <section id="settings-section" class="content-section">
+                <div class="section-header">
+                    <h2>Settings</h2>
+                    <p>Configure admin account and website settings</p>
+                </div>
+
+                <div class="settings-container">
+                    <div class="settings-group">
+                        <h3>Account Settings</h3>
+                        <form class="settings-form">
+                            <div class="form-group">
+                                <label for="settingsEmail">Email Address</label>
+                                <input type="email" id="settingsEmail" value="admin@cloverdigital.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="settingsName">Full Name</label>
+                                <input type="text" id="settingsName" value="Administrator">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                        </form>
+                    </div>
+
+                    <div class="settings-group">
+                        <h3>Security</h3>
+                        <button class="btn btn-secondary">Change Password</button>
+                        <button class="btn btn-secondary">Two-Factor Authentication</button>
+                    </div>
+
+                    <div class="settings-group">
+                        <h3>Site Settings</h3>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" checked> Enable Contact Form
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" checked> Enable Blog Comments
+                            </label>
+                        </div>
+                        <button class="btn btn-primary">Save Site Settings</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="assets/js/admin-auth.js"></script>
+    <script src="assets/js/admin-dashboard.js"></script>
+</body>
+</html>

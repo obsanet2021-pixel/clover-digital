@@ -226,7 +226,124 @@
             this.reset();
         });
     </script>
+    
+    <!-- WhatsApp Floating Button -->
+    <div class="wa-float">
+        <span class="wa-tooltip">Chat with us on WhatsApp</span>
+        <a class="wa-btn" href="https://wa.me/251998065377?text=Hi%20Clover%20Digital%2C%20I%27d%20like%20to%20discuss%20a%20project." target="_blank" rel="noopener noreferrer" aria-label="Chat with Clover Digital on WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    </div>
+
     <script src="assets/js/main.js"></script>
     <script src="assets/js/animations.js"></script>
+    <script src="assets/js/portfolio.js"></script>
+
+    <script>
+        // Fallback dynamic content loading
+        document.addEventListener('DOMContentLoaded', function() {
+            // Sample service data
+            const servicesData = [
+                { icon: "fa-code", title: "Web Development", desc: "Custom websites and web applications built with modern technologies like React, Vue, and Node.js" },
+                { icon: "fa-paintbrush", title: "UI/UX Design", desc: "Beautiful, intuitive interfaces that users love — designed with Figma and tested with real users" },
+                { icon: "fa-chart-line", title: "Digital Marketing", desc: "Data-driven strategies to grow your online presence and convert visitors into loyal customers" },
+                { icon: "fa-mobile-alt", title: "Mobile Apps", desc: "Native and cross-platform mobile applications that work flawlessly on iOS and Android" },
+                { icon: "fa-search", title: "SEO Optimization", desc: "Improve your search rankings and organic visibility with proven white-hat techniques" },
+                { icon: "fa-cart-shopping", title: "E-commerce", desc: "Powerful online stores that convert visitors to customers with seamless checkout experiences" }
+            ];
+
+            // Load services if grid is empty
+            const servicesGrid = document.getElementById('services-grid');
+            if (servicesGrid && servicesGrid.children.length === 0) {
+                servicesGrid.innerHTML = servicesData.map(service => `
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas ${service.icon}"></i>
+                        </div>
+                        <h3>${service.title}</h3>
+                        <p>${service.desc}</p>
+                        <a href="services.html" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                `).join('');
+            }
+
+            // Counter animation for stats
+            const counters = document.querySelectorAll('.stat-number');
+            const observerOptions = {
+                threshold: 0.5,
+                rootMargin: '0px'
+            };
+
+            const counterObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const counter = entry.target;
+                        const target = parseInt(counter.getAttribute('data-count'));
+                        const duration = 2000;
+                        const startTime = performance.now();
+
+                        const updateCount = (currentTime) => {
+                            const elapsed = currentTime - startTime;
+                            const progress = Math.min(elapsed / duration, 1);
+                            const eased = 1 - Math.pow(1 - progress, 3);
+                            counter.innerText = Math.floor(eased * target);
+
+                            if (progress < 1) {
+                                requestAnimationFrame(updateCount);
+                            } else {
+                                counter.innerText = target;
+                            }
+                        };
+
+                        requestAnimationFrame(updateCount);
+                        counterObserver.unobserve(counter);
+                    }
+                });
+            }, observerOptions);
+
+            counters.forEach(counter => counterObserver.observe(counter));
+
+            // Portfolio filter functionality
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const portfolioCards = document.querySelectorAll('.portfolio-card');
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    const filter = btn.getAttribute('data-filter');
+
+                    portfolioCards.forEach(card => {
+                        if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                            card.style.display = 'block';
+                            card.style.animation = 'fadeInUp 0.4s ease-out';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+
+            // Header scroll effect
+            const header = document.querySelector('.main-header');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+
+            // Mobile menu toggle
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const navMenu = document.querySelector('.nav-menu');
+
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenuBtn.classList.toggle('active');
+                navMenu.classList.toggle('active');
+            });
+        });
+    </script>
 </body>
 </html>
