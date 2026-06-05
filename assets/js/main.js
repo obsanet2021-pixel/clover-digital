@@ -24,6 +24,22 @@ window.addEventListener('scroll', () => {
         header.classList.remove('scrolled');
     }
     
+    // Hide navbar when scrolling near footer on index.html only
+    if (document.body.contains(document.querySelector('.footer-hero'))) {
+        const footer = document.querySelector('.footer-hero');
+        if (footer) {
+            const footerTop = footer.getBoundingClientRect().top + window.pageYOffset;
+            const viewportHeight = window.innerHeight;
+            const scrollTrigger = footerTop - viewportHeight * 0.3; // Hide when 30% of viewport height from footer
+            
+            if (currentScroll > scrollTrigger) {
+                header.classList.add('hidden-on-footer');
+            } else {
+                header.classList.remove('hidden-on-footer');
+            }
+        }
+    }
+    
     lastScroll = currentScroll;
 });
 

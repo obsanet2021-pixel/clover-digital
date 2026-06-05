@@ -9,7 +9,7 @@
     --green:            #1DB954;   /* Clover Green — hero, CTAs, highlights */
     --green-dark:       #0D7A3A;   /* Deep Forest — hover states, depth */
     --green-light:      #A8D5B5;   /* Sage — subtle accents, tags */
-    --brand-black:      #0A0F0C;   /* Brand Black — NOT pure #000, has green tint */
+    --brand-black:      #090c0a;   /* Brand Black — NOT pure #000, has green tint */
 
     /* ── Surface Colors ── */
     --surface-dark:     #1C2B22;   /* Charcoal — dark cards, sections */
@@ -1293,8 +1293,380 @@ h1, h2, h3, h4, h5, h6 {
     flex-wrap: wrap;
 }
 
+/* =========================
+   RESET
+========================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body {
+    background-color: #ffffff;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Coolvetica', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* =========================
+   DEMO CONTENT
+========================= */
+
+.demo-space{
+    min-height:40vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+/* =========================
+   FOOTER HERO
+========================= */
+
+.footer-hero{
+    position:relative;
+    background:#1c2b22;
+    overflow:hidden;
+    padding:60px 20px 0;
+}
+
+/* =========================
+   GLOW
+========================= */
+
+.footer-glow{
+    position:absolute;
+    inset:0;
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(11,124,56,.25),
+            transparent 70%
+        );
+    filter:blur(140px);
+    pointer-events:none;
+}
+
+.footer-container{
+    max-width:1400px;
+    margin:auto;
+    position:relative;
+    z-index:2;
+}
+
+/* =========================
+   BRAND
+========================= */
+
+.brand-section{
+    text-align:center;
+    margin: 20px 0;
+}
+
+.brand-logo-row{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.brand-logo{
+    height:600px;        /* adjust to taste based on your image dimensions */
+    width:auto;
+    display:block;
+    filter:
+        
+}
+
+.brand-description{
+    margin-top:-195px;
+    color:#ffffff;
+    font-size:1.45rem;
+    line-height:1.6;
+    font-weight:600;
+}
+
+/* =========================
+   CARD  — flush to footer bottom
+========================= */
+
+.footer-card{
+    background:rgba(15,27,20,.95);
+    border-radius:35px 35px 0 0;
+    border:1px solid rgba(255,255,255,.06);
+    border-bottom:none;
+    backdrop-filter:blur(16px);
+    padding:60px 60px 0 60px;
+    box-shadow:
+        0 0 0 1px rgba(255,255,255,.02),
+        0 -20px 60px rgba(11,124,56,.25);
+}
+
+.footer-grid{
+    display:grid;
+    grid-template-columns:
+        90px
+        1fr
+        1fr
+        1.2fr;
+    gap:50px;
+}
+
+/* =========================
+   SOCIAL
+========================= */
+
+.social-column{
+    display:flex;
+    flex-direction:column;
+    gap:28px;
+}
+
+.social-column a{
+    color:#00c853;
+    font-size:2.5rem;
+    transition:.3s ease;
+    text-decoration:none;
+}
+
+.social-column a:hover{
+    transform:translateX(8px) scale(1.08);
+    text-shadow:0 0 15px rgba(0,200,83,.6);
+}
+
+/* =========================
+   COLUMNS
+========================= */
+
+.footer-column h3{
+    color:#00e060;
+    font-size:2.4rem;
+    margin-bottom:18px;
+    font-weight:800;
+}
+
+.footer-column a,
+.footer-column p{
+    display:block;
+    color:#c2d8ca;
+    text-decoration:none;
+    font-size:1.25rem;
+    margin-bottom:10px;
+    transition:.3s ease;
+}
+
+.footer-column a:hover{
+    color:#00e060;
+    transform:translateX(6px);
+}
+
+.footer-column p{
+    line-height:1.8;
+}
+
+/* =========================
+   BOTTOM — sits at very end of card
+========================= */
+
+.footer-bottom{
+    margin-top:45px;
+    padding-bottom:22px;
+    text-align:center;
+}
+
+.footer-line{
+    height:1px;
+    width:65%;
+    margin:0 auto 18px;
+    background:linear-gradient(
+        90deg,
+        transparent,
+        #00c853,
+        transparent
+    );
+}
+
+.footer-bottom p{
+    color:#9fb7a7;
+    font-size:.95rem;
+}
+
+/* =========================
+   WHATSAPP
+========================= */
+
+.whatsapp-btn{
+    position:fixed;
+    right:25px;
+    bottom:25px;
+    width:58px;
+    height:58px;
+    border-radius:50%;
+    background:#25D366;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#fff;
+    font-size:1.8rem;
+    text-decoration:none;
+    box-shadow:0 0 25px rgba(37,211,102,.5);
+    z-index:999;
+    transition:.3s ease;
+}
+
+.whatsapp-btn:hover{
+    transform:scale(1.08);
+}
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width:1024px){
+
+    .brand-logo{
+        height:120px;
+    }
+
+    .brand-description{
+        font-size:1.1rem;
+    }
+
+    .footer-grid{
+        grid-template-columns:
+            80px
+            1fr
+            1fr;
+    }
+
+    .footer-column:last-child{
+        grid-column:span 2;
+    }
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width:768px){
+
+    .footer-hero{
+        padding:40px 15px 0;
+    }
+
+    .brand-logo{
+        height:90px;
+    }
+
+    .brand-description{
+        font-size:1rem;
+        padding:0 10px;
+    }
+
+    .footer-card{
+        padding:35px 25px 0;
+    }
+
+    .footer-grid{
+        grid-template-columns:1fr;
+        gap:35px;
+        text-align:center;
+    }
+
+    .social-column{
+        flex-direction:row;
+        justify-content:center;
+    }
+
+    .footer-column h3{
+        font-size:1.8rem;
+    }
+
+    .footer-column a,
+    .footer-column p{
+        font-size:1rem;
+    }
+
+    .footer-line{
+        width:100%;
+    }
+}
+
 /* ═══════════════════════════════════════════════════
-   FOOTER
+   WHATSAPP FLOATING BUTTON
+   ═══════════════════════════════════════════════════ */
+
+.wa-float {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 999;
+}
+
+.wa-tooltip {
+    position: absolute;
+    bottom: calc(100% + 12px);
+    right: 0;
+    background: var(--brand-black);
+    color: #ffffff;
+    padding: 0.6rem 1rem;
+    border-radius: 0.625rem;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: var(--transition-fast);
+}
+
+.wa-float:hover .wa-tooltip {
+    opacity: 1;
+}
+
+.wa-btn {
+    width: 56px;
+    height: 56px;
+    background: #25D366;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-size: 1.75rem;
+    text-decoration: none;
+    box-shadow: 0 8px 24px rgba(37, 211, 102, 0.35);
+    transition: var(--transition-base);
+}
+
+.wa-btn:hover {
+    transform: scale(1.08);
+    box-shadow: 0 12px 32px rgba(37, 211, 102, 0.45);
+}
+
+/* ═══════════════════════════════════════════════════
+   NAVBAR HIDE ON SCROLL (INDEX ONLY)
+   ═══════════════════════════════════════════════════ */
+
+index.html .main-header.hidden-on-footer {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-100%);
+}
+
+.main-header.hidden-on-footer {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-100%);
+    transition: all 0.3s ease-out;
+}
+
+/* ═══════════════════════════════════════════════════
+   FOOTER (MAIN FOOTER FOR OTHER PAGES)
    ═══════════════════════════════════════════════════ */
 
 .main-footer {
@@ -1413,56 +1785,6 @@ h1, h2, h3, h4, h5, h6 {
 
 .footer-bottom a:hover {
     color: var(--green);
-}
-
-/* ═══════════════════════════════════════════════════
-   WHATSAPP FLOATING BUTTON
-   ═══════════════════════════════════════════════════ */
-
-.wa-float {
-    position: fixed;
-    bottom: 2rem;
-    right: 2rem;
-    z-index: 999;
-}
-
-.wa-tooltip {
-    position: absolute;
-    bottom: calc(100% + 12px);
-    right: 0;
-    background: var(--brand-black);
-    color: #ffffff;
-    padding: 0.6rem 1rem;
-    border-radius: 0.625rem;
-    font-size: 0.85rem;
-    white-space: nowrap;
-    opacity: 0;
-    pointer-events: none;
-    transition: var(--transition-fast);
-}
-
-.wa-float:hover .wa-tooltip {
-    opacity: 1;
-}
-
-.wa-btn {
-    width: 56px;
-    height: 56px;
-    background: #25D366;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #ffffff;
-    font-size: 1.75rem;
-    text-decoration: none;
-    box-shadow: 0 8px 24px rgba(37, 211, 102, 0.35);
-    transition: var(--transition-base);
-}
-
-.wa-btn:hover {
-    transform: scale(1.08);
-    box-shadow: 0 12px 32px rgba(37, 211, 102, 0.45);
 }
 
 /* ═══════════════════════════════════════════════════
