@@ -230,7 +230,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .btn-primary {
     background: var(--green);
-    color: #ffffff;
+    color: #0a9e40;
     box-shadow: var(--shadow-green);
 }
 
@@ -254,7 +254,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .btn-dark {
     background: var(--brand-black);
-    color: #ffffff;
+    color: #066006;
 }
 
 .btn-dark:hover {
