@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy — CLOVER DIGITAL</title>
+    <meta name="description" content="CLOVER DIGITAL Privacy Policy — how we collect, use, and protect your data">
+    <meta name="robots" content="noindex, follow">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/main.css?v=3">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        .legal-hero {
+            background: var(--brand-black);
+            padding: 9rem 2rem 5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .legal-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(29, 185, 84, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .legal-hero h1 {
+            color: #ffffff;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .legal-hero .updated {
+            color: rgba(255, 255, 255, 0.55);
+            font-size: 0.95rem;
+            position: relative;
+        }
+
+        .legal-content {
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 5rem 2rem;
+        }
+
+        .legal-content .last-updated-bar {
+            background: var(--mint);
+            border: 1px solid var(--border-light);
+            border-radius: 0.75rem;
+            padding: 1rem 1.5rem;
+            margin-bottom: 3rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .legal-content .last-updated-bar i {
+            color: var(--green-dark);
+        }
+
+        .legal-content h2 {
+            font-size: 1.75rem;
+            margin-top: 3rem;
+            margin-bottom: 1rem;
+            color: var(--brand-black);
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .legal-content h2:first-of-type {
+            margin-top: 0;
+        }
+
+        .legal-content h3 {
+            font-size: 1.2rem;
+            margin-top: 2rem;
+            margin-bottom: 0.75rem;
+            color: var(--surface-mid);
+        }
+
+        .legal-content p {
+            color: var(--text-muted);
+            line-height: 1.8;
+            margin-bottom: 1.25rem;
+            font-size: 1rem;
+        }
+
+        .legal-content ul,
+        .legal-content ol {
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        .legal-content ul li,
+        .legal-content ol li {
+            margin-bottom: 0.5rem;
+        }
+
+        .legal-content a {
+            color: var(--green-dark);
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            transition: var(--transition-fast);
+        }
+
+        .legal-content a:hover {
+            color: var(--green);
+        }
+
+        .legal-content strong {
+            color: var(--brand-black);
+            font-weight: 600;
+        }
+
+        .legal-content .highlight-box {
+            background: var(--mint);
+            border-left: 4px solid var(--green);
+            border-radius: 0 0.75rem 0.75rem 0;
+            padding: 1.25rem 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .legal-content .highlight-box p {
+            margin-bottom: 0;
+        }
+
+        .legal-nav {
+            background: var(--surface-light);
+            border-bottom: 1px solid var(--border-light);
+            padding: 1rem 0;
+            position: sticky;
+            top: 72px;
+            z-index: 100;
+        }
+
+        .legal-nav .container {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .legal-nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: var(--transition-fast);
+        }
+
+        .legal-nav a:hover,
+        .legal-nav a.active {
+            color: var(--green-dark);
+        }
+
+        @media (max-width: 768px) {
+            .legal-hero {
+                padding: 7rem 1.5rem 3rem;
+            }
+
+            .legal-content {
+                padding: 3rem 1.25rem;
+            }
+
+            .legal-content h2 {
+                font-size: 1.4rem;
+            }
+
+            .legal-nav .container {
+                gap: 1rem;
+            }
+
+            .legal-nav a {
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img class="logo-img" src="assets/images/logo/clover%20p1.png" alt="Clover Digital logo">
+                <span>CLOVER DIGITAL</span>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="portfolio.html">Portfolio</a></li>
+                <li><a href="pricing.html">Pricing</a></li>
+                <li><a href="blog.html">Insights</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <a href="contact.html" class="btn btn-primary">Start a Project →</a>
+            <div class="mobile-menu-btn">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero -->
+        <section class="legal-hero">
+            <h1>Privacy Policy</h1>
+            <p class="updated">Last updated: June 4, 2026</p>
+        </section>
+
+        <!-- Quick Nav -->
+        <nav class="legal-nav">
+            <div class="container">
+                <a href="#information-we-collect">Information We Collect</a>
+                <a href="#how-we-use">How We Use It</a>
+                <a href="#sharing">Sharing & Disclosure</a>
+                <a href="#cookies">Cookies</a>
+                <a href="#data-retention">Data Retention</a>
+                <a href="#your-rights">Your Rights</a>
+                <a href="#security">Security</a>
+                <a href="#contact-us">Contact</a>
+            </div>
+        </nav>
+
+        <!-- Content -->
+        <div class="legal-content">
+            <div class="last-updated-bar">
+                <i class="fas fa-info-circle"></i>
+                This Privacy Policy was last updated on <strong>June 4, 2026</strong>. We encourage you to review it periodically.
+            </div>
+
+            <p>At <strong>CLOVER DIGITAL</strong> ("we," "us," or "our"), we take your privacy seriously. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website <strong>cloverdigital.com</strong> (the "Site") or use any of our services.</p>
+
+            <p>By using the Site, you agree to the collection and use of information in accordance with this policy. If you do not agree, please discontinue use of the Site immediately.</p>
+
+            <!-- Section 1 -->
+            <h2 id="information-we-collect">1. Information We Collect</h2>
+
+            <h3>1.1 Information You Provide Directly</h3>
+            <p>We collect information you voluntarily provide when you:</p>
+            <ul>
+                <li>Fill out our contact form (name, email address, phone number, company name, project details)</li>
+                <li>Subscribe to our newsletter (email address)</li>
+                <li>Request a quote or proposal (business requirements, budget range, timeline)</li>
+                <li>Create an account on our client portal (name, email, password)</li>
+                <li>Communicate with us via email, phone, or WhatsApp</li>
+            </ul>
+
+            <h3>1.2 Information Collected Automatically</h3>
+            <p>When you visit our Site, we automatically collect certain information, including:</p>
+            <ul>
+                <li><strong>Log Data:</strong> IP address, browser type, operating system, referring/exit pages, date/time stamps</li>
+                <li><strong>Device Information:</strong> Device type, screen resolution, language preferences</li>
+                <li><strong>Usage Data:</strong> Pages visited, time spent on pages, click patterns, scroll depth</li>
+                <li><strong>Cookies & Similar Technologies:</strong> See Section 4 for details</li>
+            </ul>
+
+            <h3>1.3 Information From Third Parties</h3>
+            <p>We may receive information about you from:</p>
+            <ul>
+                <li>Analytics providers (Google Analytics, Microsoft Clarity)</li>
+                <li>Social media platforms if you interact with our profiles</li>
+                <li>Business partners and referral sources</li>
+            </ul>
+
+            <div class="highlight-box">
+                <p><strong>We do not collect sensitive personal data</strong> such as government IDs, financial account numbers, health information, or biometric data through this Site.</p>
+            </div>
+
+            <!-- Section 2 -->
+            <h2 id="how-we-use">2. How We Use Your Information</h2>
+            <p>We use the information we collect for the following purposes:</p>
+            <ol>
+                <li><strong>Service Delivery:</strong> To respond to inquiries, provide quotes, deliver projects, and offer support</li>
+                <li><strong>Communication:</strong> To send project updates, invoices, newsletters (with consent), and respond to your messages</li>
+                <li><strong>Improvement:</strong> To analyze Site usage and improve our content, design, and user experience</li>
+                <li><strong>Marketing:</strong> To send promotional materials about services we believe may interest you (you may opt out anytime)</li>
+                <li><strong>Legal Compliance:</strong> To comply with applicable laws, regulations, and legal processes</li>
+                <li><strong>Security:</strong> To detect, prevent, and address fraud, unauthorized access, or other harmful activity</li>
+            </ol>
+
+            <!-- Section 3 -->
+            <h2 id="sharing">3. Sharing & Disclosure</h2>
+            <p>We do <strong>not</strong> sell, rent, or trade your personal information to third parties. We may share your information only in the following circumstances:</p>
+            <ul>
+                <li><strong>Service Providers:</strong> With trusted third-party vendors who help us operate our business (hosting, analytics, email delivery, payment processing). All vendors are contractually bound to protect your data.</li>
+                <li><strong>Business Transfers:</strong> In connection with a merger, acquisition, or sale of all or a portion of our assets, your information may be transferred as part of that transaction.</li>
+                <li><strong>Legal Obligations:</strong> If required by law, court order, or governmental regulation, or to protect the rights, property, or safety of CLOVER DIGITAL, our clients, or the public.</li>
+                <li><strong>With Your Consent:</strong> We may share your information for any other purpose with your explicit consent.</li>
+            </ul>
+
+            <!-- Section 4 -->
+            <h2 id="cookies">4. Cookies & Tracking Technologies</h2>
+            <p>We use cookies and similar tracking technologies to enhance your browsing experience and collect usage data.</p>
+
+            <h3>4.1 Types of Cookies We Use</h3>
+            <ul>
+                <li><strong>Essential Cookies:</strong> Necessary for the Site to function properly (session management, security)</li>
+                <li><strong>Analytics Cookies:</strong> Help us understand how visitors interact with the Site (Google Analytics)</li>
+                <li><strong>Functional Cookies:</strong> Remember your preferences and settings</li>
+                <li><strong>Marketing Cookies:</strong> Track visits across websites for advertising purposes (we currently use these minimally)</li>
+            </ul>
+
+            <h3>4.2 Managing Cookies</h3>
+            <p>Most web browsers allow you to control cookies through their settings. You can:</p>
+            <ul>
+                <li>Block all cookies</li>
+                <li>Delete existing cookies</li>
+                <li>Set preferences for specific websites</li>
+            </ul>
+            <p>Please note that disabling essential cookies may affect the functionality of the Site.</p>
+
+            <!-- Section 5 -->
+            <h2 id="data-retention">5. Data Retention</h2>
+            <p>We retain your personal information only for as long as necessary to fulfill the purposes outlined in this policy, or as required by law. Retention periods vary based on the type of data:</p>
+            <ul>
+                <li><strong>Contact form submissions:</strong> 2 years from last communication</li>
+                <li><strong>Client project data:</strong> Duration of the project plus 5 years</li>
+                <li><strong>Newsletter subscriptions:</strong> Until you unsubscribe</li>
+                <li><strong>Analytics data:</strong> 26 months (Google Analytics default)</li>
+                <li><strong>Server logs:</strong> 90 days</li>
+            </ul>
+            <p>When data is no longer needed, we securely delete or anonymize it.</p>
+
+            <!-- Section 6 -->
+            <h2 id="your-rights">6. Your Rights</h2>
+            <p>Depending on your jurisdiction, you may have the following rights regarding your personal data:</p>
+            <ul>
+                <li><strong>Access:</strong> Request a copy of the personal data we hold about you</li>
+                <li><strong>Rectification:</strong> Request correction of inaccurate or incomplete data</li>
+                <li><strong>Erasure:</strong> Request deletion of your personal data ("right to be forgotten")</li>
+                <li><strong>Restriction:</strong> Request limitation of how we process your data</li>
+                <li><strong>Portability:</strong> Request transfer of your data to another organization</li>
+                <li><strong>Objection:</strong> Object to processing based on legitimate interests or direct marketing</li>
+                <li><strong>Withdraw Consent:</strong> Withdraw previously given consent at any time</li>
+            </ul>
+            <p>To exercise any of these rights, please contact us at <a href="mailto:privacy@cloverdigital.com">privacy@cloverdigital.com</a>. We will respond within 30 days.</p>
+
+            <!-- Section 7 -->
+            <h2 id="security">7. Security</h2>
+            <p>We implement industry-standard security measures to protect your information, including:</p>
+            <ul>
+                <li><strong>Encryption:</strong> All data transmitted between your browser and our servers is encrypted using SSL/TLS (HTTPS)</li>
+                <li><strong>Access Controls:</strong> Personal data is accessible only to authorized personnel who need it to perform their duties</li>
+                <li><strong>Regular Audits:</strong> We periodically review our security practices and update them as needed</li>
+                <li><strong>Secure Infrastructure:</strong> Our hosting environment is protected by firewalls, intrusion detection, and regular patching</li>
+            </ul>
+            <p>However, no method of electronic storage or transmission is 100% secure. While we strive to protect your data, we cannot guarantee absolute security.</p>
+
+            <!-- Section 8 -->
+            <h2 id="third-party">8. Third-Party Links</h2>
+            <p>Our Site may contain links to third-party websites, plugins, or services. We are not responsible for the privacy practices of these third parties. We encourage you to read the privacy policies of any website you visit.</p>
+
+            <!-- Section 9 -->
+            <h2 id="children">9. Children's Privacy</h2>
+            <p>Our Site and services are not intended for individuals under the age of 16. We do not knowingly collect personal information from children. If you believe a child has provided us with personal data, please contact us immediately, and we will delete it.</p>
+
+            <!-- Section 10 -->
+            <h2 id="international">10. International Data Transfers</h2>
+            <p>CLOVER DIGITAL is based in Ethiopia. If you access our Site from outside Ethiopia, your information may be transferred to, stored, and processed in Ethiopia or other countries where our service providers operate. By using the Site, you consent to such transfers.</p>
+
+            <!-- Section 11 -->
+            <h2 id="changes">11. Changes to This Privacy Policy</h2>
+            <p>We may update this Privacy Policy from time to time. When we do, we will:</p>
+            <ul>
+                <li>Post the updated version on this page</li>
+                <li>Update the "Last updated" date at the top</li>
+                <li>Notify you via email if the changes are material (for existing clients and subscribers)</li>
+            </ul>
+            <p>Your continued use of the Site after any changes constitutes acceptance of the updated policy.</p>
+
+            <!-- Section 12 -->
+            <h2 id="contact-us">12. Contact Us</h2>
+            <p>If you have any questions, concerns, or requests regarding this Privacy Policy or our data practices, please contact us:</p>
+            <ul>
+                <li><strong>Email:</strong> <a href="mailto:privacy@cloverdigital.com">privacy@cloverdigital.com</a></li>
+                <li><strong>Phone:</strong> +251 998 065 377</li>
+                <li><strong>Address:</strong> Adama, Ethiopia</li>
+                <li><strong>Contact Form:</strong> <a href="contact.html">cloverdigital.com/contact</a></li>
+            </ul>
+            <p>We aim to respond to all privacy-related inquiries within 48 business hours.</p>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-logo">
+                    <img class="logo-img" src="assets/images/logo/clover%20p1.png" alt="Clover Digital logo">
+                    <h3>CLOVER DIGITAL</h3>
+                </div>
+                <p>We engineer digital excellence that drives real business growth.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="portfolio.html">Portfolio</a></li>
+                    <li><a href="pricing.html">Pricing</a></li>
+                    <li><a href="blog.html">Insights</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="terms.html">Terms of Service</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <p><i class="fas fa-map-marker-alt"></i> Adama, Ethiopia</p>
+                <p><i class="fas fa-phone"></i> +251 998 065 377</p>
+                <p><i class="fas fa-envelope"></i> hello@cloverdigital.com</p>
+                <p><i class="fas fa-clock"></i> Mon-Fri: 9:00 AM - 6:00 PM</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 CLOVER DIGITAL. All rights reserved. | <a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Terms of Service</a></p>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Floating Button -->
+    <div class="wa-float">
+        <span class="wa-tooltip">Chat with us on WhatsApp</span>
+        <a class="wa-btn" href="https://wa.me/251998065377?text=Hi%20Clover%20Digital%2C%20I%20have%20a%20question." target="_blank" rel="noopener noreferrer" aria-label="Chat with Clover Digital on WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    </div>
+
+    <script src="assets/js/main.js"></script>
+    <script>
+        // Header scroll effect
+        const header = document.querySelector('.main-header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navMenu = document.querySelector('.nav-menu');
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenuBtn.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('.legal-nav a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

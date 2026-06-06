@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service — CLOVER DIGITAL</title>
+    <meta name="description" content="CLOVER DIGITAL Terms of Service — the agreement governing your use of our website and services">
+    <meta name="robots" content="noindex, follow">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/main.css?v=3">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        .legal-hero {
+            background: var(--brand-black);
+            padding: 9rem 2rem 5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .legal-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(29, 185, 84, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .legal-hero h1 {
+            color: #ffffff;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .legal-hero .updated {
+            color: rgba(255, 255, 255, 0.55);
+            font-size: 0.95rem;
+            position: relative;
+        }
+
+        .legal-content {
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 5rem 2rem;
+        }
+
+        .legal-content .last-updated-bar {
+            background: var(--mint);
+            border: 1px solid var(--border-light);
+            border-radius: 0.75rem;
+            padding: 1rem 1.5rem;
+            margin-bottom: 3rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .legal-content .last-updated-bar i {
+            color: var(--green-dark);
+        }
+
+        .legal-content h2 {
+            font-size: 1.75rem;
+            margin-top: 3rem;
+            margin-bottom: 1rem;
+            color: var(--brand-black);
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .legal-content h2:first-of-type {
+            margin-top: 0;
+        }
+
+        .legal-content h3 {
+            font-size: 1.2rem;
+            margin-top: 2rem;
+            margin-bottom: 0.75rem;
+            color: var(--surface-mid);
+        }
+
+        .legal-content p {
+            color: var(--text-muted);
+            line-height: 1.8;
+            margin-bottom: 1.25rem;
+            font-size: 1rem;
+        }
+
+        .legal-content ul,
+        .legal-content ol {
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        .legal-content ul li,
+        .legal-content ol li {
+            margin-bottom: 0.5rem;
+        }
+
+        .legal-content a {
+            color: var(--green-dark);
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            transition: var(--transition-fast);
+        }
+
+        .legal-content a:hover {
+            color: var(--green);
+        }
+
+        .legal-content strong {
+            color: var(--brand-black);
+            font-weight: 600;
+        }
+
+        .legal-content .highlight-box {
+            background: var(--mint);
+            border-left: 4px solid var(--green);
+            border-radius: 0 0.75rem 0.75rem 0;
+            padding: 1.25rem 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .legal-content .highlight-box p {
+            margin-bottom: 0;
+        }
+
+        .legal-nav {
+            background: var(--surface-light);
+            border-bottom: 1px solid var(--border-light);
+            padding: 1rem 0;
+            position: sticky;
+            top: 72px;
+            z-index: 100;
+        }
+
+        .legal-nav .container {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .legal-nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: var(--transition-fast);
+        }
+
+        .legal-nav a:hover,
+        .legal-nav a.active {
+            color: var(--green-dark);
+        }
+
+        @media (max-width: 768px) {
+            .legal-hero {
+                padding: 7rem 1.5rem 3rem;
+            }
+
+            .legal-content {
+                padding: 3rem 1.25rem;
+            }
+
+            .legal-content h2 {
+                font-size: 1.4rem;
+            }
+
+            .legal-nav .container {
+                gap: 1rem;
+            }
+
+            .legal-nav a {
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img class="logo-img" src="assets/images/logo/clover%20p1.png" alt="Clover Digital logo">
+                <span>CLOVER DIGITAL</span>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="portfolio.html">Portfolio</a></li>
+                <li><a href="pricing.html">Pricing</a></li>
+                <li><a href="blog.html">Insights</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <a href="contact.html" class="btn btn-primary">Start a Project →</a>
+            <div class="mobile-menu-btn">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero -->
+        <section class="legal-hero">
+            <h1>Terms of Service</h1>
+            <p class="updated">Last updated: June 4, 2026</p>
+        </section>
+
+        <!-- Quick Nav -->
+        <nav class="legal-nav">
+            <div class="container">
+                <a href="#acceptance">Acceptance</a>
+                <a href="#services">Services</a>
+                <a href="#client-obligations">Client Obligations</a>
+                <a href="#intellectual-property">Intellectual Property</a>
+                <a href="#payment">Payment</a>
+                <a href="#confidentiality">Confidentiality</a>
+                <a href="#limitation">Limitation of Liability</a>
+                <a href="#termination">Termination</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </nav>
+
+        <!-- Content -->
+        <div class="legal-content">
+            <div class="last-updated-bar">
+                <i class="fas fa-info-circle"></i>
+                These Terms of Service were last updated on <strong>June 4, 2026</strong>.
+            </div>
+
+            <p>Welcome to <strong>CLOVER DIGITAL</strong>. By accessing our website at <strong>cloverdigital.com</strong> (the "Site") or engaging our services, you agree to be bound by these Terms of Service ("Terms"). Please read them carefully before using our Site or services.</p>
+
+            <p>If you do not agree to these Terms, you may not access the Site or use our services.</p>
+
+            <!-- Section 1 -->
+            <h2 id="acceptance">1. Acceptance of Terms</h2>
+            <p>By accessing the Site, contacting us, requesting a quote, or entering into a service agreement with CLOVER DIGITAL, you acknowledge that you have read, understood, and agree to be bound by these Terms, along with our <a href="privacy.html">Privacy Policy</a>.</p>
+            <p>These Terms apply to all visitors, users, clients, and others who access or use our Site or services.</p>
+
+            <!-- Section 2 -->
+            <h2 id="services">2. Services</h2>
+            <p>CLOVER DIGITAL provides the following digital services (collectively, the "Services"):</p>
+            <ul>
+                <li>Web development and web application design</li>
+                <li>UI/UX design and prototyping</li>
+                <li>Digital marketing, SEO, and paid advertising management</li>
+                <li>Graphic design and brand identity development</li>
+                <li>E-commerce solutions and platform integration</li>
+                <li>Website maintenance, hosting, and technical support</li>
+                <li>Consulting and digital strategy</li>
+            </ul>
+            <p>The specific scope, deliverables, timeline, and fees for any project will be defined in a separate <strong>Project Agreement</strong> or <strong>Statement of Work (SOW)</strong> signed by both parties. In the event of any conflict between these Terms and the Project Agreement, the Project Agreement shall govern.</p>
+
+            <!-- Section 3 -->
+            <h2 id="client-obligations">3. Client Obligations</h2>
+            <p>To enable us to deliver the Services effectively, you agree to:</p>
+            <ul>
+                <li><strong>Provide Accurate Information:</strong> Supply complete, accurate, and timely information, materials, and feedback as reasonably requested</li>
+                <li><strong>Designate a Point of Contact:</strong> Assign a single point of contact with authority to make decisions and provide approvals</li>
+                <li><strong>Meet Deadlines:</strong> Adhere to agreed-upon timelines for content delivery, feedback, and approvals. Delays on your part may result in project timeline adjustments</li>
+                <li><strong>Obtain Necessary Rights:</strong> Ensure you have all necessary rights, licenses, and permissions for any content, images, logos, or materials you provide to us</li>
+                <li><strong>Comply with Laws:</strong> Use the Site and Services in compliance with all applicable laws and regulations</li>
+            </ul>
+
+            <!-- Section 4 -->
+            <h2 id="intellectual-property">4. Intellectual Property</h2>
+
+            <h3>4.1 Our Work Product</h3>
+            <p>Upon full payment for a project, CLOVER DIGITAL assigns to the client all ownership rights to the final deliverables created specifically for that project (the "Work Product"). This includes:</p>
+            <ul>
+                <li>Final website design files, code, and assets</li>
+                <li>Custom graphics, logos, and brand assets created for the project</li>
+                <li>Content written specifically for the client</li>
+            </ul>
+
+            <h3>4.2 Our Retained Rights</h3>
+            <p>CLOVER DIGITAL retains ownership of:</p>
+            <ul>
+                <li>Pre-existing code, frameworks, libraries, templates, and tools used in the project (you receive a license to use these as part of the Work Product)</li>
+                <li>Our proprietary methodologies, processes, and know-how</li>
+                <li>The right to display the Work Product in our portfolio, on our Site, and in marketing materials (unless otherwise agreed in writing)</li>
+                <li>Any concepts, designs, or proposals rejected by the client during the project</li>
+            </ul>
+
+            <h3>4.3 Client Content</h3>
+            <p>You retain all ownership rights to content, images, logos, trademarks, and materials you provide to us ("Client Content"). You grant us a limited, non-exclusive license to use Client Content solely for the purpose of delivering the Services.</p>
+
+            <h3>4.4 Third-Party Components</h3>
+            <p>Our Work Product may incorporate third-party software, plugins, fonts, or assets licensed under their own terms. You agree to comply with any applicable third-party license terms.</p>
+
+            <div class="highlight-box">
+                <p><strong>Portfolio Rights:</strong> Unless we agree otherwise in writing, CLOVER DIGITAL may display the final Work Product in our portfolio, case studies, and marketing materials. We will respect any reasonable confidentiality requests.</p>
+            </div>
+
+            <!-- Section 5 -->
+            <h2 id="payment">5. Payment Terms</h2>
+
+            <h3>5.1 Fees</h3>
+            <p>Fees for Services will be specified in the Project Agreement or SOW. Unless stated otherwise:</p>
+            <ul>
+                <li>All fees are in Ethiopian Birr (ETB) or United States Dollars (USD) as specified</li>
+                <li>Fees exclude applicable taxes, which will be added to invoices where required by law</li>
+            </ul>
+
+            <h3>5.2 Payment Schedule</h3>
+            <p>Typical payment terms are as follows (subject to the Project Agreement):</p>
+            <ul>
+                <li><strong>50% upfront</strong> — Due upon signing the Project Agreement, before work begins</li>
+                <li><strong>25% at milestone approval</strong> — Due upon client approval of key deliverables</li>
+                <li><strong>25% at project completion</strong> — Due before final files are delivered or site goes live</li>
+            </ul>
+
+            <h3>5.3 Late Payments</h3>
+            <p>Payments not received within 15 days of the due date may be subject to a late fee of 1.5% per month (or the maximum permitted by law). We reserve the right to suspend work or take down deliverables if payment is more than 30 days overdue.</p>
+
+            <h3>5.4 Refunds</h3>
+            <p>Due to the custom nature of our work, upfront payments are generally non-refundable. Refund policies for specific circumstances will be outlined in the Project Agreement.</p>
+
+            <!-- Section 6 -->
+            <h2 id="confidentiality">6. Confidentiality</h2>
+            <p>During the course of our engagement, each party may have access to confidential information belonging to the other party ("Confidential Information"). This includes business strategies, trade secrets, customer data, technical specifications, financial information, and proprietary processes.</p>
+            <p>Both parties agree to:</p>
+            <ul>
+                <li>Use Confidential Information solely for the purpose of the engagement</li>
+                <li>Not disclose Confidential Information to third parties without prior written consent</li>
+                <li>Implement reasonable security measures to protect Confidential Information</li>
+            </ul>
+            <p>These obligations survive termination of the engagement for a period of three (3) years, or indefinitely for trade secrets.</p>
+
+            <!-- Section 7 -->
+            <h2 id="warranties">7. Warranties & Representations</h2>
+
+            <h3>7.1 By CLOVER DIGITAL</h3>
+            <p>We warrant that:</p>
+            <ul>
+                <li>The Services will be performed in a professional and workmanlike manner</li>
+                <li>The Work Product will conform to the specifications in the Project Agreement</li>
+                <li>To our knowledge, the Work Product does not infringe the intellectual property rights of any third party</li>
+            </ul>
+
+            <h3>7.2 By the Client</h3>
+            <p>You warrant that:</p>
+            <ul>
+                <li>You have the right to use and provide all Client Content to us</li>
+                <li>Client Content does not infringe the intellectual property rights of any third party</li>
+                <li>You have the authority to enter into this agreement on behalf of yourself or your organization</li>
+            </ul>
+
+            <h3>7.3 Disclaimer</h3>
+            <p>Except as expressly stated, the Site and Services are provided on an "AS IS" and "AS AVAILABLE" basis without warranties of any kind, either express or implied. We do not guarantee that the Site will be uninterrupted, error-free, or free of harmful components.</p>
+
+            <!-- Section 8 -->
+            <h2 id="limitation">8. Limitation of Liability</h2>
+            <p>To the fullest extent permitted by applicable law:</p>
+            <ul>
+                <li><strong>Exclusion of Certain Damages:</strong> CLOVER DIGITAL shall not be liable for any indirect, incidental, special, consequential, or punitive damages, including loss of profits, revenue, data, or business opportunities.</li>
+                <li><strong>Cap on Liability:</strong> Our total aggregate liability arising out of or related to the Services shall not exceed the total fees paid by you to CLOVER DIGITAL for the specific project giving rise to the claim during the twelve (12) months preceding the claim.</li>
+            </ul>
+            <p>Some jurisdictions do not allow the exclusion or limitation of certain damages, so the above may not apply to you.</p>
+
+            <!-- Section 9 -->
+            <h2 id="indemnification">9. Indemnification</h2>
+            <p>You agree to indemnify, defend, and hold harmless CLOVER DIGITAL, its directors, employees, and contractors from and against any claims, damages, losses, liabilities, and expenses arising from:</p>
+            <ul>
+                <li>Your use of the Site or Services</li>
+                <li>Your violation of these Terms</li>
+                <li>Your Client Content, including claims that it infringes third-party rights</li>
+                <li>Your violation of applicable laws or regulations</li>
+            </ul>
+
+            <!-- Section 10 -->
+            <h2 id="termination">10. Termination</h2>
+
+            <h3>10.1 Termination by Either Party</h3>
+            <p>Either party may terminate a Project Agreement with thirty (30) days written notice if the other party materially breaches the agreement and fails to cure such breach within the notice period.</p>
+
+            <h3>10.2 Termination by Client</h3>
+            <p>You may terminate a Project Agreement at any time by providing written notice. In such case, you agree to pay for all work completed through the date of termination, plus any non-cancellable third-party expenses incurred on your behalf.</p>
+
+            <h3>10.3 Termination by CLOVER DIGITAL</h3>
+            <p>We may suspend or terminate your access to the Site or Services immediately if:</p>
+            <ul>
+                <li>You fail to pay amounts due within thirty (30) days</li>
+                <li>You engage in conduct that we reasonably believe violates these Terms or applicable law</li>
+                <li>You provide false or misleading information</li>
+            </ul>
+
+            <h3>10.4 Effect of Termination</h3>
+            <p>Upon termination, you will receive all Work Product for which payment has been made. Any unpaid fees become immediately due. Provisions that by their nature should survive termination (including Intellectual Property, Confidentiality, Limitation of Liability, and Indemnification) shall survive.</p>
+
+            <!-- Section 11 -->
+            <h2 id="disputes">11. Dispute Resolution</h2>
+            <p>We prefer to resolve disputes amicably. If a dispute arises:</p>
+            <ol>
+                <li><strong>Good Faith Negotiation:</strong> Both parties shall first attempt to resolve the dispute through informal negotiation for a period of at least thirty (30) days.</li>
+                <li><strong>Governing Law:</strong> These Terms shall be governed by and construed in accordance with the laws of Ethiopia, without regard to conflict of law principles.</li>
+                <li><strong>Jurisdiction:</strong> Any legal action shall be brought exclusively in the courts of Adama, Ethiopia.</li>
+            </ol>
+
+            <!-- Section 12 -->
+            <h2 id="general">12. General Provisions</h2>
+            <ul>
+                <li><strong>Entire Agreement:</strong> These Terms, together with the Privacy Policy and any Project Agreement, constitute the entire agreement between you and CLOVER DIGITAL.</li>
+                <li><strong>Severability:</strong> If any provision of these Terms is found to be unenforceable, the remaining provisions shall remain in full effect.</li>
+                <li><strong>Waiver:</strong> Our failure to enforce any right or provision shall not constitute a waiver of such right or provision.</li>
+                <li><strong>Assignment:</strong> You may not assign or transfer your rights under these Terms without our prior written consent. We may assign or transfer these Terms without restriction.</li>
+                <li><strong>Force Majeure:</strong> Neither party shall be liable for delays caused by circumstances beyond their reasonable control, including natural disasters, acts of government, internet outages, or public health emergencies.</li>
+            </ul>
+
+            <!-- Section 13 -->
+            <h2 id="changes">13. Changes to These Terms</h2>
+            <p>We reserve the right to modify these Terms at any time. When we do, we will:</p>
+            <ul>
+                <li>Post the updated version on this page</li>
+                <li>Update the "Last updated" date</li>
+                <li>Notify existing clients via email of material changes</li>
+            </ul>
+            <p>Your continued use of the Site or Services after changes become effective constitutes acceptance of the updated Terms.</p>
+
+            <!-- Section 14 -->
+            <h2 id="contact">14. Contact Information</h2>
+            <p>If you have questions about these Terms of Service, please contact us:</p>
+            <ul>
+                <li><strong>Email:</strong> <a href="mailto:legal@cloverdigital.com">legal@cloverdigital.com</a></li>
+                <li><strong>Phone:</strong> +251 998 065 377</li>
+                <li><strong>Address:</strong> Adama, Ethiopia</li>
+                <li><strong>Contact Form:</strong> <a href="contact.html">cloverdigital.com/contact</a></li>
+            </ul>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-logo">
+                    <img class="logo-img" src="assets/images/logo/clover%20p1.png" alt="Clover Digital logo">
+                    <h3>CLOVER DIGITAL</h3>
+                </div>
+                <p>We engineer digital excellence that drives real business growth.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="portfolio.html">Portfolio</a></li>
+                    <li><a href="pricing.html">Pricing</a></li>
+                    <li><a href="blog.html">Insights</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="terms.html">Terms of Service</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <p><i class="fas fa-map-marker-alt"></i> Adama, Ethiopia</p>
+                <p><i class="fas fa-phone"></i> +251 998 065 377</p>
+                <p><i class="fas fa-envelope"></i> hello@cloverdigital.com</p>
+                <p><i class="fas fa-clock"></i> Mon-Fri: 9:00 AM - 6:00 PM</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 CLOVER DIGITAL. All rights reserved. | <a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Terms of Service</a></p>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Floating Button -->
+    <div class="wa-float">
+        <span class="wa-tooltip">Chat with us on WhatsApp</span>
+        <a class="wa-btn" href="https://wa.me/251998065377?text=Hi%20Clover%20Digital%2C%20I%20have%20a%20question." target="_blank" rel="noopener noreferrer" aria-label="Chat with Clover Digital on WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    </div>
+
+    <script src="assets/js/main.js"></script>
+    <script>
+        // Header scroll effect
+        const header = document.querySelector('.main-header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navMenu = document.querySelector('.nav-menu');
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenuBtn.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('.legal-nav a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
