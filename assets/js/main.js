@@ -1,4 +1,6 @@
-// CLOVER DIGITAL - Main JavaScript
+// ============================================================
+// CLOVER DIGITAL — Main JavaScript
+// ============================================================
 
 // Mobile Menu Toggle
 const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
@@ -37,7 +39,7 @@ window.addEventListener('scroll', () => {
         if (footer) {
             const footerTop = footer.getBoundingClientRect().top + window.pageYOffset;
             const viewportHeight = window.innerHeight;
-            const scrollTrigger = footerTop - viewportHeight * 0.3; // Hide when 30% of viewport height from footer
+            const scrollTrigger = footerTop - viewportHeight * 0.3;
             
             if (currentScroll > scrollTrigger) {
                 header.classList.add('hidden-on-footer');
@@ -65,43 +67,6 @@ function animateCounter(element, target) {
     }, 20);
 }
 
-// Trigger counters when they come into view
-const counters = document.querySelectorAll('.stat-number');
-
-const counterObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            const target = parseInt(entry.target.dataset.count);
-            animateCounter(entry.target, target);
-            counterObserver.unobserve(entry.target);
-        }
-    });
-}, { threshold: 0.5 });
-
-counters.forEach(counter => counterObserver.observe(counter));
-
-// Load Services
-async function loadServices() {
-    try {
-        const response = await fetch('data/services.json');
-        const data = await response.json();
-        const servicesGrid = document.getElementById('services-grid');
-        
-        if (servicesGrid && data.services) {
-            servicesGrid.innerHTML = data.services.map(service => `
-                <div class="service-card reveal">
-                    <i class="${service.icon} service-icon"></i>
-                    <h3>${service.title}</h3>
-                    <p>${service.description}</p>
-                    <a href="services.html" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
-                </div>
-            `).join('');
-        }
-    } catch (error) {
-        console.error('Error loading services:', error);
-    }
-}
-
 // Smooth Scroll for Anchor Links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
@@ -116,20 +81,75 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Initialize
+// Initialize everything on DOMContentLoaded
 document.addEventListener('DOMContentLoaded', () => {
-    loadServices();
+    // ── Counter animation (triggered by Intersection Observer) ──
+    const counters = document.querySelectorAll('.stat-number');
+    if (counters.length > 0) {
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const target = parseInt(entry.target.dataset.count);
+                    animateCounter(entry.target, target);
+                    counterObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        counters.forEach(counter => counterObserver.observe(counter));
+    }
+
+    // ── Reveal animations (fade-in on scroll) ──
+    const revealElements = document.querySelectorAll('.reveal');
+    if (revealElements.length > 0) {
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+    }
+
+    // ── Portfolio filter functionality ──
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const portfolioCards = document.querySelectorAll('.portfolio-card');
+
+    if (filterBtns.length > 0 && portfolioCards.length > 0) {
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active from all buttons
+                filterBtns.forEach(b => b.classList.remove('active'));
+                // Add active to clicked button
+                btn.classList.add('active');
+
+                const filter = btn.getAttribute('data-filter');
+
+                portfolioCards.forEach(card => {
+                    if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                        card.style.display = 'block';
+                        card.style.animation = 'fadeInUp 0.4s ease-out';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+    }
+
+    // ── Legal page smooth scroll ──
+    const legalNavLinks = document.querySelectorAll('.legal-nav a');
+    if (legalNavLinks.length > 0) {
+        legalNavLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    }
 });
-
-// Reveal animations
-const revealElements = document.querySelectorAll('.reveal');
-
-const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('active');
-        }
-    });
-}, { threshold: 0.1 });
-
-revealElements.forEach(el => revealObserver.observe(el));
