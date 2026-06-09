@@ -299,7 +299,7 @@
             grid.innerHTML = '<div class="no-projects"><i class="fas fa-spinner fa-spin" style="font-size:2rem;color:#4ade80;"></i><p>Loading projects...</p></div>';
 
             try {
-                const { data, error } = await supabase
+                const { data, error } = await supabaseClient
                     .from('portfolio_projects')
                     .select('*')
                     .eq('status', 'published')

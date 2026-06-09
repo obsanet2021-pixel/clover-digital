@@ -83,7 +83,7 @@ const CATEGORY_LABELS = {
 
 async function getProjects() {
     try {
-        const { data, error } = await supabase
+        const { data, error } = await supabaseClient
             .from('portfolio_projects')
             .select('*')
             .order('created_at', { ascending: false });
@@ -176,7 +176,7 @@ async function saveProject(e) {
 
     try {
         if (id) {
-            const { error } = await supabase
+            const { error } = await supabaseClient
                 .from('portfolio_projects')
                 .update(projectData)
                 .eq('id', id);
@@ -184,7 +184,7 @@ async function saveProject(e) {
             if (error) throw error;
             showNotification('Project updated successfully', 'success');
         } else {
-            const { error } = await supabase
+            const { error } = await supabaseClient
                 .from('portfolio_projects')
                 .insert([projectData]);
 
@@ -201,7 +201,7 @@ async function saveProject(e) {
 }
 
 async function editProject(id) {
-    const { data: project, error } = await supabase
+    const { data: project, error } = await supabaseClient
         .from('portfolio_projects')
         .select('*')
         .eq('id', id)
@@ -214,7 +214,7 @@ async function deleteProject(id) {
     if (!confirm('Delete this project? This cannot be undone.')) return;
 
     try {
-        const { error } = await supabase
+        const { error } = await supabaseClient
             .from('portfolio_projects')
             .delete()
             .eq('id', id);

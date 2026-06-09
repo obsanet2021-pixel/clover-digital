@@ -15,7 +15,7 @@ const AdminAuth = {
      */
     async validateCredentials(email, password) {
         try {
-            const { data, error } = await supabase
+            const { data, error } = await supabaseClient
                 .from('admin_users')
                 .select('name, email, password, role')
                 .eq('email', email.toLowerCase())
