@@ -1,52 +1,50 @@
 /**
  * CLOVER DIGITAL - Admin Authentication System
- * Manages admin login, session, and access control
+ * Multi-user admin login, session, and access control
  */
 
 const AdminAuth = {
-    // Session configuration
     SESSION_KEY: 'clover_admin_session',
     SESSION_EXPIRY_KEY: 'clover_admin_expiry',
     REMEMBER_ME_KEY: 'clover_admin_remember',
-    SESSION_TIMEOUT: 8 * 60 * 60 * 1000, // 8 hours in milliseconds
-    
-    // Admin credentials (in production, this should be handled server-side)
-    ADMIN_CREDENTIALS: {
-        email: 'admin@cloverdigital.com',
-        password: 'SecureAdmin123!' // Change this to a strong password
-    },
+    SESSION_TIMEOUT: 8 * 60 * 60 * 1000,
+
+    // Authorized admin users (in production, use server-side auth)
+    ADMIN_USERS: [
+        { name: 'Obsan',  email: 'obsan@cloverdigital.com',  password: 'CloverObsan2026!',  role: 'Admin' },
+        { name: 'Ali',    email: 'ali@cloverdigital.com',    password: 'CloverAli2026!',    role: 'Admin' },
+        { name: 'Zubair', email: 'zubair@cloverdigital.com', password: 'CloverZubair2026!', role: 'Admin' },
+        { name: 'Musab',  email: 'musab@cloverdigital.com',  password: 'CloverMusab2026!',  role: 'Admin' }
+    ],
 
     /**
-     * Validate admin credentials
-     * @param {string} email - Admin email
-     * @param {string} password - Admin password
-     * @returns {boolean} - True if credentials are valid
+     * Validate credentials against all admin users
+     * @returns {object|null} matched user object or null
      */
     validateCredentials(email, password) {
-        return email === this.ADMIN_CREDENTIALS.email && 
-               password === this.ADMIN_CREDENTIALS.password;
+        const user = this.ADMIN_USERS.find(
+            u => u.email.toLowerCase() === email.toLowerCase() && u.password === password
+        );
+        return user || null;
     },
 
     /**
      * Set admin session after successful login
-     * @param {string} email - Admin email
-     * @param {boolean} rememberMe - Whether to persist session
      */
-    setSession(email, rememberMe = false) {
+    setSession(user, rememberMe = false) {
         const sessionData = {
-            email: email,
+            email: user.email,
+            name: user.name,
+            role: user.role,
             loginTime: new Date().getTime(),
             isAuthenticated: true
         };
 
-        // Store session in sessionStorage (cleared when browser closes)
         sessionStorage.setItem(this.SESSION_KEY, JSON.stringify(sessionData));
-        
-        // Set expiry time
+
         const expiryTime = new Date().getTime() + this.SESSION_TIMEOUT;
         sessionStorage.setItem(this.SESSION_EXPIRY_KEY, expiryTime.toString());
 
-        // Store in localStorage if "Remember Me" is checked
         if (rememberMe) {
             localStorage.setItem(this.REMEMBER_ME_KEY, 'true');
             localStorage.setItem(this.SESSION_KEY, JSON.stringify(sessionData));
@@ -57,58 +55,42 @@ const AdminAuth = {
         }
     },
 
-    /**
-     * Check if admin is logged in and session is valid
-     * @returns {boolean} - True if admin has valid session
-     */
     isLoggedIn() {
         let sessionData = sessionStorage.getItem(this.SESSION_KEY);
         let expiryTime = sessionStorage.getItem(this.SESSION_EXPIRY_KEY);
 
-        // Check localStorage if sessionStorage is empty (for "Remember Me")
         if (!sessionData) {
             sessionData = localStorage.getItem(this.SESSION_KEY);
             expiryTime = localStorage.getItem(this.SESSION_EXPIRY_KEY);
         }
 
-        if (!sessionData || !expiryTime) {
-            return false;
-        }
+        if (!sessionData || !expiryTime) return false;
 
-        // Check if session has expired
-        const currentTime = new Date().getTime();
-        if (currentTime > parseInt(expiryTime)) {
+        if (new Date().getTime() > parseInt(expiryTime)) {
             this.clearSession();
             return false;
         }
-
         return true;
     },
 
-    /**
-     * Get current admin email
-     * @returns {string|null} - Admin email or null if not logged in
-     */
     getAdminEmail() {
         let sessionData = sessionStorage.getItem(this.SESSION_KEY);
-        if (!sessionData) {
-            sessionData = localStorage.getItem(this.SESSION_KEY);
-        }
-
+        if (!sessionData) sessionData = localStorage.getItem(this.SESSION_KEY);
         if (sessionData) {
-            try {
-                const data = JSON.parse(sessionData);
-                return data.email;
-            } catch (e) {
-                return null;
-            }
+            try { return JSON.parse(sessionData).email; } catch (e) { return null; }
         }
         return null;
     },
 
-    /**
-     * Clear admin session (logout)
-     */
+    getAdminName() {
+        let sessionData = sessionStorage.getItem(this.SESSION_KEY);
+        if (!sessionData) sessionData = localStorage.getItem(this.SESSION_KEY);
+        if (sessionData) {
+            try { return JSON.parse(sessionData).name; } catch (e) { return null; }
+        }
+        return null;
+    },
+
     clearSession() {
         sessionStorage.removeItem(this.SESSION_KEY);
         sessionStorage.removeItem(this.SESSION_EXPIRY_KEY);
@@ -117,25 +99,16 @@ const AdminAuth = {
         localStorage.removeItem(this.REMEMBER_ME_KEY);
     },
 
-    /**
-     * Redirect to login if not authenticated
-     * Used on admin pages to ensure access control
-     */
     requireLogin() {
         if (!this.isLoggedIn()) {
             window.location.href = 'admin-login.html';
         }
     },
 
-    /**
-     * Extend session timeout (refresh on activity)
-     */
     extendSession() {
         if (this.isLoggedIn()) {
             const expiryTime = new Date().getTime() + this.SESSION_TIMEOUT;
             sessionStorage.setItem(this.SESSION_EXPIRY_KEY, expiryTime.toString());
-            
-            // Also update localStorage if "Remember Me" is enabled
             if (localStorage.getItem(this.REMEMBER_ME_KEY)) {
                 localStorage.setItem(this.SESSION_EXPIRY_KEY, expiryTime.toString());
             }
@@ -143,31 +116,14 @@ const AdminAuth = {
     }
 };
 
-/**
- * Auto-extend session on user activity
- */
 let activityTimer = null;
-
 function resetActivityTimer() {
     clearTimeout(activityTimer);
-    
-    // Extend session after 2 minutes of inactivity
     activityTimer = setTimeout(() => {
         AdminAuth.extendSession();
     }, 2 * 60 * 1000);
 }
 
-// Track user activity
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-        document.addEventListener('mousemove', resetActivityTimer);
-        document.addEventListener('keypress', resetActivityTimer);
-        document.addEventListener('click', resetActivityTimer);
-        resetActivityTimer();
-    });
-} else {
-    document.addEventListener('mousemove', resetActivityTimer);
-    document.addEventListener('keypress', resetActivityTimer);
-    document.addEventListener('click', resetActivityTimer);
-    resetActivityTimer();
-}
+['mousemove', 'keypress', 'click', 'scroll'].forEach(evt => {
+    document.addEventListener(evt, resetActivityTimer);
+});

@@ -4,85 +4,176 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CLOVER DIGITAL - Contact Us | Let's Talk</title>
-    <link rel="stylesheet" href="assets/css/main.css">
+    <meta name="description" content="Get in touch with Clover Digital — your trusted digital partner in Adama, Ethiopia. Let's discuss your next project.">
+    <link rel="stylesheet" href="assets/css/main.css?v=3">
     <link rel="stylesheet" href="assets/css/responsive.css">
     <link rel="stylesheet" href="assets/css/animations.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         .contact-hero {
-            background: linear-gradient(135deg, #0a0a0a 0%, #307a06 100%);
-            padding: 8rem 0 4rem;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1c2b22 50%, #307a06 100%);
+            padding: 9rem 0 5rem;
             text-align: center;
             color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        .contact-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 50% 80%, rgba(11,124,56,.2), transparent 60%);
+            pointer-events: none;
         }
         .contact-hero h1 {
-            font-size: 3.5rem;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
             margin-bottom: 1rem;
+            position: relative;
         }
+        .contact-hero p {
+            font-size: 1.15rem;
+            color: rgba(255,255,255,.7);
+            max-width: 500px;
+            margin: 0 auto;
+            position: relative;
+        }
+
         .contact-section {
             padding: 5rem 0;
+            background: #0d0d0d;
         }
         .contact-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 3rem;
         }
-        .contact-info {
-            background: #f8fafc;
-            padding: 2rem;
-            border-radius: 1rem;
+
+        /* ── Info Cards ── */
+        .contact-info h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #f1f5f9;
+            margin-bottom: .5rem;
+        }
+        .contact-info > p {
+            color: #94a3b8;
+            margin-bottom: 2rem;
+            line-height: 1.6;
         }
         .info-item {
             display: flex;
             align-items: center;
             gap: 1rem;
-            margin-bottom: 2rem;
-            padding: 1rem;
-            background: white;
-            border-radius: 0.5rem;
+            margin-bottom: 1.25rem;
+            padding: 1.25rem;
+            background: rgba(255,255,255,.03);
+            border: 1px solid rgba(255,255,255,.06);
+            border-radius: 14px;
+            transition: border-color .3s, transform .3s;
+        }
+        .info-item:hover {
+            border-color: rgba(74,222,128,.15);
+            transform: translateX(4px);
         }
         .info-icon {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, #1bd62b, #032710);
-            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, rgba(34,197,94,.15), rgba(74,222,128,.05));
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-size: 1.2rem;
+            color: #4ade80;
+            font-size: 1.1rem;
+            flex-shrink: 0;
         }
+        .info-item h4 {
+            font-size: .95rem;
+            font-weight: 700;
+            color: #f1f5f9;
+            margin-bottom: 2px;
+        }
+        .info-item p {
+            font-size: .88rem;
+            color: #94a3b8;
+            margin: 0;
+        }
+
+        /* ── Contact Form ── */
         .contact-form {
-            background: white;
-            padding: 2rem;
-            border-radius: 1rem;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            background: rgba(255,255,255,.03);
+            border: 1px solid rgba(255,255,255,.06);
+            padding: 2.5rem;
+            border-radius: 20px;
         }
-        .form-group {
+        .contact-form h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #f1f5f9;
             margin-bottom: 1.5rem;
         }
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
-            width: 100%;
-            padding: 0.75rem;
-            border: 1px solid #e2e8f0;
-            border-radius: 0.5rem;
-            font-family: inherit;
+        .form-group {
+            margin-bottom: 1.25rem;
         }
         .form-group label {
             display: block;
-            margin-bottom: 0.5rem;
+            font-size: .85rem;
             font-weight: 600;
+            color: #94a3b8;
+            margin-bottom: 6px;
         }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: .75rem 1rem;
+            background: rgba(255,255,255,.05);
+            border: 1px solid rgba(255,255,255,.1);
+            border-radius: 10px;
+            color: #e2e8f0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: .9rem;
+            transition: border-color .2s;
+        }
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #4ade80;
+            outline: none;
+        }
+        .form-group textarea { resize: vertical; min-height: 120px; }
+        .form-group select option { background: #1a1a2e; color: #e2e8f0; }
+
+        /* ── Social row ── */
+        .contact-social {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        .contact-social a {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: rgba(255,255,255,.05);
+            border: 1px solid rgba(255,255,255,.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #4ade80;
+            font-size: 1.1rem;
+            transition: all .3s;
+            text-decoration: none;
+        }
+        .contact-social a:hover {
+            background: rgba(74,222,128,.1);
+            border-color: rgba(74,222,128,.3);
+            transform: translateY(-3px);
+        }
+
         @media (max-width: 768px) {
-            .contact-grid {
-                grid-template-columns: 1fr;
-            }
-            .contact-hero h1 {
-                font-size: 2rem;
-            }
+            .contact-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -101,9 +192,8 @@
                 <li><a href="pricing.html">Pricing</a></li>
                 <li><a href="blog.html">Insights</a></li>
                 <li><a href="contact.html" class="active">Contact</a></li>
-                <li><a href="invoice.html">Invoice</a></li>
             </ul>
-            <a href="contact.html" class="btn btn-primary">Start a Project →</a>
+            <a href="contact.html" class="btn btn-primary">Start a Project &rarr;</a>
             <div class="mobile-menu-btn">
                 <span></span>
                 <span></span>
@@ -116,7 +206,7 @@
         <section class="contact-hero">
             <div class="container">
                 <h1>Let's <span class="gradient-text">Talk</span></h1>
-                <p>Ready to reach your peak? Let's discuss your project</p>
+                <p>Ready to start your project? We'd love to hear from you.</p>
             </div>
         </section>
 
@@ -125,19 +215,19 @@
                 <div class="contact-grid">
                     <div class="contact-info">
                         <h2>Get in Touch</h2>
-                        <p>We'd love to hear from you. Send us a message and we'll respond within 24 hours.</p>
+                        <p>Send us a message and we'll respond within 24 hours. Or reach us directly through any of the channels below.</p>
+
                         <div class="info-item">
                             <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
                             <div>
                                 <h4>Visit Us</h4>
-                                <p>Adama , Ethiopia</p>
+                                <p>Adama, Ethiopia</p>
                             </div>
                         </div>
                         <div class="info-item">
                             <div class="info-icon"><i class="fas fa-phone"></i></div>
                             <div>
                                 <h4>Call Us</h4>
-                                <p>+251 998 065 377</p>
                                 <p>+251 998 065 377</p>
                             </div>
                         </div>
@@ -148,6 +238,20 @@
                                 <p>hello@cloverdigital.com</p>
                             </div>
                         </div>
+                        <div class="info-item">
+                            <div class="info-icon"><i class="fas fa-clock"></i></div>
+                            <div>
+                                <h4>Working Hours</h4>
+                                <p>Mon &ndash; Fri: 9:00 AM &ndash; 6:00 PM</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-social">
+                            <a href="https://www.facebook.com/share/19GNou1sDR" target="_blank" rel="noopener noreferrer" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                            <a href="https://www.tiktok.com/@dsg.clover" target="_blank" rel="noopener noreferrer" title="TikTok"><i class="fab fa-tiktok"></i></a>
+                            <a href="https://t.me/cloverdigital1" target="_blank" rel="noopener noreferrer" title="Telegram"><i class="fab fa-telegram-plane"></i></a>
+                            <a href="https://www.instagram.com/officialcloverdigital" target="_blank" rel="noopener noreferrer" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        </div>
                     </div>
 
                     <div class="contact-form">
@@ -155,17 +259,18 @@
                         <form id="contactForm">
                             <div class="form-group">
                                 <label>Full Name</label>
-                                <input type="text" placeholder="John Doe" required>
+                                <input type="text" placeholder="Your name" required>
                             </div>
                             <div class="form-group">
                                 <label>Email Address</label>
-                                <input type="email" placeholder="john@example.com" required>
+                                <input type="email" placeholder="you@example.com" required>
                             </div>
                             <div class="form-group">
-                                <label>Subject</label>
+                                <label>Service Interested In</label>
                                 <select>
                                     <option>Web Development</option>
-                                    <option>UI/UX Design</option>
+                                    <option>Graphic Design</option>
+                                    <option>UI Design</option>
                                     <option>Digital Marketing</option>
                                     <option>Other</option>
                                 </select>
@@ -174,7 +279,7 @@
                                 <label>Message</label>
                                 <textarea rows="5" placeholder="Tell us about your project..."></textarea>
                             </div>
-                            <button type="submit" class="btn btn-primary" style="width:100%">Send Message →</button>
+                            <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">Send Message <i class="fas fa-paper-plane"></i></button>
                         </form>
                     </div>
                 </div>
@@ -182,51 +287,59 @@
         </section>
     </main>
 
-    <footer class="main-footer">
-        <div class="footer-content">
-            <div class="footer-section">
-                <div class="footer-logo">
-                    <img class="logo-img" src="assets/images/logo/clover%20p1.png" alt="Clover Digital logo">
-                    <h3>CLOVER DIGITAL</h3>
+    <!-- Footer Hero (matches index.html) -->
+    <footer class="footer-hero">
+        <div class="footer-glow"></div>
+        <div class="footer-container">
+            <div class="brand-section">
+                <div class="brand-logo-row">
+                    <img src="assets/images/logo/clover g2.png" alt="Clover Digital Logo" class="brand-logo">
                 </div>
-                <p>Reach your peak performance with cutting-edge digital solutions.</p>
-                <div class="social-links">
-                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
+                <p class="brand-description">
+                    We engineer digital excellence that drives growth.
+                    From startups to enterprises, we're your trusted digital partner.
+                </p>
+            </div>
+            <div class="footer-card">
+                <div class="footer-grid">
+                    <div class="social-column">
+                        <a href="https://www.facebook.com/share/19GNou1sDR" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.tiktok.com/@dsg.clover" target="_blank" rel="noopener noreferrer"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://t.me/cloverdigital1" target="_blank" rel="noopener noreferrer"><i class="fab fa-telegram-plane"></i></a>
+                        <a href="https://www.instagram.com/officialcloverdigital" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                    </div>
+                    <div class="footer-column">
+                        <h3>COMPANY</h3>
+                        <a href="about.html">About Us</a>
+                        <a href="services.html">Services</a>
+                        <a href="portfolio.html">Portfolio</a>
+                        <a href="pricing.html">Pricing</a>
+                        <a href="blog.html">Insights</a>
+                        <a href="contact.html">Contact</a>
+                    </div>
+                    <div class="footer-column">
+                        <h3>SERVICES</h3>
+                        <a href="contact.html">Web Development</a>
+                        <a href="contact.html">UI Design</a>
+                        <a href="contact.html">Digital Marketing</a>
+                        <a href="contact.html">Graphic Design</a>
+                    </div>
+                    <div class="footer-column">
+                        <h3>CONTACT</h3>
+                        <p><i class="fas fa-map-marker-alt"></i> Adama, Ethiopia</p>
+                        <p><i class="fas fa-phone"></i> +251 998 065 377</p>
+                        <p><i class="fas fa-envelope"></i> hello@cloverdigital.com</p>
+                        <p><i class="fas fa-clock"></i> Mon-Fri: 9:00 AM - 6:00 PM</p>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <div class="footer-line"></div>
+                    <p>&copy; 2026 CLOVER DIGITAL. All rights reserved. | <a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Terms of Service</a></p>
                 </div>
             </div>
-            <div class="footer-section">
-                <h4>Quick Links</h4>
-                <ul>
-                    <li><a href="about.html">About Us</a></li>
-                    <li><a href="services.html">Services</a></li>
-                    <li><a href="portfolio.html">Portfolio</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h4>Contact</h4>
-                <p><i class="fas fa-map-marker-alt"></i> Adama , Ethiopia</p>
-            <p><i class="fas fa-phone"></i> +251 998 065 377</p>
-            <p><i class="fas fa-envelope"></i> hello@cloverdigital.com</p>
-            <p><i class="fas fa-clock"></i> Mon-Fri: 9:00 AM - 6:00 PM PST</p>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 CLOVER DIGITAL. All rights reserved.</p>
         </div>
     </footer>
 
-    <script>
-        document.getElementById('contactForm')?.addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Thank you for your message! Our team will contact you within 24 hours.');
-            this.reset();
-        });
-    </script>
-    
     <!-- WhatsApp Floating Button -->
     <div class="wa-float">
         <span class="wa-tooltip">Chat with us on WhatsApp</span>
@@ -237,113 +350,5 @@
 
     <script src="assets/js/main.js"></script>
     <script src="assets/js/animations.js"></script>
-    <script src="assets/js/portfolio.js"></script>
-
-    <script>
-        // Fallback dynamic content loading
-        document.addEventListener('DOMContentLoaded', function() {
-            // Sample service data
-            const servicesData = [
-                { icon: "fa-code", title: "Web Development", desc: "Custom websites and web applications built with modern technologies like React, Vue, and Node.js" },
-                { icon: "fa-paintbrush", title: "UI/UX Design", desc: "Beautiful, intuitive interfaces that users love — designed with Figma and tested with real users" },
-                { icon: "fa-chart-line", title: "Digital Marketing", desc: "Data-driven strategies to grow your online presence and convert visitors into loyal customers" },
-                { icon: "fa-mobile-alt", title: "Mobile Apps", desc: "Native and cross-platform mobile applications that work flawlessly on iOS and Android" },
-                { icon: "fa-search", title: "SEO Optimization", desc: "Improve your search rankings and organic visibility with proven white-hat techniques" },
-                { icon: "fa-cart-shopping", title: "E-commerce", desc: "Powerful online stores that convert visitors to customers with seamless checkout experiences" }
-            ];
-
-            // Load services if grid is empty
-            const servicesGrid = document.getElementById('services-grid');
-            if (servicesGrid && servicesGrid.children.length === 0) {
-                servicesGrid.innerHTML = servicesData.map(service => `
-                    <div class="service-card">
-                        <div class="service-icon">
-                            <i class="fas ${service.icon}"></i>
-                        </div>
-                        <h3>${service.title}</h3>
-                        <p>${service.desc}</p>
-                        <a href="services.html" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                `).join('');
-            }
-
-            // Counter animation for stats
-            const counters = document.querySelectorAll('.stat-number');
-            const observerOptions = {
-                threshold: 0.5,
-                rootMargin: '0px'
-            };
-
-            const counterObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const counter = entry.target;
-                        const target = parseInt(counter.getAttribute('data-count'));
-                        const duration = 2000;
-                        const startTime = performance.now();
-
-                        const updateCount = (currentTime) => {
-                            const elapsed = currentTime - startTime;
-                            const progress = Math.min(elapsed / duration, 1);
-                            const eased = 1 - Math.pow(1 - progress, 3);
-                            counter.innerText = Math.floor(eased * target);
-
-                            if (progress < 1) {
-                                requestAnimationFrame(updateCount);
-                            } else {
-                                counter.innerText = target;
-                            }
-                        };
-
-                        requestAnimationFrame(updateCount);
-                        counterObserver.unobserve(counter);
-                    }
-                });
-            }, observerOptions);
-
-            counters.forEach(counter => counterObserver.observe(counter));
-
-            // Portfolio filter functionality
-            const filterBtns = document.querySelectorAll('.filter-btn');
-            const portfolioCards = document.querySelectorAll('.portfolio-card');
-
-            filterBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    filterBtns.forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-
-                    const filter = btn.getAttribute('data-filter');
-
-                    portfolioCards.forEach(card => {
-                        if (filter === 'all' || card.getAttribute('data-category') === filter) {
-                            card.style.display = 'block';
-                            card.style.animation = 'fadeInUp 0.4s ease-out';
-                        } else {
-                            card.style.display = 'none';
-                        }
-                    });
-                });
-            });
-
-            // Header scroll effect
-            const header = document.querySelector('.main-header');
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 50) {
-                    header.classList.add('scrolled');
-                } else {
-                    header.classList.remove('scrolled');
-                }
-            });
-
-            // Mobile menu toggle
-            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-            const navMenu = document.querySelector('.nav-menu');
-
-            mobileMenuBtn.addEventListener('click', () => {
-                mobileMenuBtn.classList.toggle('active');
-                navMenu.classList.toggle('active');
-            });
-        });
-    </script>
 </body>
 </html>

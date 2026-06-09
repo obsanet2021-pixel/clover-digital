@@ -4,92 +4,166 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CLOVER DIGITAL - Portfolio | Our Work</title>
-    <meta name="description" content="Explore our portfolio of successful digital projects and client success stories">
-    <link rel="stylesheet" href="assets/css/main.css">
+    <meta name="description" content="Explore our portfolio of successful digital projects — web development, UI design, graphic design, and marketing campaigns">
+    <link rel="stylesheet" href="assets/css/main.css?v=3">
     <link rel="stylesheet" href="assets/css/responsive.css">
     <link rel="stylesheet" href="assets/css/animations.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         .portfolio-hero {
-            background: linear-gradient(135deg, #0a0a0a 0%, #307a06 100%);
-            padding: 8rem 0 4rem;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1c2b22 50%, #307a06 100%);
+            padding: 9rem 0 5rem;
             text-align: center;
             color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        .portfolio-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 30% 50%, rgba(11,124,56,.2), transparent 60%);
+            pointer-events: none;
         }
         .portfolio-hero h1 {
-            font-size: 3.5rem;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
             margin-bottom: 1rem;
+            position: relative;
+        }
+        .portfolio-hero p {
+            font-size: 1.15rem;
+            color: rgba(255,255,255,.7);
+            max-width: 550px;
+            margin: 0 auto;
+            position: relative;
         }
         .portfolio-filter {
             display: flex;
             justify-content: center;
-            gap: 1rem;
-            margin: 3rem 0;
+            gap: .75rem;
+            margin: 3rem 0 2rem;
             flex-wrap: wrap;
         }
         .filter-btn {
-            padding: 0.75rem 1.5rem;
-            background: transparent;
-            border: 2px solid #e2e8f0;
-            border-radius: 0.5rem;
+            padding: 0.65rem 1.5rem;
+            background: rgba(255,255,255,.04);
+            border: 1px solid rgba(255,255,255,.12);
+            border-radius: 50px;
             cursor: pointer;
             transition: all 0.3s;
             font-weight: 600;
+            font-size: .9rem;
+            color: #94a3b8;
+            font-family: 'Plus Jakarta Sans', sans-serif;
         }
         .filter-btn:hover,
         .filter-btn.active {
             background: linear-gradient(135deg, #052707, #307a06);
             color: white;
-            border-color: transparent;
+            border-color: rgba(74,222,128,.3);
+            box-shadow: 0 0 20px rgba(48,122,6,.2);
+        }
+        .portfolio-section {
+            padding: 2rem 0 5rem;
+            background: #0d0d0d;
+            min-height: 50vh;
         }
         .portfolio-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 2rem;
-            padding: 2rem 0;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 1.5rem;
         }
-        .portfolio-item {
+        .portfolio-card {
             position: relative;
-            border-radius: 1rem;
+            border-radius: 16px;
             overflow: hidden;
             cursor: pointer;
             aspect-ratio: 16/11;
+            background: rgba(255,255,255,.03);
+            border: 1px solid rgba(255,255,255,.06);
+            transition: transform .4s, box-shadow .4s;
         }
-        .portfolio-item img {
+        .portfolio-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 50px rgba(0,0,0,.4);
+        }
+        .portfolio-card img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.5s;
+            transition: transform .5s;
+        }
+        .portfolio-card:hover img {
+            transform: scale(1.08);
         }
         .portfolio-overlay {
             position: absolute;
-            bottom: -100%;
+            bottom: 0;
             left: 0;
             right: 0;
-            background: linear-gradient(to top, rgb(40 94 34 / 95%), rgb(33 188 23 / 95%));
+            background: linear-gradient(to top, rgba(10,10,10,.95) 0%, rgba(10,10,10,.7) 60%, transparent 100%);
             color: white;
-            padding: 2rem;
-            transition: bottom 0.3s;
+            padding: 1.5rem;
+            transform: translateY(40px);
+            opacity: 0;
+            transition: transform .4s, opacity .4s;
         }
-        .portfolio-item:hover .portfolio-overlay {
-            bottom: 0;
+        .portfolio-card:hover .portfolio-overlay {
+            transform: translateY(0);
+            opacity: 1;
         }
-        .portfolio-item:hover img {
-            transform: scale(1.1);
-        }
-        .portfolio-category {
+        .portfolio-tag {
             display: inline-block;
-            padding: 0.25rem 0.75rem;
-            background: rgba(255,255,255,0.2);
-            border-radius: 0.25rem;
-            font-size: 0.8rem;
+            padding: 0.2rem 0.65rem;
+            background: rgba(74,222,128,.15);
+            color: #4ade80;
+            border: 1px solid rgba(74,222,128,.2);
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: .05em;
             margin-bottom: 0.5rem;
         }
+        .portfolio-overlay h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: .3rem;
+        }
+        .portfolio-overlay p {
+            font-size: .85rem;
+            color: rgba(255,255,255,.65);
+            line-height: 1.4;
+        }
+        .portfolio-price {
+            margin-top: .5rem;
+            font-size: .8rem;
+            color: #4ade80;
+            font-weight: 600;
+        }
+        .portfolio-placeholder {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #1a2d1f, #0d1a10);
+            color: #4ade80;
+            font-size: 3.5rem;
+        }
+        .no-projects {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: #64748b;
+        }
+        .no-projects i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #334155;
+        }
         @media (max-width: 768px) {
-            .portfolio-hero h1 {
-                font-size: 2rem;
-            }
             .portfolio-grid {
                 grid-template-columns: 1fr;
             }
@@ -111,9 +185,8 @@
                 <li><a href="pricing.html">Pricing</a></li>
                 <li><a href="blog.html">Insights</a></li>
                 <li><a href="contact.html">Contact</a></li>
-                <li><a href="invoice.html">Invoice</a></li>
             </ul>
-            <a href="contact.html" class="btn btn-primary">Start a Project →</a>
+            <a href="contact.html" class="btn btn-primary">Start a Project &rarr;</a>
             <div class="mobile-menu-btn">
                 <span></span>
                 <span></span>
@@ -126,139 +199,78 @@
         <section class="portfolio-hero">
             <div class="container">
                 <h1>Our <span class="gradient-text">Work</span></h1>
-                <p>Showcasing our best projects and success stories</p>
+                <p>From brand identities to full-stack platforms &mdash; here's what we've built for our clients.</p>
             </div>
         </section>
 
-        <div class="container">
-            <div class="portfolio-filter">
-                <button class="filter-btn active" data-filter="all">All Projects</button>
-                <button class="filter-btn" data-filter="web">Web Development</button>
-                <button class="filter-btn" data-filter="design">UI Design</button>
-                <button class="filter-btn" data-filter="marketing">Digital Marketing</button>
-            </div>
+        <section class="portfolio-section">
+            <div class="container">
+                <div class="portfolio-filter">
+                    <button class="filter-btn active" data-filter="all">All Projects</button>
+                    <button class="filter-btn" data-filter="web">Web Development</button>
+                    <button class="filter-btn" data-filter="design">UI Design</button>
+                    <button class="filter-btn" data-filter="marketing">Marketing</button>
+                    <button class="filter-btn" data-filter="graphic">Graphic Design</button>
+                </div>
 
-            <div class="portfolio-grid" id="portfolio-grid">
-                <!-- Portfolio items will be loaded here -->
+                <div class="portfolio-grid" id="portfolio-grid"></div>
             </div>
-        </div>
+        </section>
     </main>
 
-    <footer class="main-footer">
-        <div class="footer-content">
-            <div class="footer-section">
-                <div class="footer-logo">
-                    <img class="logo-img" src="assets/images/logo/clover%20p1.png" alt="Clover Digital logo">
-                    <h3>CLOVER DIGITAL</h3>
+    <!-- Footer Hero (matches index.html) -->
+    <footer class="footer-hero">
+        <div class="footer-glow"></div>
+        <div class="footer-container">
+            <div class="brand-section">
+                <div class="brand-logo-row">
+                    <img src="assets/images/logo/clover g2.png" alt="Clover Digital Logo" class="brand-logo">
                 </div>
-                <p>Reach your peak performance with cutting-edge digital solutions.</p>
-                <div class="social-links">
-                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
+                <p class="brand-description">
+                    We engineer digital excellence that drives growth.
+                    From startups to enterprises, we're your trusted digital partner.
+                </p>
+            </div>
+            <div class="footer-card">
+                <div class="footer-grid">
+                    <div class="social-column">
+                        <a href="https://www.facebook.com/share/19GNou1sDR" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.tiktok.com/@dsg.clover" target="_blank" rel="noopener noreferrer"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://t.me/cloverdigital1" target="_blank" rel="noopener noreferrer"><i class="fab fa-telegram-plane"></i></a>
+                        <a href="https://www.instagram.com/officialcloverdigital" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                    </div>
+                    <div class="footer-column">
+                        <h3>COMPANY</h3>
+                        <a href="about.html">About Us</a>
+                        <a href="services.html">Services</a>
+                        <a href="portfolio.html">Portfolio</a>
+                        <a href="pricing.html">Pricing</a>
+                        <a href="blog.html">Insights</a>
+                        <a href="contact.html">Contact</a>
+                    </div>
+                    <div class="footer-column">
+                        <h3>SERVICES</h3>
+                        <a href="contact.html">Web Development</a>
+                        <a href="contact.html">UI Design</a>
+                        <a href="contact.html">Digital Marketing</a>
+                        <a href="contact.html">Graphic Design</a>
+                    </div>
+                    <div class="footer-column">
+                        <h3>CONTACT</h3>
+                        <p><i class="fas fa-map-marker-alt"></i> Adama, Ethiopia</p>
+                        <p><i class="fas fa-phone"></i> +251 998 065 377</p>
+                        <p><i class="fas fa-envelope"></i> hello@cloverdigital.com</p>
+                        <p><i class="fas fa-clock"></i> Mon-Fri: 9:00 AM - 6:00 PM</p>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <div class="footer-line"></div>
+                    <p>&copy; 2026 CLOVER DIGITAL. All rights reserved. | <a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Terms of Service</a></p>
                 </div>
             </div>
-            <div class="footer-section">
-                <h4>Quick Links</h4>
-                <ul>
-                    <li><a href="about.html">About Us</a></li>
-                    <li><a href="services.html">Services</a></li>
-                    <li><a href="portfolio.html">Portfolio</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h4>Contact</h4>
-                <p><i class="fas fa-map-marker-alt"></i> Adama , Ethiopia</p>
-            <p><i class="fas fa-phone"></i> +251 998 065 377</p>
-            <p><i class="fas fa-envelope"></i> hello@cloverdigital.com</p>
-            <p><i class="fas fa-clock"></i> Mon-Fri: 9:00 AM - 6:00 PM PST</p>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 CLOVER DIGITAL. All rights reserved.</p>
         </div>
     </footer>
 
-    <script>
-        // Portfolio data
-        const portfolioItems = [
-            {
-                id: 1,
-                title: "E-Commerce Platform",
-                category: "web",
-                description: "Full-featured online store with payment integration",
-                image: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=600"
-            },
-            {
-                id: 2,
-                title: "Banking App Redesign",
-                category: "design",
-                description: "Modern UI for mobile banking application",
-                image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600"
-            },
-            {
-                id: 3,
-                title: "SEO Campaign",
-                category: "marketing",
-                description: "200% increase in organic traffic",
-                image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600"
-            },
-            {
-                id: 4,
-                title: "Corporate Website",
-                category: "web",
-                description: "Modern corporate presence for global brand",
-                image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=600"
-            },
-            {
-                id: 5,
-                title: "Mobile App Design",
-                category: "design",
-                description: "Intuitive mobile experience for startup",
-                image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600"
-            },
-            {
-                id: 6,
-                title: "Social Media Strategy",
-                category: "marketing",
-                description: "Comprehensive social media campaign",
-                image: "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=600"
-            }
-        ];
-
-        function renderPortfolio(category = 'all') {
-            const grid = document.getElementById('portfolio-grid');
-            const filtered = category === 'all' ? portfolioItems : portfolioItems.filter(item => item.category === category);
-            
-            grid.innerHTML = filtered.map(item => `
-                <div class="portfolio-item" data-category="${item.category}">
-                    <img src="${item.image}" alt="${item.title}">
-                    <div class="portfolio-overlay">
-                        <span class="portfolio-category">${item.category === 'web' ? 'Web Development' : item.category === 'design' ? 'UI/UX Design' : 'Digital Marketing'}</span>
-                        <h3>${item.title}</h3>
-                        <p>${item.description}</p>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        // Filter functionality
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const category = btn.dataset.filter;
-                renderPortfolio(category);
-                
-                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-            });
-        });
-
-        // Initial render
-        renderPortfolio();
-    </script>
-    
     <!-- WhatsApp Floating Button -->
     <div class="wa-float">
         <span class="wa-tooltip">Chat with us on WhatsApp</span>
@@ -269,113 +281,72 @@
 
     <script src="assets/js/main.js"></script>
     <script src="assets/js/animations.js"></script>
-    <script src="assets/js/portfolio.js"></script>
 
     <script>
-        // Fallback dynamic content loading
-        document.addEventListener('DOMContentLoaded', function() {
-            // Sample service data
-            const servicesData = [
-                { icon: "fa-code", title: "Web Development", desc: "Custom websites and web applications built with modern technologies like React, Vue, and Node.js" },
-                { icon: "fa-paintbrush", title: "UI/UX Design", desc: "Beautiful, intuitive interfaces that users love — designed with Figma and tested with real users" },
-                { icon: "fa-chart-line", title: "Digital Marketing", desc: "Data-driven strategies to grow your online presence and convert visitors into loyal customers" },
-                { icon: "fa-mobile-alt", title: "Mobile Apps", desc: "Native and cross-platform mobile applications that work flawlessly on iOS and Android" },
-                { icon: "fa-search", title: "SEO Optimization", desc: "Improve your search rankings and organic visibility with proven white-hat techniques" },
-                { icon: "fa-cart-shopping", title: "E-commerce", desc: "Powerful online stores that convert visitors to customers with seamless checkout experiences" }
-            ];
+        const PORTFOLIO_KEY = 'clover_portfolio_projects';
+        const CATEGORY_LABELS = {
+            web: 'Web Development',
+            design: 'UI Design',
+            marketing: 'Digital Marketing',
+            graphic: 'Graphic Design'
+        };
 
-            // Load services if grid is empty
-            const servicesGrid = document.getElementById('services-grid');
-            if (servicesGrid && servicesGrid.children.length === 0) {
-                servicesGrid.innerHTML = servicesData.map(service => `
-                    <div class="service-card">
-                        <div class="service-icon">
-                            <i class="fas ${service.icon}"></i>
-                        </div>
-                        <h3>${service.title}</h3>
-                        <p>${service.desc}</p>
-                        <a href="services.html" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                `).join('');
+        // Default projects (shown when localStorage is empty)
+        const defaultProjects = [
+            { id: 'd1', title: 'E-Commerce Platform', category: 'web', description: 'Full-featured online store with payment integration', image: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=600', status: 'published' },
+            { id: 'd2', title: 'Banking App Redesign', category: 'design', description: 'Modern UI for mobile banking application', image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600', status: 'published' },
+            { id: 'd3', title: 'SEO Campaign', category: 'marketing', description: '200% increase in organic traffic for local business', image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600', status: 'published' },
+            { id: 'd4', title: 'Corporate Website', category: 'web', description: 'Modern corporate presence for global brand', image: 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=600', status: 'published' },
+            { id: 'd5', title: 'Brand Identity Package', category: 'graphic', description: 'Complete visual identity for a coffee startup', image: 'https://images.unsplash.com/photo-1626785774573-4b799315345d?w=600', status: 'published' },
+            { id: 'd6', title: 'Social Media Strategy', category: 'marketing', description: 'Comprehensive social media growth campaign', image: 'https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=600', status: 'published' }
+        ];
+
+        function getProjects() {
+            try {
+                const stored = JSON.parse(localStorage.getItem(PORTFOLIO_KEY));
+                if (stored && stored.length > 0) return stored.filter(p => p.status === 'published');
+            } catch (e) {}
+            return defaultProjects;
+        }
+
+        function renderPortfolio(category) {
+            const grid = document.getElementById('portfolio-grid');
+            let projects = getProjects();
+            if (category && category !== 'all') {
+                projects = projects.filter(p => p.category === category);
             }
 
-            // Counter animation for stats
-            const counters = document.querySelectorAll('.stat-number');
-            const observerOptions = {
-                threshold: 0.5,
-                rootMargin: '0px'
-            };
+            if (projects.length === 0) {
+                grid.innerHTML = '<div class="no-projects"><i class="fas fa-folder-open"></i><p>No projects in this category yet.</p></div>';
+                return;
+            }
 
-            const counterObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const counter = entry.target;
-                        const target = parseInt(counter.getAttribute('data-count'));
-                        const duration = 2000;
-                        const startTime = performance.now();
+            grid.innerHTML = projects.map(p => `
+                <div class="portfolio-card" data-category="${p.category}">
+                    ${p.image
+                        ? `<img src="${p.image}" alt="${p.title}" loading="lazy">`
+                        : `<div class="portfolio-placeholder"><i class="fas fa-image"></i></div>`}
+                    <div class="portfolio-overlay">
+                        <span class="portfolio-tag">${CATEGORY_LABELS[p.category] || p.category}</span>
+                        <h3>${p.title}</h3>
+                        <p>${p.description || ''}</p>
+                        ${p.price ? `<div class="portfolio-price"><i class="fas fa-tag"></i> ${p.price} ETB</div>` : ''}
+                        ${p.client ? `<div class="portfolio-price" style="color:#94a3b8;"><i class="fas fa-user"></i> ${p.client}</div>` : ''}
+                    </div>
+                </div>
+            `).join('');
+        }
 
-                        const updateCount = (currentTime) => {
-                            const elapsed = currentTime - startTime;
-                            const progress = Math.min(elapsed / duration, 1);
-                            const eased = 1 - Math.pow(1 - progress, 3);
-                            counter.innerText = Math.floor(eased * target);
-
-                            if (progress < 1) {
-                                requestAnimationFrame(updateCount);
-                            } else {
-                                counter.innerText = target;
-                            }
-                        };
-
-                        requestAnimationFrame(updateCount);
-                        counterObserver.unobserve(counter);
-                    }
-                });
-            }, observerOptions);
-
-            counters.forEach(counter => counterObserver.observe(counter));
-
-            // Portfolio filter functionality
-            const filterBtns = document.querySelectorAll('.filter-btn');
-            const portfolioCards = document.querySelectorAll('.portfolio-card');
-
-            filterBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    filterBtns.forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-
-                    const filter = btn.getAttribute('data-filter');
-
-                    portfolioCards.forEach(card => {
-                        if (filter === 'all' || card.getAttribute('data-category') === filter) {
-                            card.style.display = 'block';
-                            card.style.animation = 'fadeInUp 0.4s ease-out';
-                        } else {
-                            card.style.display = 'none';
-                        }
-                    });
-                });
-            });
-
-            // Header scroll effect
-            const header = document.querySelector('.main-header');
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 50) {
-                    header.classList.add('scrolled');
-                } else {
-                    header.classList.remove('scrolled');
-                }
-            });
-
-            // Mobile menu toggle
-            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-            const navMenu = document.querySelector('.nav-menu');
-
-            mobileMenuBtn.addEventListener('click', () => {
-                mobileMenuBtn.classList.toggle('active');
-                navMenu.classList.toggle('active');
+        // Filter buttons
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                renderPortfolio(btn.dataset.filter);
             });
         });
+
+        renderPortfolio('all');
     </script>
 </body>
 </html>

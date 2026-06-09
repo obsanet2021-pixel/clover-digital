@@ -108,9 +108,10 @@
             const password = document.getElementById('adminPassword').value;
             const rememberMe = document.getElementById('rememberMe').checked;
 
-            // Validate credentials using admin-auth.js
-            if (AdminAuth.validateCredentials(email, password)) {
-                AdminAuth.setSession(email, rememberMe);
+            // Validate credentials — returns matched user object or null
+            const user = AdminAuth.validateCredentials(email, password);
+            if (user) {
+                AdminAuth.setSession(user, rememberMe);
                 errorMessage.style.display = 'none';
                 
                 // Redirect to admin dashboard

@@ -4,84 +4,198 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CLOVER DIGITAL - Our Services | Digital Solutions</title>
-    <link rel="stylesheet" href="assets/css/main.css">
+    <meta name="description" content="Comprehensive digital services — graphic design, web development, UI design, and digital marketing by Clover Digital, Adama Ethiopia">
+    <link rel="stylesheet" href="assets/css/main.css?v=3">
     <link rel="stylesheet" href="assets/css/responsive.css">
     <link rel="stylesheet" href="assets/css/animations.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         .services-hero {
-            background: linear-gradient(135deg, #0a0a0a 0%, #307a06 100%);
-            padding: 8rem 0 4rem;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1c2b22 50%, #307a06 100%);
+            padding: 9rem 0 5rem;
             text-align: center;
             color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        .services-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 70% 30%, rgba(11,124,56,.2), transparent 60%);
+            pointer-events: none;
         }
         .services-hero h1 {
-            font-size: 3.5rem;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
             margin-bottom: 1rem;
+            position: relative;
         }
+        .services-hero p {
+            font-size: 1.15rem;
+            color: rgba(255,255,255,.7);
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        /* ── Service Cards Grid ── */
+        .services-section {
+            padding: 5rem 0;
+            background: #0d0d0d;
+        }
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        .svc-card {
+            background: rgba(255,255,255,.03);
+            border: 1px solid rgba(255,255,255,.06);
+            border-radius: 20px;
+            padding: 2.5rem 2rem;
+            transition: transform .3s, box-shadow .3s, border-color .3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .svc-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #22c55e, #4ade80);
+            opacity: 0;
+            transition: opacity .3s;
+        }
+        .svc-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(0,0,0,.3);
+            border-color: rgba(74,222,128,.15);
+        }
+        .svc-card:hover::before { opacity: 1; }
+        .svc-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, rgba(34,197,94,.15), rgba(74,222,128,.05));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #4ade80;
+            margin-bottom: 1.5rem;
+        }
+        .svc-card h3 {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: #f1f5f9;
+            margin-bottom: .75rem;
+        }
+        .svc-card p {
+            font-size: .95rem;
+            color: #94a3b8;
+            line-height: 1.7;
+            margin-bottom: 1.25rem;
+        }
+        .svc-features {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .svc-features li {
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+            padding: .35rem 0;
+            font-size: .88rem;
+            color: #cbd5e1;
+        }
+        .svc-features li i {
+            color: #4ade80;
+            font-size: .75rem;
+        }
+
+        /* ── Detail Sections ── */
         .service-detail-section {
             padding: 5rem 0;
+            background: #0a0a0a;
         }
         .service-detail {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 3rem;
-            margin-bottom: 4rem;
+            margin-bottom: 5rem;
             align-items: center;
         }
-        .service-detail:nth-child(even) {
-            direction: rtl;
-        }
-        .service-detail:nth-child(even) .service-info {
-            direction: ltr;
-        }
+        .service-detail:nth-child(even) { direction: rtl; }
+        .service-detail:nth-child(even) .service-info { direction: ltr; }
         .service-info h3 {
             font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #f1f5f9;
+        }
+        .service-info p {
+            color: #94a3b8;
+            line-height: 1.7;
             margin-bottom: 1rem;
         }
         .service-features {
             list-style: none;
             margin-top: 1.5rem;
+            padding: 0;
         }
         .service-features li {
             padding: 0.5rem 0;
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            color: #cbd5e1;
         }
-        .service-features li i {
-            color: #098315;
-        }
+        .service-features li i { color: #4ade80; }
         .service-image {
-            background: linear-gradient(135deg, #667eea20, #764ba220);
+            background: linear-gradient(135deg, rgba(34,197,94,.06), rgba(74,222,128,.03));
+            border: 1px solid rgba(255,255,255,.06);
             padding: 1.5rem;
-            border-radius: 1rem;
+            border-radius: 20px;
             text-align: center;
             display: flex;
             align-items: center;
             justify-content: center;
-            min-height: 350px;
+            min-height: 320px;
+            direction: ltr;
         }
         .service-image img {
             max-width: 100%;
             height: auto;
-            border-radius: 0.5rem;
+            border-radius: 12px;
         }
         .service-image i {
-            font-size: 6rem;
-            color: #098315;
+            font-size: 5rem;
+            color: #4ade80;
         }
+
+        /* ── CTA ── */
+        .services-cta {
+            padding: 5rem 0;
+            text-align: center;
+            background: linear-gradient(135deg, #0a0a0a, #1c2b22);
+        }
+        .services-cta h2 {
+            font-size: clamp(1.8rem, 3vw, 2.5rem);
+            font-weight: 800;
+            color: #f1f5f9;
+            margin-bottom: 1rem;
+        }
+        .services-cta p {
+            color: #94a3b8;
+            max-width: 500px;
+            margin: 0 auto 2rem;
+        }
+
         @media (max-width: 768px) {
-            .service-detail {
-                grid-template-columns: 1fr;
-            }
-            .service-detail:nth-child(even) {
-                direction: ltr;
-            }
-            .services-hero h1 {
-                font-size: 2rem;
-            }
+            .service-detail { grid-template-columns: 1fr; }
+            .service-detail:nth-child(even) { direction: ltr; }
         }
     </style>
 </head>
@@ -100,9 +214,8 @@
                 <li><a href="pricing.html">Pricing</a></li>
                 <li><a href="blog.html">Insights</a></li>
                 <li><a href="contact.html">Contact</a></li>
-                <li><a href="invoice.html">Invoice</a></li>
             </ul>
-            <a href="contact.html" class="btn btn-primary">Start a Project →</a>
+            <a href="contact.html" class="btn btn-primary">Start a Project &rarr;</a>
             <div class="mobile-menu-btn">
                 <span></span>
                 <span></span>
@@ -115,12 +228,81 @@
         <section class="services-hero">
             <div class="container">
                 <h1>Our <span class="gradient-text">Services</span></h1>
-                <p>Comprehensive digital solutions tailored to your needs</p>
+                <p>We offer end-to-end digital solutions &mdash; from eye-catching designs to fully functional web platforms.</p>
             </div>
         </section>
 
+        <!-- Service Cards Overview -->
+        <section class="services-section">
+            <div class="container">
+                <div class="services-grid">
+                    <div class="svc-card">
+                        <div class="svc-icon"><i class="fas fa-palette"></i></div>
+                        <h3>Graphic Design</h3>
+                        <p>Eye-catching visuals that elevate your brand and communicate your message.</p>
+                        <ul class="svc-features">
+                            <li><i class="fas fa-check"></i> Logo &amp; Brand Identity</li>
+                            <li><i class="fas fa-check"></i> Social Media Graphics</li>
+                            <li><i class="fas fa-check"></i> Print &amp; Packaging Design</li>
+                            <li><i class="fas fa-check"></i> Illustrations &amp; Infographics</li>
+                        </ul>
+                    </div>
+                    <div class="svc-card">
+                        <div class="svc-icon"><i class="fas fa-code"></i></div>
+                        <h3>Web Development</h3>
+                        <p>High-performance websites and web apps built with modern technologies.</p>
+                        <ul class="svc-features">
+                            <li><i class="fas fa-check"></i> Custom Websites</li>
+                            <li><i class="fas fa-check"></i> E-commerce Solutions</li>
+                            <li><i class="fas fa-check"></i> CMS Development</li>
+                            <li><i class="fas fa-check"></i> API &amp; Backend Systems</li>
+                        </ul>
+                    </div>
+                    <div class="svc-card">
+                        <div class="svc-icon"><i class="fas fa-pen-nib"></i></div>
+                        <h3>UI Design</h3>
+                        <p>Beautiful, intuitive interfaces designed for real users and real results.</p>
+                        <ul class="svc-features">
+                            <li><i class="fas fa-check"></i> Wireframing &amp; Prototyping</li>
+                            <li><i class="fas fa-check"></i> Responsive Layouts</li>
+                            <li><i class="fas fa-check"></i> Design Systems</li>
+                            <li><i class="fas fa-check"></i> Mobile-First Design</li>
+                        </ul>
+                    </div>
+                    <div class="svc-card">
+                        <div class="svc-icon"><i class="fas fa-chart-line"></i></div>
+                        <h3>Digital Marketing</h3>
+                        <p>Data-driven strategies that grow your audience and drive conversions.</p>
+                        <ul class="svc-features">
+                            <li><i class="fas fa-check"></i> SEO Optimization</li>
+                            <li><i class="fas fa-check"></i> Social Media Management</li>
+                            <li><i class="fas fa-check"></i> Content Marketing</li>
+                            <li><i class="fas fa-check"></i> Paid Advertising</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Detailed Service Sections -->
         <section class="service-detail-section">
             <div class="container">
+                <div class="service-detail">
+                    <div class="service-info">
+                        <h3>Graphic <span class="gradient-text">Design</span></h3>
+                        <p>From logo creation to full brand identity packages, we craft visuals that make your business stand out and leave a lasting impression.</p>
+                        <ul class="service-features">
+                            <li><i class="fas fa-check-circle"></i> Logo &amp; Brand Identity</li>
+                            <li><i class="fas fa-check-circle"></i> Business Cards &amp; Stationery</li>
+                            <li><i class="fas fa-check-circle"></i> Social Media Templates</li>
+                            <li><i class="fas fa-check-circle"></i> Flyers, Posters &amp; Banners</li>
+                        </ul>
+                    </div>
+                    <div class="service-image">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                </div>
+
                 <div class="service-detail">
                     <div class="service-info">
                         <h3>Web <span class="gradient-text">Development</span></h3>
@@ -133,87 +315,94 @@
                         </ul>
                     </div>
                     <div class="service-image">
-                       <img src="assets/images/portfolio/Screenshot 2026-05-31 143538.png"
-                             alt="Web Development Service">
+                        <img src="assets/images/portfolio/Screenshot 2026-05-31 143538.png" alt="Web Development Service">
                     </div>
                 </div>
 
                 <div class="service-detail">
                     <div class="service-info">
                         <h3>UI <span class="gradient-text">Design</span></h3>
-                        <p>Beautiful, intuitive interfaces that captivate users and drive engagement.</p>
+                        <p>Beautiful, intuitive interfaces that captivate users and drive engagement across all devices.</p>
                         <ul class="service-features">
-                            <li><i class="fas fa-check-circle"></i> User Research & Testing</li>
-                            <li><i class="fas fa-check-circle"></i> Wireframing & Prototyping</li>
+                            <li><i class="fas fa-check-circle"></i> User Research &amp; Testing</li>
+                            <li><i class="fas fa-check-circle"></i> Wireframing &amp; Prototyping</li>
                             <li><i class="fas fa-check-circle"></i> Responsive Design</li>
                             <li><i class="fas fa-check-circle"></i> Design Systems</li>
                         </ul>
                     </div>
                     <div class="service-image">
-                        <img src="assets\images\portfolio\Screenshot 2026-06-01 180254.png"
-                             alt="UI Design Service">
+                        <img src="assets/images/portfolio/Screenshot 2026-06-01 180254.png" alt="UI Design Service">
                     </div>
                 </div>
+            </div>
+        </section>
 
-                <div class="service-detail">
-                    <div class="service-info">
-                        <h3>Digital <span class="gradient-text">Marketing</span></h3>
-                        <p>Data-driven strategies that boost visibility, engagement, and conversions.</p>
-                        <ul class="service-features">
-                            <li><i class="fas fa-check-circle"></i> SEO Optimization</li>
-                            <li><i class="fas fa-check-circle"></i> Content Marketing</li>
-                            <li><i class="fas fa-check-circle"></i> Social Media Management</li>
-                            <li><i class="fas fa-check-circle"></i> PPC Campaigns</li>
-                        </ul>
-                    </div>
-                    <div class="service-image">
-                        <img src="assets/images/portfolio/Screenshot 2026-06-03 170403.png"
-                             alt="Digital Marketing Service">
-                    </div>
+        <!-- CTA -->
+        <section class="services-cta">
+            <div class="container">
+                <h2>Ready to start your <span class="gradient-text">project?</span></h2>
+                <p>Let's collaborate and build something extraordinary together.</p>
+                <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+                    <a href="contact.html" class="btn btn-primary btn-large">Get a Free Quote <i class="fas fa-arrow-right"></i></a>
+                    <a href="portfolio.html" class="btn btn-outline btn-large">View Our Work</a>
                 </div>
             </div>
         </section>
     </main>
 
-    <footer class="main-footer">
-        <div class="footer-content">
-            <div class="footer-section">
-                <div class="footer-logo">
-                    <img class="logo-img" src="assets/images/logo/clover%20p1.png" alt="Clover Digital logo">
-                    </svg>
-                    <h3>CLOVER DIGITAL</h3>
+    <!-- Footer Hero (matches index.html) -->
+    <footer class="footer-hero">
+        <div class="footer-glow"></div>
+        <div class="footer-container">
+            <div class="brand-section">
+                <div class="brand-logo-row">
+                    <img src="assets/images/logo/clover g2.png" alt="Clover Digital Logo" class="brand-logo">
                 </div>
-                <p>Reach your peak performance with cutting-edge digital solutions.</p>
-                <div class="social-links">
-                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
+                <p class="brand-description">
+                    We engineer digital excellence that drives growth.
+                    From startups to enterprises, we're your trusted digital partner.
+                </p>
+            </div>
+            <div class="footer-card">
+                <div class="footer-grid">
+                    <div class="social-column">
+                        <a href="https://www.facebook.com/share/19GNou1sDR" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.tiktok.com/@dsg.clover" target="_blank" rel="noopener noreferrer"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://t.me/cloverdigital1" target="_blank" rel="noopener noreferrer"><i class="fab fa-telegram-plane"></i></a>
+                        <a href="https://www.instagram.com/officialcloverdigital" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                    </div>
+                    <div class="footer-column">
+                        <h3>COMPANY</h3>
+                        <a href="about.html">About Us</a>
+                        <a href="services.html">Services</a>
+                        <a href="portfolio.html">Portfolio</a>
+                        <a href="pricing.html">Pricing</a>
+                        <a href="blog.html">Insights</a>
+                        <a href="contact.html">Contact</a>
+                    </div>
+                    <div class="footer-column">
+                        <h3>SERVICES</h3>
+                        <a href="contact.html">Web Development</a>
+                        <a href="contact.html">UI Design</a>
+                        <a href="contact.html">Digital Marketing</a>
+                        <a href="contact.html">Graphic Design</a>
+                    </div>
+                    <div class="footer-column">
+                        <h3>CONTACT</h3>
+                        <p><i class="fas fa-map-marker-alt"></i> Adama, Ethiopia</p>
+                        <p><i class="fas fa-phone"></i> +251 998 065 377</p>
+                        <p><i class="fas fa-envelope"></i> hello@cloverdigital.com</p>
+                        <p><i class="fas fa-clock"></i> Mon-Fri: 9:00 AM - 6:00 PM</p>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <div class="footer-line"></div>
+                    <p>&copy; 2026 CLOVER DIGITAL. All rights reserved. | <a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Terms of Service</a></p>
                 </div>
             </div>
-            <div class="footer-section">
-                <h4>Quick Links</h4>
-                <ul>
-                    <li><a href="about.html">About Us</a></li>
-                    <li><a href="services.html">Services</a></li>
-                    <li><a href="portfolio.html">Portfolio</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h4>Contact</h4>
-                <p><i class="fas fa-map-marker-alt"></i> Adama , Ethiopia</p>
-                 <p><i class="fas fa-phone"></i> +251 998 065 377</p>
-                 <p><i class="fas fa-envelope"></i> hello@cloverdigital.com</p>
-                 <p><i class="fas fa-clock"></i> Mon-Fri: 9:00 AM - 6:00 PM PST</p>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 CLOVER DIGITAL. All rights reserved.</p>
         </div>
     </footer>
 
-    
     <!-- WhatsApp Floating Button -->
     <div class="wa-float">
         <span class="wa-tooltip">Chat with us on WhatsApp</span>
@@ -224,113 +413,5 @@
 
     <script src="assets/js/main.js"></script>
     <script src="assets/js/animations.js"></script>
-    <script src="assets/js/portfolio.js"></script>
-
-    <script>
-        // Fallback dynamic content loading
-        document.addEventListener('DOMContentLoaded', function() {
-            // Sample service data
-            const servicesData = [
-                { icon: "fa-code", title: "Web Development", desc: "Custom websites and web applications built with modern technologies like React, Vue, and Node.js" },
-                { icon: "fa-paintbrush", title: "UI/UX Design", desc: "Beautiful, intuitive interfaces that users love — designed with Figma and tested with real users" },
-                { icon: "fa-chart-line", title: "Digital Marketing", desc: "Data-driven strategies to grow your online presence and convert visitors into loyal customers" },
-                { icon: "fa-mobile-alt", title: "Mobile Apps", desc: "Native and cross-platform mobile applications that work flawlessly on iOS and Android" },
-                { icon: "fa-search", title: "SEO Optimization", desc: "Improve your search rankings and organic visibility with proven white-hat techniques" },
-                { icon: "fa-cart-shopping", title: "E-commerce", desc: "Powerful online stores that convert visitors to customers with seamless checkout experiences" }
-            ];
-
-            // Load services if grid is empty
-            const servicesGrid = document.getElementById('services-grid');
-            if (servicesGrid && servicesGrid.children.length === 0) {
-                servicesGrid.innerHTML = servicesData.map(service => `
-                    <div class="service-card">
-                        <div class="service-icon">
-                            <i class="fas ${service.icon}"></i>
-                        </div>
-                        <h3>${service.title}</h3>
-                        <p>${service.desc}</p>
-                        <a href="services.html" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                `).join('');
-            }
-
-            // Counter animation for stats
-            const counters = document.querySelectorAll('.stat-number');
-            const observerOptions = {
-                threshold: 0.5,
-                rootMargin: '0px'
-            };
-
-            const counterObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const counter = entry.target;
-                        const target = parseInt(counter.getAttribute('data-count'));
-                        const duration = 2000;
-                        const startTime = performance.now();
-
-                        const updateCount = (currentTime) => {
-                            const elapsed = currentTime - startTime;
-                            const progress = Math.min(elapsed / duration, 1);
-                            const eased = 1 - Math.pow(1 - progress, 3);
-                            counter.innerText = Math.floor(eased * target);
-
-                            if (progress < 1) {
-                                requestAnimationFrame(updateCount);
-                            } else {
-                                counter.innerText = target;
-                            }
-                        };
-
-                        requestAnimationFrame(updateCount);
-                        counterObserver.unobserve(counter);
-                    }
-                });
-            }, observerOptions);
-
-            counters.forEach(counter => counterObserver.observe(counter));
-
-            // Portfolio filter functionality
-            const filterBtns = document.querySelectorAll('.filter-btn');
-            const portfolioCards = document.querySelectorAll('.portfolio-card');
-
-            filterBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    filterBtns.forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-
-                    const filter = btn.getAttribute('data-filter');
-
-                    portfolioCards.forEach(card => {
-                        if (filter === 'all' || card.getAttribute('data-category') === filter) {
-                            card.style.display = 'block';
-                            card.style.animation = 'fadeInUp 0.4s ease-out';
-                        } else {
-                            card.style.display = 'none';
-                        }
-                    });
-                });
-            });
-
-            // Header scroll effect
-            const header = document.querySelector('.main-header');
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 50) {
-                    header.classList.add('scrolled');
-                } else {
-                    header.classList.remove('scrolled');
-                }
-            });
-
-            // Mobile menu toggle
-            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-            const navMenu = document.querySelector('.nav-menu');
-
-            mobileMenuBtn.addEventListener('click', () => {
-                mobileMenuBtn.classList.toggle('active');
-                navMenu.classList.toggle('active');
-            });
-        });
-    </script>
 </body>
 </html>

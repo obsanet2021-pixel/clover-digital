@@ -1,250 +1,251 @@
 /**
  * CLOVER DIGITAL - Admin Dashboard
- * Handles dashboard functionality and navigation
+ * Dashboard navigation, portfolio CRUD, notifications
  */
 
-// Ensure user is logged in
 AdminAuth.requireLogin();
 
-// Initialize dashboard on page load
+const PORTFOLIO_KEY = 'clover_portfolio_projects';
+
 document.addEventListener('DOMContentLoaded', () => {
     initializeDashboard();
     setupEventListeners();
     updateAdminInfo();
+    renderPortfolioTable();
 });
 
-/**
- * Initialize dashboard components
- */
 function initializeDashboard() {
-    // Set active nav link based on URL hash or default to dashboard
     const currentSection = window.location.hash?.replace('#', '') || 'dashboard';
     navigateToSection(currentSection);
 }
 
-/**
- * Setup event listeners for dashboard interactions
- */
 function setupEventListeners() {
-    // Sidebar navigation
-    const sidebarLinks = document.querySelectorAll('.sidebar-link');
-    sidebarLinks.forEach(link => {
+    document.querySelectorAll('.sidebar-link[data-section]').forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
             const section = link.getAttribute('data-section');
             navigateToSection(section);
-            
-            // Update active state
-            sidebarLinks.forEach(l => l.classList.remove('active'));
+            document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
             link.classList.add('active');
-            
-            // Close sidebar on mobile
-            if (window.innerWidth <= 768) {
-                document.body.classList.remove('sidebar-open');
-            }
+            if (window.innerWidth <= 768) document.body.classList.remove('sidebar-open');
         });
     });
 
-    // Sidebar toggle button (mobile)
     const sidebarToggle = document.getElementById('sidebarToggle');
-    if (sidebarToggle) {
-        sidebarToggle.addEventListener('click', () => {
-            document.body.classList.toggle('sidebar-open');
-        });
-    }
+    if (sidebarToggle) sidebarToggle.addEventListener('click', () => document.body.classList.toggle('sidebar-open'));
 
-    // Logout buttons
-    const logoutBtns = document.querySelectorAll('#logoutBtn, #logoutBtnTop');
-    logoutBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            logout();
-        });
+    document.querySelectorAll('#logoutBtn, #logoutBtnTop').forEach(btn => {
+        btn.addEventListener('click', logout);
     });
 
-    // Add new buttons (portfolio, services, team)
-    const addPortfolioBtn = document.getElementById('addPortfolioBtn');
-    const addServiceBtn = document.getElementById('addServiceBtn');
-    const addTeamBtn = document.getElementById('addTeamBtn');
-
-    if (addPortfolioBtn) {
-        addPortfolioBtn.addEventListener('click', () => {
-            showModal('Add New Portfolio Item', 'portfolio-form');
-        });
-    }
-
-    if (addServiceBtn) {
-        addServiceBtn.addEventListener('click', () => {
-            showModal('Add New Service', 'service-form');
-        });
-    }
-
-    if (addTeamBtn) {
-        addTeamBtn.addEventListener('click', () => {
-            showModal('Add Team Member', 'team-form');
-        });
-    }
-
-    // Action buttons (edit/delete)
-    setupTableActions();
-
-    // Profile dropdown
     setupProfileDropdown();
 }
 
-/**
- * Navigate to a section and show/hide content
- * @param {string} section - Section name (dashboard, portfolio, services, etc.)
- */
 function navigateToSection(section) {
-    // Hide all sections
-    const sections = document.querySelectorAll('.content-section');
-    sections.forEach(sec => sec.classList.remove('active'));
+    document.querySelectorAll('.content-section').forEach(sec => sec.classList.remove('active'));
+    const el = document.getElementById(`${section}-section`);
+    if (el) el.classList.add('active');
 
-    // Show selected section
-    const selectedSection = document.getElementById(`${section}-section`);
-    if (selectedSection) {
-        selectedSection.classList.add('active');
-    }
-
-    // Update page title
-    const pageTitle = document.getElementById('pageTitle');
     const titleMap = {
         'dashboard': 'Dashboard',
-        'portfolio': 'Portfolio Management',
+        'portfolio': 'Portfolio Gallery',
         'services': 'Services Management',
         'team': 'Team Management',
         'content': 'Website Content',
         'analytics': 'Analytics & Reports',
         'settings': 'Settings'
     };
-    
-    if (pageTitle && titleMap[section]) {
-        pageTitle.textContent = titleMap[section];
-    }
-
-    // Update URL
+    const pageTitle = document.getElementById('pageTitle');
+    if (pageTitle && titleMap[section]) pageTitle.textContent = titleMap[section];
     window.location.hash = section;
 }
 
-/**
- * Update admin information display
- */
 function updateAdminInfo() {
+    const name = AdminAuth.getAdminName();
     const email = AdminAuth.getAdminEmail();
-    const adminNameElement = document.getElementById('adminName');
-    
-    if (adminNameElement && email) {
-        // Extract name from email (before @)
-        const name = email.split('@')[0];
-        const formattedName = name.charAt(0).toUpperCase() + name.slice(1);
-        adminNameElement.textContent = formattedName;
-    }
+    const adminNameEl = document.getElementById('adminName');
+    if (adminNameEl && name) adminNameEl.textContent = name;
 
-    // Update settings form with current email
     const settingsEmail = document.getElementById('settingsEmail');
-    if (settingsEmail && email) {
-        settingsEmail.value = email;
-    }
+    if (settingsEmail && email) settingsEmail.value = email;
+    const settingsName = document.getElementById('settingsName');
+    if (settingsName && name) settingsName.value = name;
 }
 
-/**
- * Setup profile dropdown
- */
+/* ═══════════════════════════════════════
+   PORTFOLIO CRUD (localStorage)
+═══════════════════════════════════════ */
+
+function getProjects() {
+    try { return JSON.parse(localStorage.getItem(PORTFOLIO_KEY)) || []; }
+    catch (e) { return []; }
+}
+
+function saveProjects(projects) {
+    localStorage.setItem(PORTFOLIO_KEY, JSON.stringify(projects));
+}
+
+const CATEGORY_LABELS = {
+    web: 'Web Development',
+    design: 'UI Design',
+    marketing: 'Digital Marketing',
+    graphic: 'Graphic Design'
+};
+
+function renderPortfolioTable() {
+    const tbody = document.getElementById('portfolioTableBody');
+    const noMsg = document.getElementById('noPortfolioMsg');
+    if (!tbody) return;
+
+    const projects = getProjects();
+    if (projects.length === 0) {
+        tbody.innerHTML = '';
+        if (noMsg) noMsg.style.display = 'block';
+        return;
+    }
+    if (noMsg) noMsg.style.display = 'none';
+
+    tbody.innerHTML = projects.map(p => `
+        <tr>
+            <td><strong>${escapeHtml(p.title)}</strong></td>
+            <td>${CATEGORY_LABELS[p.category] || p.category}</td>
+            <td>${p.price ? escapeHtml(p.price) + ' ETB' : '—'}</td>
+            <td><span class="badge badge-${p.status === 'published' ? 'success' : 'warning'}">${p.status === 'published' ? 'Published' : 'Draft'}</span></td>
+            <td>${new Date(p.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</td>
+            <td>
+                <button class="btn-icon" title="Edit" onclick="editProject('${p.id}')"><i class="fas fa-edit"></i></button>
+                <button class="btn-icon" title="Delete" onclick="deleteProject('${p.id}')"><i class="fas fa-trash"></i></button>
+            </td>
+        </tr>
+    `).join('');
+
+    // Update dashboard stat
+    const statEl = document.querySelector('.stat-number');
+    if (statEl) statEl.textContent = projects.filter(p => p.status === 'published').length;
+}
+
+function openPortfolioModal(project) {
+    const modal = document.getElementById('portfolioModal');
+    const title = document.getElementById('portfolioModalTitle');
+    document.getElementById('portfolioForm').reset();
+    document.getElementById('projectId').value = '';
+
+    if (project) {
+        title.textContent = 'Edit Project';
+        document.getElementById('projectId').value = project.id;
+        document.getElementById('projectTitle').value = project.title;
+        document.getElementById('projectDesc').value = project.description;
+        document.getElementById('projectCategory').value = project.category;
+        document.getElementById('projectStatus').value = project.status;
+        document.getElementById('projectImage').value = project.image || '';
+        document.getElementById('projectPrice').value = project.price || '';
+        document.getElementById('projectClient').value = project.client || '';
+    } else {
+        title.textContent = 'Add New Project';
+    }
+    modal.style.display = 'flex';
+}
+
+function closePortfolioModal() {
+    document.getElementById('portfolioModal').style.display = 'none';
+}
+
+function saveProject(e) {
+    e.preventDefault();
+    const projects = getProjects();
+    const id = document.getElementById('projectId').value;
+
+    const data = {
+        title: document.getElementById('projectTitle').value.trim(),
+        description: document.getElementById('projectDesc').value.trim(),
+        category: document.getElementById('projectCategory').value,
+        status: document.getElementById('projectStatus').value,
+        image: document.getElementById('projectImage').value.trim(),
+        price: document.getElementById('projectPrice').value.trim(),
+        client: document.getElementById('projectClient').value.trim()
+    };
+
+    if (id) {
+        const idx = projects.findIndex(p => p.id === id);
+        if (idx !== -1) {
+            projects[idx] = { ...projects[idx], ...data, updatedAt: new Date().toISOString() };
+        }
+        showNotification('Project updated successfully', 'success');
+    } else {
+        data.id = 'proj_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8);
+        data.createdAt = new Date().toISOString();
+        data.updatedAt = data.createdAt;
+        projects.unshift(data);
+        showNotification('Project added successfully', 'success');
+    }
+
+    saveProjects(projects);
+    renderPortfolioTable();
+    closePortfolioModal();
+}
+
+function editProject(id) {
+    const project = getProjects().find(p => p.id === id);
+    if (project) openPortfolioModal(project);
+}
+
+function deleteProject(id) {
+    if (!confirm('Delete this project? This cannot be undone.')) return;
+    const projects = getProjects().filter(p => p.id !== id);
+    saveProjects(projects);
+    renderPortfolioTable();
+    showNotification('Project deleted', 'success');
+}
+
+function exportPortfolio() {
+    const projects = getProjects();
+    const blob = new Blob([JSON.stringify(projects, null, 2)], { type: 'application/json' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'clover-portfolio-' + new Date().toISOString().slice(0, 10) + '.json';
+    a.click();
+    showNotification('Portfolio exported as JSON', 'success');
+}
+
+/* ═══════════════════════════════════════
+   UTILITIES
+═══════════════════════════════════════ */
+
+function escapeHtml(str) {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+}
+
 function setupProfileDropdown() {
     const profileInfo = document.querySelector('.profile-info');
     const profileMenu = document.querySelector('.profile-menu');
-
     if (profileInfo && profileMenu) {
         profileInfo.addEventListener('click', () => {
             profileMenu.style.display = profileMenu.style.display === 'block' ? 'none' : 'block';
         });
-
-        // Close dropdown when clicking outside
         document.addEventListener('click', (e) => {
-            if (!e.target.closest('.admin-profile')) {
-                profileMenu.style.display = 'none';
-            }
+            if (!e.target.closest('.admin-profile')) profileMenu.style.display = 'none';
         });
     }
 }
 
-/**
- * Setup table action buttons (edit/delete)
- */
-function setupTableActions() {
-    // Edit buttons
-    document.querySelectorAll('.btn-icon[title="Edit"]').forEach(btn => {
-        btn.addEventListener('click', () => {
-            showNotification('Edit functionality would be implemented here', 'info');
-        });
-    });
-
-    // Delete buttons
-    document.querySelectorAll('.btn-icon[title="Delete"]').forEach(btn => {
-        btn.addEventListener('click', () => {
-            if (confirm('Are you sure you want to delete this item?')) {
-                showNotification('Item deleted successfully', 'success');
-            }
-        });
-    });
-}
-
-/**
- * Show a modal dialog
- * @param {string} title - Modal title
- * @param {string} formType - Type of form to show
- */
-function showModal(title, formType) {
-    // This would implement modal functionality
-    showNotification(`${title} - Modal would open here`, 'info');
-}
-
-/**
- * Show notification/toast message
- * @param {string} message - Notification message
- * @param {string} type - Type: success, error, info, warning
- */
 function showNotification(message, type = 'info') {
-    // Create notification element
     const notification = document.createElement('div');
     notification.className = `notification notification-${type}`;
-    notification.innerHTML = `
-        <div class="notification-content">
-            <span>${message}</span>
-            <button class="notification-close">&times;</button>
-        </div>
-    `;
-
-    // Add to page
+    notification.innerHTML = `<div class="notification-content"><span>${message}</span><button class="notification-close">&times;</button></div>`;
     document.body.appendChild(notification);
-
-    // Close button
-    notification.querySelector('.notification-close').addEventListener('click', () => {
-        notification.remove();
-    });
-
-    // Auto-remove after 5 seconds
-    setTimeout(() => {
-        notification.remove();
-    }, 5000);
+    notification.querySelector('.notification-close').addEventListener('click', () => notification.remove());
+    setTimeout(() => notification.remove(), 4000);
 }
 
-/**
- * Logout admin user
- */
 function logout() {
-    // Confirm logout
     if (confirm('Are you sure you want to logout?')) {
         AdminAuth.clearSession();
         window.location.href = 'admin-login.html';
     }
 }
 
-/**
- * Handle window resize for responsive behavior
- */
 window.addEventListener('resize', () => {
-    if (window.innerWidth > 768) {
-        document.body.classList.remove('sidebar-open');
-    }
+    if (window.innerWidth > 768) document.body.classList.remove('sidebar-open');
 });
