@@ -1,11 +1,9 @@
 /**
  * CLOVER DIGITAL - Admin Dashboard
- * Dashboard navigation, portfolio CRUD, notifications
+ * Dashboard navigation, portfolio CRUD via Supabase, notifications
  */
 
 AdminAuth.requireLogin();
-
-const PORTFOLIO_KEY = 'clover_portfolio_projects';
 
 document.addEventListener('DOMContentLoaded', () => {
     initializeDashboard();
@@ -73,17 +71,8 @@ function updateAdminInfo() {
 }
 
 /* ═══════════════════════════════════════
-   PORTFOLIO CRUD (localStorage)
+   PORTFOLIO CRUD (Supabase)
 ═══════════════════════════════════════ */
-
-function getProjects() {
-    try { return JSON.parse(localStorage.getItem(PORTFOLIO_KEY)) || []; }
-    catch (e) { return []; }
-}
-
-function saveProjects(projects) {
-    localStorage.setItem(PORTFOLIO_KEY, JSON.stringify(projects));
-}
 
 const CATEGORY_LABELS = {
     web: 'Web Development',
@@ -92,12 +81,32 @@ const CATEGORY_LABELS = {
     graphic: 'Graphic Design'
 };
 
-function renderPortfolioTable() {
+async function getProjects() {
+    try {
+        const { data, error } = await supabase
+            .from('portfolio_projects')
+            .select('*')
+            .order('created_at', { ascending: false });
+
+        if (error) {
+            console.error('Error fetching projects:', error);
+            return [];
+        }
+        return data || [];
+    } catch (e) {
+        console.error('Error:', e);
+        return [];
+    }
+}
+
+async function renderPortfolioTable() {
     const tbody = document.getElementById('portfolioTableBody');
     const noMsg = document.getElementById('noPortfolioMsg');
     if (!tbody) return;
 
-    const projects = getProjects();
+    tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:#64748b;">Loading projects...</td></tr>';
+
+    const projects = await getProjects();
     if (projects.length === 0) {
         tbody.innerHTML = '';
         if (noMsg) noMsg.style.display = 'block';
@@ -111,7 +120,7 @@ function renderPortfolioTable() {
             <td>${CATEGORY_LABELS[p.category] || p.category}</td>
             <td>${p.price ? escapeHtml(p.price) + ' ETB' : '—'}</td>
             <td><span class="badge badge-${p.status === 'published' ? 'success' : 'warning'}">${p.status === 'published' ? 'Published' : 'Draft'}</span></td>
-            <td>${new Date(p.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</td>
+            <td>${new Date(p.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</td>
             <td>
                 <button class="btn-icon" title="Edit" onclick="editProject('${p.id}')"><i class="fas fa-edit"></i></button>
                 <button class="btn-icon" title="Delete" onclick="deleteProject('${p.id}')"><i class="fas fa-trash"></i></button>
@@ -119,7 +128,6 @@ function renderPortfolioTable() {
         </tr>
     `).join('');
 
-    // Update dashboard stat
     const statEl = document.querySelector('.stat-number');
     if (statEl) statEl.textContent = projects.filter(p => p.status === 'published').length;
 }
@@ -150,55 +158,78 @@ function closePortfolioModal() {
     document.getElementById('portfolioModal').style.display = 'none';
 }
 
-function saveProject(e) {
+async function saveProject(e) {
     e.preventDefault();
-    const projects = getProjects();
     const id = document.getElementById('projectId').value;
 
-    const data = {
+    const projectData = {
         title: document.getElementById('projectTitle').value.trim(),
         description: document.getElementById('projectDesc').value.trim(),
         category: document.getElementById('projectCategory').value,
         status: document.getElementById('projectStatus').value,
         image: document.getElementById('projectImage').value.trim(),
         price: document.getElementById('projectPrice').value.trim(),
-        client: document.getElementById('projectClient').value.trim()
+        client: document.getElementById('projectClient').value.trim(),
+        created_by: AdminAuth.getAdminName(),
+        updated_at: new Date().toISOString()
     };
 
-    if (id) {
-        const idx = projects.findIndex(p => p.id === id);
-        if (idx !== -1) {
-            projects[idx] = { ...projects[idx], ...data, updatedAt: new Date().toISOString() };
-        }
-        showNotification('Project updated successfully', 'success');
-    } else {
-        data.id = 'proj_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8);
-        data.createdAt = new Date().toISOString();
-        data.updatedAt = data.createdAt;
-        projects.unshift(data);
-        showNotification('Project added successfully', 'success');
-    }
+    try {
+        if (id) {
+            const { error } = await supabase
+                .from('portfolio_projects')
+                .update(projectData)
+                .eq('id', id);
 
-    saveProjects(projects);
-    renderPortfolioTable();
-    closePortfolioModal();
+            if (error) throw error;
+            showNotification('Project updated successfully', 'success');
+        } else {
+            const { error } = await supabase
+                .from('portfolio_projects')
+                .insert([projectData]);
+
+            if (error) throw error;
+            showNotification('Project added successfully', 'success');
+        }
+
+        await renderPortfolioTable();
+        closePortfolioModal();
+    } catch (err) {
+        console.error('Save error:', err);
+        showNotification('Error saving project: ' + err.message, 'error');
+    }
 }
 
-function editProject(id) {
-    const project = getProjects().find(p => p.id === id);
+async function editProject(id) {
+    const { data: project, error } = await supabase
+        .from('portfolio_projects')
+        .select('*')
+        .eq('id', id)
+        .single();
+
     if (project) openPortfolioModal(project);
 }
 
-function deleteProject(id) {
+async function deleteProject(id) {
     if (!confirm('Delete this project? This cannot be undone.')) return;
-    const projects = getProjects().filter(p => p.id !== id);
-    saveProjects(projects);
-    renderPortfolioTable();
-    showNotification('Project deleted', 'success');
+
+    try {
+        const { error } = await supabase
+            .from('portfolio_projects')
+            .delete()
+            .eq('id', id);
+
+        if (error) throw error;
+        await renderPortfolioTable();
+        showNotification('Project deleted', 'success');
+    } catch (err) {
+        console.error('Delete error:', err);
+        showNotification('Error deleting project: ' + err.message, 'error');
+    }
 }
 
-function exportPortfolio() {
-    const projects = getProjects();
+async function exportPortfolio() {
+    const projects = await getProjects();
     const blob = new Blob([JSON.stringify(projects, null, 2)], { type: 'application/json' });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);

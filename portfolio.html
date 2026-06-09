@@ -281,9 +281,10 @@
 
     <script src="assets/js/main.js"></script>
     <script src="assets/js/animations.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="assets/js/supabase-config.js"></script>
 
     <script>
-        const PORTFOLIO_KEY = 'clover_portfolio_projects';
         const CATEGORY_LABELS = {
             web: 'Web Development',
             design: 'UI Design',
@@ -291,27 +292,32 @@
             graphic: 'Graphic Design'
         };
 
-        // Default projects (shown when localStorage is empty)
-        const defaultProjects = [
-            { id: 'd1', title: 'E-Commerce Platform', category: 'web', description: 'Full-featured online store with payment integration', image: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=600', status: 'published' },
-            { id: 'd2', title: 'Banking App Redesign', category: 'design', description: 'Modern UI for mobile banking application', image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600', status: 'published' },
-            { id: 'd3', title: 'SEO Campaign', category: 'marketing', description: '200% increase in organic traffic for local business', image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600', status: 'published' },
-            { id: 'd4', title: 'Corporate Website', category: 'web', description: 'Modern corporate presence for global brand', image: 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=600', status: 'published' },
-            { id: 'd5', title: 'Brand Identity Package', category: 'graphic', description: 'Complete visual identity for a coffee startup', image: 'https://images.unsplash.com/photo-1626785774573-4b799315345d?w=600', status: 'published' },
-            { id: 'd6', title: 'Social Media Strategy', category: 'marketing', description: 'Comprehensive social media growth campaign', image: 'https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=600', status: 'published' }
-        ];
+        let allProjects = [];
 
-        function getProjects() {
+        async function fetchProjects() {
+            const grid = document.getElementById('portfolio-grid');
+            grid.innerHTML = '<div class="no-projects"><i class="fas fa-spinner fa-spin" style="font-size:2rem;color:#4ade80;"></i><p>Loading projects...</p></div>';
+
             try {
-                const stored = JSON.parse(localStorage.getItem(PORTFOLIO_KEY));
-                if (stored && stored.length > 0) return stored.filter(p => p.status === 'published');
-            } catch (e) {}
-            return defaultProjects;
+                const { data, error } = await supabase
+                    .from('portfolio_projects')
+                    .select('*')
+                    .eq('status', 'published')
+                    .order('created_at', { ascending: false });
+
+                if (error) throw error;
+                allProjects = data || [];
+            } catch (e) {
+                console.error('Error fetching portfolio:', e);
+                allProjects = [];
+            }
+
+            renderPortfolio('all');
         }
 
         function renderPortfolio(category) {
             const grid = document.getElementById('portfolio-grid');
-            let projects = getProjects();
+            let projects = allProjects;
             if (category && category !== 'all') {
                 projects = projects.filter(p => p.category === category);
             }
@@ -346,7 +352,7 @@
             });
         });
 
-        renderPortfolio('all');
+        fetchProjects();
     </script>
 </body>
 </html>

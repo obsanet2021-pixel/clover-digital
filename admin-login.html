@@ -84,6 +84,8 @@
     </div>
 
     <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="assets/js/supabase-config.js"></script>
     <script src="assets/js/admin-auth.js"></script>
     <script>
         // Handle login form submission
@@ -108,8 +110,12 @@
             const password = document.getElementById('adminPassword').value;
             const rememberMe = document.getElementById('rememberMe').checked;
 
-            // Validate credentials — returns matched user object or null
-            const user = AdminAuth.validateCredentials(email, password);
+            // Validate credentials via Supabase
+            const submitBtn = loginForm.querySelector('button[type="submit"]');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span>Logging in...</span> <i class="fas fa-spinner fa-spin"></i>';
+
+            const user = await AdminAuth.validateCredentials(email, password);
             if (user) {
                 AdminAuth.setSession(user, rememberMe);
                 errorMessage.style.display = 'none';
@@ -119,6 +125,8 @@
                     window.location.href = 'admin-dashboard.html';
                 }, 500);
             } else {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<span>Login to Admin</span> <i class="fas fa-arrow-right"></i>';
                 errorMessage.textContent = '❌ Invalid email or password. Please try again.';
                 errorMessage.style.display = 'block';
                 passwordInput.value = '';

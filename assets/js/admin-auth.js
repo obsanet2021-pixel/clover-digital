@@ -1,6 +1,6 @@
 /**
  * CLOVER DIGITAL - Admin Authentication System
- * Multi-user admin login, session, and access control
+ * Multi-user admin login via Supabase, with session management
  */
 
 const AdminAuth = {
@@ -9,23 +9,26 @@ const AdminAuth = {
     REMEMBER_ME_KEY: 'clover_admin_remember',
     SESSION_TIMEOUT: 8 * 60 * 60 * 1000,
 
-    // Authorized admin users (in production, use server-side auth)
-    ADMIN_USERS: [
-        { name: 'Obsan',  email: 'obsan@cloverdigital.com',  password: 'CloverObsan2026!',  role: 'Admin' },
-        { name: 'Ali',    email: 'ali@cloverdigital.com',    password: 'CloverAli2026!',    role: 'Admin' },
-        { name: 'Zubair', email: 'zubair@cloverdigital.com', password: 'CloverZubair2026!', role: 'Admin' },
-        { name: 'Musab',  email: 'musab@cloverdigital.com',  password: 'CloverMusab2026!',  role: 'Admin' }
-    ],
-
     /**
-     * Validate credentials against all admin users
-     * @returns {object|null} matched user object or null
+     * Validate credentials against Supabase admin_users table
+     * @returns {Promise<object|null>} matched user object or null
      */
-    validateCredentials(email, password) {
-        const user = this.ADMIN_USERS.find(
-            u => u.email.toLowerCase() === email.toLowerCase() && u.password === password
-        );
-        return user || null;
+    async validateCredentials(email, password) {
+        try {
+            const { data, error } = await supabase
+                .from('admin_users')
+                .select('name, email, password, role')
+                .eq('email', email.toLowerCase())
+                .single();
+
+            if (error || !data) return null;
+            if (data.password !== password) return null;
+
+            return { name: data.name, email: data.email, role: data.role };
+        } catch (e) {
+            console.error('Auth error:', e);
+            return null;
+        }
     },
 
     /**
