@@ -164,7 +164,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .logo-img {
-    height: 52px;
+    height: 62px;
     width: 52px;
     display: block;
 }
@@ -1377,18 +1377,16 @@ body {
 }
 
 .brand-logo{
-    height:600px;        /* adjust to taste based on your image dimensions */
+    height:580px;        /* reduced by 20px */
     width:auto;
     display:block;
-    filter:
-        
 }
 
 .brand-description{
-    margin-top:-195px;
+    margin-top:-175px;
     color:#ffffff;
-    font-size:1.45rem;
-    line-height:1.6;
+    font-size:1.35rem;
+    line-height:1.5;
     font-weight:600;
 }
 
@@ -1402,7 +1400,7 @@ body {
     border:1px solid rgba(255,255,255,.06);
     border-bottom:none;
     backdrop-filter:blur(16px);
-    padding:60px 60px 0 60px;
+    padding:40px 40px 0 40px;
     box-shadow:
         0 0 0 1px rgba(255,255,255,.02),
         0 -20px 60px rgba(11,124,56,.25);
@@ -1411,11 +1409,11 @@ body {
 .footer-grid{
     display:grid;
     grid-template-columns:
-        90px
+        70px
         1fr
         1fr
         1.2fr;
-    gap:50px;
+    gap:30px;
 }
 
 /* =========================
@@ -1425,19 +1423,19 @@ body {
 .social-column{
     display:flex;
     flex-direction:column;
-    gap:28px;
+    gap:18px;
 }
 
 .social-column a{
     color:#00c853;
-    font-size:2.5rem;
+    font-size:2rem;
     transition:.3s ease;
     text-decoration:none;
 }
 
 .social-column a:hover{
-    transform:translateX(8px) scale(1.08);
-    text-shadow:0 0 15px rgba(0,200,83,.6);
+    transform:translateX(6px) scale(1.06);
+    text-shadow:0 0 12px rgba(0,200,83,.5);
 }
 
 /* =========================
@@ -1446,8 +1444,8 @@ body {
 
 .footer-column h3{
     color:#00e060;
-    font-size:2.4rem;
-    margin-bottom:18px;
+    font-size:1.8rem;
+    margin-bottom:14px;
     font-weight:800;
 }
 
@@ -1456,18 +1454,18 @@ body {
     display:block;
     color:#c2d8ca;
     text-decoration:none;
-    font-size:1.25rem;
-    margin-bottom:10px;
+    font-size:1rem;
+    margin-bottom:8px;
     transition:.3s ease;
 }
 
 .footer-column a:hover{
     color:#00e060;
-    transform:translateX(6px);
+    transform:translateX(4px);
 }
 
 .footer-column p{
-    line-height:1.8;
+    line-height:1.6;
 }
 
 /* =========================
@@ -1475,15 +1473,15 @@ body {
 ========================= */
 
 .footer-bottom{
-    margin-top:45px;
-    padding-bottom:22px;
+    margin-top:30px;
+    padding-bottom:18px;
     text-align:center;
 }
 
 .footer-line{
     height:1px;
-    width:65%;
-    margin:0 auto 18px;
+    width:55%;
+    margin:0 auto 14px;
     background:linear-gradient(
         90deg,
         transparent,
@@ -1494,7 +1492,7 @@ body {
 
 .footer-bottom p{
     color:#9fb7a7;
-    font-size:.95rem;
+    font-size:.85rem;
 }
 
 /* =========================
@@ -1531,22 +1529,36 @@ body {
 @media (max-width:1024px){
 
     .brand-logo{
-        height:120px;
+        height:100px;
     }
 
     .brand-description{
-        font-size:1.1rem;
+        font-size:1rem;
     }
 
     .footer-grid{
         grid-template-columns:
-            80px
+            60px
             1fr
             1fr;
+        gap:20px;
     }
 
     .footer-column:last-child{
         grid-column:span 2;
+    }
+
+    .footer-column h3{
+        font-size:1.5rem;
+    }
+
+    .footer-column a,
+    .footer-column p{
+        font-size:0.9rem;
+    }
+
+    .social-column a{
+        font-size:1.6rem;
     }
 }
 
@@ -1574,23 +1586,30 @@ body {
     }
 
     .footer-grid{
-        grid-template-columns:1fr;
-        gap:35px;
-        text-align:center;
+        grid-template-columns:
+            60px
+            1fr
+            1fr
+            1.2fr;
+        gap:20px;
     }
 
     .social-column{
-        flex-direction:row;
-        justify-content:center;
+        flex-direction:column;
+        gap:16px;
+    }
+
+    .social-column a{
+        font-size:1.6rem;
     }
 
     .footer-column h3{
-        font-size:1.8rem;
+        font-size:1.4rem;
     }
 
     .footer-column a,
     .footer-column p{
-        font-size:1rem;
+        font-size:0.9rem;
     }
 
     .footer-line{

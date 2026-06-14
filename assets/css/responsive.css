@@ -154,33 +154,39 @@
   }
 
   .footer-grid {
-    grid-template-columns: 1fr;
-    gap: 28px;
-    text-align: left;
+    grid-template-columns:
+        60px
+        1fr
+        1fr
+        1.2fr;
+    gap: 16px;
   }
 
   .footer-column {
-    padding: 0 12px;
+    padding: 0 8px;
   }
 
   .footer-column h3 {
-    font-size: 1.6rem;
-    margin-bottom: 12px;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
   }
 
   .footer-column a,
   .footer-column p {
-    font-size: 0.98rem;
-    margin-bottom: 10px;
+    font-size: 0.85rem;
+    margin-bottom: 8px;
   }
 
   .footer-bottom p {
-    font-size: 0.92rem;
+    font-size: 0.8rem;
   }
 
   .social-column {
-    flex-direction: row;
-    justify-content: center;
-    gap: 18px;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .social-column a {
+    font-size: 1.4rem;
   }
 }

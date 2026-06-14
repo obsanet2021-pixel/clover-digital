@@ -235,8 +235,13 @@
                             </div>
                             <div class="form-row" style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
                                 <div class="form-group">
-                                    <label for="projectImage">Image URL</label>
-                                    <input type="url" id="projectImage" placeholder="https://example.com/image.jpg">
+                                    <label for="projectImageUpload">Upload Image</label>
+                                    <input type="file" id="projectImageUpload" accept="image/*" onchange="previewProjectImage(event)">
+                                    <input type="hidden" id="projectImage">
+                                    <div id="imagePreview" style="margin-top:.5rem;max-width:200px;border-radius:8px;overflow:hidden;display:none;">
+                                        <img src="" alt="Preview" style="width:100%;height:auto;display:block;">
+                                    </div>
+                                    <small style="color:#94a3b8;">Supported: JPG, PNG, GIF, WebP (max 5MB)</small>
                                 </div>
                                 <div class="form-group">
                                     <label for="projectPrice">Price (ETB) — optional</label>
