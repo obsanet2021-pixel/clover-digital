@@ -132,11 +132,39 @@ async function renderPortfolioTable() {
     if (statEl) statEl.textContent = projects.filter(p => p.status === 'published').length;
 }
 
+function previewProjectImage(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    // Validate file size (max 5MB)
+    if (file.size > 5 * 1024 * 1024) {
+        showNotification('Image too large. Maximum size is 5MB.', 'error');
+        event.target.value = '';
+        return;
+    }
+
+    const preview = document.getElementById('imagePreview');
+    const previewImg = preview.querySelector('img');
+    const reader = new FileReader();
+
+    reader.onload = function(e) {
+        previewImg.src = e.target.result;
+        preview.style.display = 'block';
+    };
+    reader.readAsDataURL(file);
+}
+
 function openPortfolioModal(project) {
     const modal = document.getElementById('portfolioModal');
     const title = document.getElementById('portfolioModalTitle');
     document.getElementById('portfolioForm').reset();
     document.getElementById('projectId').value = '';
+
+    // Reset file upload and preview
+    document.getElementById('projectImageUpload').value = '';
+    const preview = document.getElementById('imagePreview');
+    preview.style.display = 'none';
+    preview.querySelector('img').src = '';
 
     if (project) {
         title.textContent = 'Edit Project';
@@ -148,6 +176,14 @@ function openPortfolioModal(project) {
         document.getElementById('projectImage').value = project.image || '';
         document.getElementById('projectPrice').value = project.price || '';
         document.getElementById('projectClient').value = project.client || '';
+
+        // Show existing image preview if there's a URL
+        if (project.image) {
+            const preview = document.getElementById('imagePreview');
+            const previewImg = preview.querySelector('img');
+            previewImg.src = project.image;
+            preview.style.display = 'block';
+        }
     } else {
         title.textContent = 'Add New Project';
     }
@@ -158,23 +194,59 @@ function closePortfolioModal() {
     document.getElementById('portfolioModal').style.display = 'none';
 }
 
+async function uploadImage(file) {
+    // Generate a unique file name
+    const ext = file.name.split('.').pop();
+    const fileName = `portfolio/${Date.now()}_${Math.random().toString(36).substring(2, 8)}.${ext}`;
+
+    const { data, error } = await supabaseClient.storage
+        .from('portfolio-images')
+        .upload(fileName, file, {
+            cacheControl: '3600',
+            upsert: false
+        });
+
+    if (error) throw error;
+
+    // Get the public URL
+    const { data: urlData } = supabaseClient.storage
+        .from('portfolio-images')
+        .getPublicUrl(fileName);
+
+    return urlData.publicUrl;
+}
+
 async function saveProject(e) {
     e.preventDefault();
-    const id = document.getElementById('projectId').value;
 
-    const projectData = {
-        title: document.getElementById('projectTitle').value.trim(),
-        description: document.getElementById('projectDesc').value.trim(),
-        category: document.getElementById('projectCategory').value,
-        status: document.getElementById('projectStatus').value,
-        image: document.getElementById('projectImage').value.trim(),
-        price: document.getElementById('projectPrice').value.trim(),
-        client: document.getElementById('projectClient').value.trim(),
-        created_by: AdminAuth.getAdminName(),
-        updated_at: new Date().toISOString()
-    };
+    const submitBtn = e.target.querySelector('button[type="submit"]');
+    const originalText = submitBtn.innerHTML;
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Uploading...';
+
+    const id = document.getElementById('projectId').value;
+    const fileInput = document.getElementById('projectImageUpload');
+    const file = fileInput.files[0];
 
     try {
+        // If a new file was selected, upload it to Supabase Storage
+        if (file) {
+            const publicUrl = await uploadImage(file);
+            document.getElementById('projectImage').value = publicUrl;
+        }
+
+        const projectData = {
+            title: document.getElementById('projectTitle').value.trim(),
+            description: document.getElementById('projectDesc').value.trim(),
+            category: document.getElementById('projectCategory').value,
+            status: document.getElementById('projectStatus').value,
+            image: document.getElementById('projectImage').value.trim(),
+            price: document.getElementById('projectPrice').value.trim(),
+            client: document.getElementById('projectClient').value.trim(),
+            created_by: AdminAuth.getAdminName(),
+            updated_at: new Date().toISOString()
+        };
+
         if (id) {
             const { error } = await supabaseClient
                 .from('portfolio_projects')
@@ -197,6 +269,9 @@ async function saveProject(e) {
     } catch (err) {
         console.error('Save error:', err);
         showNotification('Error saving project: ' + err.message, 'error');
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalText;
     }
 }
 
