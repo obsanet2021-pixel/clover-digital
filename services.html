@@ -38,8 +38,6 @@ body::before { content:''; position:fixed; inset:0; background-image:url("data:i
 .nav-links { display:flex; align-items:center; gap:2px; list-style:none; }
 .nav-links a { font-size:13.5px; font-weight:450; color:rgba(255,255,255,0.58); padding:6px 13px; border-radius:var(--radius-pill); transition:color 0.2s ease, background 0.2s ease; }
 .nav-links a:hover, .nav-links a.active { color:#fff; background:rgba(255,255,255,0.07); }
-.nav-cta { font-size:13.5px; font-weight:500; color:#000; background:#fff; padding:9px 20px; border-radius:var(--radius-pill); transition:opacity 0.2s ease, transform 0.2s ease; white-space:nowrap; }
-.nav-cta:hover { opacity:0.88; transform:translateY(-1px); }
 .nav-mobile-toggle { display:none; flex-direction:column; gap:5px; padding:8px; cursor:pointer; }
 .nav-mobile-toggle span { display:block; width:22px; height:1.5px; background:rgba(255,255,255,0.7); transition:all 0.3s ease; border-radius:2px; }
 
@@ -303,7 +301,7 @@ body::before { content:''; position:fixed; inset:0; background-image:url("data:i
 
 /* RESPONSIVE */
 @media (max-width:1024px) { .detail-grid { grid-template-columns:1fr; gap:40px; } .detail-grid.reverse { direction:ltr; } }
-@media (max-width:768px) { .nav-links, .nav-cta { display:none; } .nav-mobile-toggle { display:flex; } .page-hero { padding:120px 20px 80px; } .page-hero h1 { font-size:clamp(38px,10vw,60px); } .section { padding:70px 20px; } .services-bento { grid-template-columns:1fr; } .service-card.featured { grid-column:span 1; } .cta-inner { padding:50px 28px; border-radius:24px; } .footer-hero { padding:40px 15px 0; } .brand-logo { height:90px; } .brand-description { font-size:1rem; padding:0 10px; } .footer-card { padding:35px 25px 0; } .footer-grid { grid-template-columns:60px 1fr 1fr 1.2fr; gap:20px; } .social-column { flex-direction:column; gap:16px; } .social-column a { font-size:1.6rem; } .footer-column h3 { font-size:1.4rem; } .footer-column a, .footer-column p { font-size:0.9rem; } .footer-line { width:100%; } }
+@media (max-width:768px) { .nav-links { display:none; } .nav-mobile-toggle { display:flex; } .nav.menu-open .nav-links{display:flex;position:fixed;top:80px;left:16px;right:16px;background:rgba(8,8,8,0.96);backdrop-filter:blur(24px) saturate(180%);-webkit-backdrop-filter:blur(24px) saturate(180%);border:1px solid rgba(255,255,255,0.10);border-radius:var(--radius-xl);padding:20px;z-index:999;animation:mobileMenuIn 0.25s var(--ease-spring)}.nav.menu-open .nav-links{flex-direction:column;align-items:stretch;gap:4px;top:80px}.nav.menu-open .nav-links a{font-size:16px;padding:12px 16px;border-radius:var(--radius-md);text-align:center}@keyframes mobileMenuIn{from{opacity:0;transform:translateY(-8px) scale(0.97)}to{opacity:1;transform:translateY(0) scale(1)}} .page-hero { padding:120px 20px 80px; } .page-hero h1 { font-size:clamp(38px,10vw,60px); } .section { padding:70px 20px; } .services-bento { grid-template-columns:1fr; } .service-card.featured { grid-column:span 1; } .cta-inner { padding:50px 28px; border-radius:24px; } .footer-hero { padding:40px 15px 0; } .brand-logo { height:90px; } .brand-description { font-size:1rem; padding:0 10px; } .footer-card { padding:35px 25px 0; } .footer-grid { grid-template-columns:60px 1fr 1fr 1.2fr; gap:20px; } .social-column { flex-direction:column; gap:16px; } .social-column a { font-size:1.6rem; } .footer-column h3 { font-size:1.4rem; } .footer-column a, .footer-column p { font-size:0.9rem; } .footer-line { width:100%; } }
 @media (max-width:480px) { .footer-hero { padding:30px 10px 0; } .footer-grid { grid-template-columns:1fr 1fr; gap:16px; } .social-column { flex-direction:row; gap:12px; } .social-column a { font-size:1.4rem; } .footer-column h3 { font-size:1.2rem; } .footer-column:last-child { grid-column:span 2; } }
 @media (prefers-reduced-motion:reduce) { *, *::before, *::after { animation-duration:0.01ms !important; transition-duration:0.01ms !important; } }
 </style>
@@ -324,7 +322,6 @@ body::before { content:''; position:fixed; inset:0; background-image:url("data:i
     <li><a href="pricing.html">Pricing</a></li>
     <li><a href="blog.html">Insights</a></li>
   </ul>
-  <a href="contact.html" class="nav-cta">Start a Project</a>
   <button class="nav-mobile-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
 </nav>
 
@@ -569,8 +566,8 @@ body::before { content:''; position:fixed; inset:0; background-image:url("data:i
 <script>
 const nav=document.getElementById('nav');window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',window.scrollY>60)},{passive:true});
 const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}}),{threshold:0.1,rootMargin:'0px 0px -50px 0px'});document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
-const toggle=document.querySelector('.nav-mobile-toggle'),navLinks=document.querySelector('.nav-links'),navCta=document.querySelector('.nav-cta');
-if(toggle)toggle.addEventListener('click',()=>{const o=toggle.classList.toggle('open');if(navLinks)navLinks.style.display=o?'flex':'';if(navCta)navCta.style.display=o?'block':''});
+const toggle=document.querySelector('.nav-mobile-toggle');
+if(toggle){toggle.addEventListener('click',()=>{nav.classList.toggle('menu-open');toggle.classList.toggle('active')});nav.querySelectorAll('.nav-links a').forEach(link=>{link.addEventListener('click',()=>{nav.classList.remove('menu-open');toggle.classList.remove('active')})})}
 </script>
 </body>
 </html>
