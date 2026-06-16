@@ -19,7 +19,8 @@
     box-shadow: -4px 0 24px rgba(0, 0, 0, 0.5);
   }
 
-  .nav-menu.open {
+  .nav-menu.open,
+  .nav-menu.active {
     display: flex;
     transform: translateX(0);
   }

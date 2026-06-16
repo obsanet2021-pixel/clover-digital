@@ -4,60 +4,66 @@
         xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
   
-  <!-- Homepage -->
   <url>
     <loc>https://officialcloverdigital.com/</loc>
-    <lastmod>2026-01-01</lastmod>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   
-  <!-- About Page -->
   <url>
-    <loc>https://officialcloverdigital.com/about</loc>
-    <lastmod>2026-01-01</lastmod>
+    <loc>https://officialcloverdigital.com/about.html</loc>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   
-  <!-- Services Page -->
   <url>
-    <loc>https://officialcloverdigital.com/services</loc>
-    <lastmod>2026-01-01</lastmod>
+    <loc>https://officialcloverdigital.com/services.html</loc>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   
-  <!-- Contact Page -->
   <url>
-    <loc>https://officialcloverdigital.com/contact</loc>
-    <lastmod>2026-01-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  
-  <!-- Blog Section (if you have a blog) -->
-  <url>
-    <loc>https://officialcloverdigital.com/blog</loc>
-    <lastmod>2026-01-01</lastmod>
+    <loc>https://officialcloverdigital.com/portfolio.html</loc>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   
-  <!-- Privacy Policy -->
   <url>
-    <loc>https://officialcloverdigital.com/privacy</loc>
-    <lastmod>2026-01-01</lastmod>
+    <loc>https://officialcloverdigital.com/pricing.html</loc>
+    <lastmod>2026-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://officialcloverdigital.com/blog.html</loc>
+    <lastmod>2026-06-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <url>
+    <loc>https://officialcloverdigital.com/contact.html</loc>
+    <lastmod>2026-06-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://officialcloverdigital.com/privacy.html</loc>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   
-  <!-- Terms of Service -->
   <url>
-    <loc>https://officialcloverdigital.com/terms</loc>
-    <lastmod>2026-01-01</lastmod>
+    <loc>https://officialcloverdigital.com/terms.html</loc>
+    <lastmod>2026-06-01</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
-  
 </urlset>
