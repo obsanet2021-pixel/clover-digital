@@ -304,8 +304,13 @@ function closePortfolioModal() {
 
 async function saveProject(e) {
     e.preventDefault();
-    const id = document.getElementById('projectId').value;
 
+    const submitBtn = e.target.querySelector('button[type="submit"]');
+    const originalText = submitBtn.innerHTML;
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+
+    const id = document.getElementById('projectId').value;
     const imageUrl = uploadedImageUrl || document.getElementById('projectImage').value.trim();
 
     const projectData = {
@@ -343,6 +348,9 @@ async function saveProject(e) {
     } catch (err) {
         console.error('Save error:', err);
         showNotification('Error saving project: ' + err.message, 'error');
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalText;
     }
 }
 

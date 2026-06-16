@@ -3,490 +3,182 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Invoice Generator — CLOVER DIGITAL</title>
-<meta name="description" content="Generate professional PDF invoices with Clover Digital branding">
-<link rel="stylesheet" href="assets/css/main.css">
-<link rel="stylesheet" href="assets/css/responsive.css">
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+<title>CLOVER DIGITAL — Invoice Generator</title>
+<meta name="description" content="Create clean, branded PDF invoices for your clients in seconds.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
-  /* ── Page layout ── */
-  .invoice-page { padding: 6rem 0 4rem; min-height: 100vh; }
-  .invoice-container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
-  .invoice-heading { margin-bottom: 2rem; }
-  .invoice-heading .section-tag { display: inline-block; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: .1em; color: #4ade80; background: rgba(74,222,128,.1); border: 1px solid rgba(74,222,128,.2); border-radius: 50px; padding: .35rem .9rem; margin-bottom: 1rem; }
-  .invoice-heading h1 { font-size: clamp(1.8rem, 3vw, 2.5rem); font-weight: 800; margin-bottom: .5rem; }
-  .invoice-heading p { color: var(--text-secondary, #94a3b8); font-size: 1rem; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:#080808;color:#fff;overflow-x:hidden;-webkit-font-smoothing:antialiased}a{text-decoration:none;color:inherit}img{display:block;max-width:100%}button{cursor:pointer;border:none;background:none;font:inherit}
+:root{--bg-base:#080808;--bg-card:#0d0d0d;--bg-elevated:#111;--bg-hover:#161616;--text-primary:#fff;--text-secondary:rgba(255,255,255,0.62);--text-muted:rgba(255,255,255,0.38);--border-subtle:rgba(255,255,255,0.06);--border-default:rgba(255,255,255,0.10);--border-hover:rgba(255,255,255,0.18);--accent-green:#2cc56e;--accent-green-glow:rgba(44,197,110,0.22);--accent-green-dim:rgba(44,197,110,0.12);--radius-sm:6px;--radius-md:10px;--radius-lg:16px;--radius-xl:20px;--radius-2xl:28px;--radius-pill:9999px;--ease-spring:cubic-bezier(0.16,1,0.3,1);--ease-smooth:cubic-bezier(0.25,0.46,0.45,0.94);--width-content:1160px}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:0.032;pointer-events:none;z-index:0;mix-blend-mode:overlay}
+.nav{position:fixed;top:16px;left:50%;transform:translateX(-50%);width:min(calc(100% - 32px),940px);display:flex;align-items:center;justify-content:space-between;padding:10px 10px 10px 20px;background:rgba(8,8,8,0.72);backdrop-filter:blur(20px) saturate(180%);border:1px solid var(--border-subtle);border-radius:var(--radius-pill);z-index:1000;transition:all .3s}.nav.scrolled{background:rgba(6,6,6,0.92);border-color:rgba(255,255,255,0.12)}.nav-logo{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:600;color:#fff}.nav-logo-img{height:32px;width:auto;display:block}.nav-links{display:flex;align-items:center;gap:2px;list-style:none}.nav-links a{font-size:13.5px;font-weight:450;color:rgba(255,255,255,0.58);padding:6px 13px;border-radius:var(--radius-pill);transition:all .2s}.nav-links a:hover,.nav-links a.active{color:#fff;background:rgba(255,255,255,0.07)}.nav-cta{font-size:13.5px;font-weight:500;color:#000;background:#fff;padding:9px 20px;border-radius:var(--radius-pill);transition:all .2s;white-space:nowrap}.nav-cta:hover{opacity:.88;transform:translateY(-1px)}.nav-mobile-toggle{display:none;flex-direction:column;gap:5px;padding:8px}.nav-mobile-toggle span{display:block;width:22px;height:1.5px;background:rgba(255,255,255,0.7);transition:all .3s;border-radius:2px}
+.page-hero{position:relative;padding:160px 24px 100px;text-align:center;overflow:hidden}.page-hero::before{content:'';position:absolute;top:-10%;left:50%;transform:translateX(-50%);width:70%;height:55%;background:radial-gradient(ellipse,rgba(44,197,110,0.13) 0%,transparent 65%);pointer-events:none}.page-hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:160px;background:linear-gradient(to bottom,transparent,#080808);pointer-events:none}.page-hero h1{font-size:clamp(44px,7vw,88px);font-weight:500;letter-spacing:-0.045em;line-height:.93;color:#fff;max-width:16ch;margin:0 auto 24px}.page-hero h1 em{font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-weight:400;color:var(--accent-green)}.page-hero-sub{font-size:17px;color:rgba(255,255,255,0.48);max-width:460px;margin:0 auto;line-height:1.65}
+.section{padding:100px 24px;max-width:var(--width-content);margin:0 auto;position:relative;z-index:1}
+.inv-layout{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}@media(max-width:900px){.inv-layout{grid-template-columns:1fr}}
+.inv-panel{background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--radius-xl);padding:24px;margin-bottom:14px;position:relative;overflow:hidden}.inv-panel::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--border-default),transparent)}.inv-panel-title{font-size:11px;font-weight:600;color:var(--accent-green);text-transform:uppercase;letter-spacing:.08em;margin-bottom:16px;display:flex;align-items:center;gap:8px}.inv-panel label{display:block;font-size:12px;font-weight:500;color:var(--text-muted);margin-bottom:4px;margin-top:10px}.inv-panel label:first-of-type{margin-top:0}.inv-panel input,.inv-panel select,.inv-panel textarea{width:100%;padding:10px 14px;border:1px solid var(--border-subtle);border-radius:var(--radius-md);background:rgba(255,255,255,0.04);color:var(--text-primary);font-family:'Inter',sans-serif;font-size:14px;outline:none;transition:border-color .2s}.inv-panel input:focus,.inv-panel select:focus,.inv-panel textarea:focus{border-color:var(--accent-green)}.inv-panel textarea{resize:vertical;min-height:70px}.row-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.inv-items-tbl{width:100%;border-collapse:collapse;font-size:13px}.inv-items-tbl th{text-align:left;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--text-muted);padding:6px 4px 10px;border-bottom:1px solid var(--border-subtle)}.inv-items-tbl td{padding:4px 3px;vertical-align:middle}.inv-items-tbl td input{padding:7px 10px;font-size:13px}.del-btn{background:none;border:none;cursor:pointer;color:var(--text-muted);font-size:14px;padding:6px 8px;border-radius:var(--radius-sm);transition:color .2s}.del-btn:hover{color:#ef4444}.add-item-btn{margin-top:12px;width:100%;background:none;border:1px dashed rgba(44,197,110,0.3);color:var(--accent-green);border-radius:var(--radius-md);padding:10px;font-family:'Inter',sans-serif;font-size:13px;cursor:pointer;font-weight:500;transition:all .2s}.add-item-btn:hover{background:var(--accent-green-dim);border-color:rgba(44,197,110,0.5)}
+.inv-totals{margin-top:14px;border-top:1px solid var(--border-subtle);padding-top:14px}.tot-row{display:flex;justify-content:space-between;font-size:14px;padding:4px 0;color:var(--text-secondary)}.tot-row.grand{font-weight:600;font-size:16px;color:var(--accent-green);padding-top:10px;border-top:1px solid rgba(44,197,110,0.2);margin-top:8px}
+.inv-actions{display:flex;gap:12px;margin-top:16px}.inv-actions .btn{flex:1;justify-content:center;display:flex;align-items:center;gap:8px;padding:12px 20px;border-radius:var(--radius-pill);font-size:14px;font-weight:600;cursor:pointer;transition:all .2s;border:none;font-family:'Inter',sans-serif}.btn-download{background:linear-gradient(135deg,#2cc56e,#16a34a);color:#fff}.btn-download:hover{transform:translateY(-2px);box-shadow:0 8px 28px var(--accent-green-glow)}.btn-print{background:rgba(255,255,255,0.05);color:var(--text-primary);border:1px solid var(--border-default)!important}.btn-print:hover{background:rgba(255,255,255,0.08);border-color:var(--border-hover)!important}
+#invoice-preview{background:#ffffff!important;color:#1a1a1a!important;border-radius:16px;overflow:hidden;font-family:'Inter',sans-serif;border:1px solid rgba(0,0,0,.1);position:sticky;top:6.5rem}.p-header{background:#1a3d1a;padding:1.75rem 2rem 1.5rem;position:relative}.p-logo-name{font-size:1.3rem;font-weight:600;color:#fff;letter-spacing:-.01em}.p-logo-name span{color:#4ade80}.p-tagline{font-size:.65rem;text-transform:uppercase;letter-spacing:.12em;color:#86efac;margin-top:2px}.p-header-right{position:absolute;top:1.75rem;right:2rem;text-align:right}.p-inv-word{font-size:1.6rem;font-weight:300;letter-spacing:3px;text-transform:uppercase;color:#fff;opacity:.9}.p-inv-num{font-size:.8rem;color:#86efac;margin-top:3px}.p-accent-bar{background:#166534;height:3px}.p-body{padding:1.5rem 2rem}.p-meta{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.25rem}.p-meta-block label{font-size:.65rem;text-transform:uppercase;letter-spacing:.1em;color:#16a34a;font-weight:600;display:block;margin-bottom:3px}.p-meta-block p{font-size:.8rem;color:#1a1a1a;line-height:1.55}.p-meta-block p strong{font-size:.9rem;font-weight:700}.p-dates{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.25rem}.p-date-cell{background:#f0fdf4;border-left:3px solid #22c55e;padding:.5rem .75rem;border-radius:0 8px 8px 0}.p-date-cell .dl{font-size:.65rem;text-transform:uppercase;letter-spacing:.06em;color:#16a34a}.p-date-cell .dv{font-size:.8rem;font-weight:600;color:#1a1a1a;margin-top:2px}.p-tbl{width:100%;border-collapse:collapse;font-size:.78rem}.p-tbl thead tr{background:#f0fdf4}.p-tbl th{padding:8px 8px;text-align:left;font-size:.65rem;text-transform:uppercase;letter-spacing:.06em;color:#16a34a;font-weight:600;border-bottom:1px solid #bbf7d0}.p-tbl th.r,.p-tbl td.r{text-align:right}.p-tbl td{padding:8px 8px;border-bottom:.5px solid #dcfce7;color:#1a1a1a}.p-tbl tr:last-child td{border-bottom:none}.p-totals{margin-top:1rem;display:flex;justify-content:flex-end}.p-totals-box{min-width:210px}.p-tot-row{display:flex;justify-content:space-between;font-size:.78rem;padding:3px 0;color:#555}.p-tot-row.grand{border-top:1.5px solid #16a34a;margin-top:5px;padding-top:7px;font-size:.95rem;font-weight:700;color:#1a1a1a}.p-tot-row.grand .gv{color:#16a34a}.p-notes{margin-top:1.25rem;padding-top:1.1rem;border-top:.5px solid #dcfce7}.p-notes-lbl{font-size:.65rem;text-transform:uppercase;letter-spacing:.1em;color:#16a34a;margin-bottom:4px}.p-notes-txt{font-size:.75rem;color:#555;line-height:1.6}.p-footer{background:#f0fdf4;padding:.85rem 2rem;display:flex;justify-content:space-between;align-items:center;margin-top:1.25rem}.p-footer-brand{font-size:.7rem;color:#16a34a;font-weight:600}.p-footer-thanks{font-size:.7rem;color:#888;font-style:italic}
+/* ═══════════════════════════════════════════════════
+   FOOTER HERO
+   ═══════════════════════════════════════════════════ */
+.footer-hero{position:relative;background:#1c2b22;overflow:hidden;padding:60px 20px 0}
+.footer-glow{position:absolute;inset:0;background:radial-gradient(circle at center,rgba(11,124,56,.25),transparent 70%);filter:blur(140px);pointer-events:none}
+.footer-container{max-width:1400px;margin:auto;position:relative;z-index:2}
+.brand-section{text-align:center;margin:20px 0}
+.brand-logo-row{display:flex;justify-content:center;align-items:center}
+.brand-logo{height:580px;width:auto;display:block}
+.brand-description{margin-top:-175px;color:#fff;font-size:1.35rem;line-height:1.5;font-weight:600}
+.footer-card{background:rgba(15,27,20,0.95);border-radius:35px 35px 0 0;border:1px solid rgba(255,255,255,.06);border-bottom:none;backdrop-filter:blur(16px);padding:40px 40px 0;box-shadow:0 0 0 1px rgba(255,255,255,.02),0 -20px 60px rgba(11,124,56,.25)}
+.footer-grid{display:grid;grid-template-columns:70px 1fr 1fr 1.2fr;gap:30px}
+.social-column{display:flex;flex-direction:column;gap:18px}
+.social-column a{color:#00c853;font-size:2rem;transition:.3s ease;text-decoration:none}
+.social-column a:hover{transform:translateX(6px) scale(1.06);text-shadow:0 0 12px rgba(0,200,83,.5)}
+.footer-column h3{color:#00e060;font-size:1.8rem;margin-bottom:14px;font-weight:800}
+.footer-column a,.footer-column p{display:block;color:#c2d8ca;text-decoration:none;font-size:1rem;margin-bottom:8px;transition:.3s ease}
+.footer-column a:hover{color:#00e060;transform:translateX(4px)}
+.footer-column p{line-height:1.6}
+.footer-bottom{margin-top:30px;padding-bottom:18px;text-align:center}
+.footer-line{height:1px;width:55%;margin:0 auto 14px;background:linear-gradient(90deg,transparent,#00c853,transparent)}
+.footer-bottom p{color:#9fb7a7;font-size:.85rem}
+.footer-bottom p a{color:#9fb7a7;text-decoration:underline;text-decoration-color:rgba(159,183,167,0.3)}
+.footer-bottom p a:hover{color:#00e060;text-decoration-color:#00e060}
 
-  /* ── Layout grid ── */
-  .inv-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start; }
-  @media(max-width:900px){ .inv-layout { grid-template-columns: 1fr; } }
+/* WHATSAPP */
+.wa-float{position:fixed;bottom:2rem;right:2rem;z-index:999}
+.wa-tooltip{position:absolute;bottom:calc(100% + 12px);right:0;background:#000;color:#fff;padding:.6rem 1rem;border-radius:.625rem;font-size:.85rem;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s ease}
+.wa-float:hover .wa-tooltip{opacity:1}
+.wa-btn{width:56px;height:56px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.75rem;text-decoration:none;box-shadow:0 8px 24px rgba(37,211,102,0.35);transition:transform .2s ease}
+.wa-btn:hover{transform:scale(1.08);box-shadow:0 12px 32px rgba(37,211,102,0.45)}
 
-  /* ── Form panels ── */
-  .inv-panel { background: var(--card-bg, rgba(255,255,255,.04)); border: 1px solid var(--border-color, rgba(255,255,255,.08)); border-radius: 16px; padding: 1.5rem; margin-bottom: 1.25rem; }
-  .inv-panel-title { font-size: .75rem; font-weight: 600; text-transform: uppercase; letter-spacing: .1em; color: #4ade80; margin-bottom: 1rem; display: flex; align-items: center; gap: 7px; }
-  .inv-panel label { display: block; font-size: .8rem; color: var(--text-secondary, #94a3b8); margin-bottom: 4px; margin-top: 10px; }
-  .inv-panel label:first-of-type { margin-top: 0; }
-  .inv-panel input, .inv-panel select, .inv-panel textarea {
-    width: 100%; padding: 9px 12px; border: 1px solid var(--border-color, rgba(255,255,255,.12));
-    border-radius: 8px; background: rgba(255,255,255,.05); color: inherit;
-    font-family: 'Plus Jakarta Sans', sans-serif; font-size: .875rem; outline: none; transition: border-color .2s;
-  }
-  .inv-panel input:focus, .inv-panel select:focus, .inv-panel textarea:focus { border-color: #4ade80; }
-  .inv-panel textarea { resize: vertical; min-height: 70px; }
-  .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-
-  /* ── Items table ── */
-  .inv-items-tbl { width: 100%; border-collapse: collapse; font-size: .8rem; }
-  .inv-items-tbl th { text-align: left; font-size: .7rem; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--text-secondary, #94a3b8); padding: 6px 6px; border-bottom: 1px solid var(--border-color, rgba(255,255,255,.1)); }
-  .inv-items-tbl td { padding: 5px 3px; vertical-align: middle; }
-  .inv-items-tbl td input { padding: 6px 8px; font-size: .8rem; }
-  .del-btn { background: none; border: none; cursor: pointer; color: var(--text-secondary, #94a3b8); font-size: .9rem; padding: 4px 6px; border-radius: 6px; transition: color .2s; }
-  .del-btn:hover { color: #f87171; }
-  .add-item-btn { margin-top: .75rem; width: 100%; background: none; border: 1px dashed rgba(74,222,128,.4); color: #4ade80; border-radius: 8px; padding: 8px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: .8rem; cursor: pointer; transition: background .2s; }
-  .add-item-btn:hover { background: rgba(74,222,128,.07); }
-
-  /* ── Totals summary (form side) ── */
-  .inv-totals { margin-top: 1rem; border-top: 1px solid var(--border-color, rgba(255,255,255,.1)); padding-top: 1rem; }
-  .tot-row { display: flex; justify-content: space-between; font-size: .875rem; padding: 3px 0; color: var(--text-secondary, #94a3b8); }
-  .tot-row.grand { font-weight: 700; font-size: 1.05rem; color: #4ade80; padding-top: 8px; border-top: 1px solid rgba(74,222,128,.3); margin-top: 6px; }
-
-  /* ── Action buttons ── */
-  .inv-actions { display: flex; gap: .75rem; margin-top: 1.25rem; }
-  .inv-actions .btn { flex: 1; justify-content: center; display: flex; align-items: center; gap: 8px; padding: .75rem 1.25rem; border-radius: 10px; font-size: .9rem; font-weight: 600; cursor: pointer; transition: all .2s; border: none; font-family: 'Plus Jakarta Sans', sans-serif; }
-  .btn-download { background: linear-gradient(135deg, #22c55e, #16a34a); color: #fff; }
-  .btn-download:hover { transform: translateY(-1px); box-shadow: 0 8px 25px rgba(34,197,94,.3); }
-  .btn-print { background: rgba(255,255,255,.06); color: inherit; border: 1px solid var(--border-color, rgba(255,255,255,.12)) !important; }
-  .btn-print:hover { background: rgba(255,255,255,.1); }
-
-  /* ═══════════════════════════════════════
-     INVOICE PREVIEW (always white / print-ready)
-  ═══════════════════════════════════════ */
-  #invoice-preview {
-    background: #ffffff !important;
-    color: #1a1a1a !important;
-    border-radius: 16px;
-    overflow: hidden;
-    font-family: 'DM Sans', 'Plus Jakarta Sans', sans-serif;
-    border: 1px solid rgba(0,0,0,.1);
-    position: sticky;
-    top: 6.5rem;
-  }
-  .p-header { background: #1a3d1a; padding: 1.75rem 2rem 1.5rem; position: relative; }
-  .p-logo-name { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 600; color: #fff; }
-  .p-logo-name span { color: #4ade80; }
-  .p-tagline { font-size: .65rem; text-transform: uppercase; letter-spacing: .12em; color: #86efac; margin-top: 2px; }
-  .p-header-right { position: absolute; top: 1.75rem; right: 2rem; text-align: right; }
-  .p-inv-word { font-size: 1.6rem; font-weight: 300; letter-spacing: 3px; text-transform: uppercase; color: #fff; opacity: .9; }
-  .p-inv-num { font-size: .8rem; color: #86efac; margin-top: 3px; }
-  .p-accent-bar { background: #166534; height: 3px; }
-  .p-body { padding: 1.5rem 2rem; }
-  .p-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.25rem; }
-  .p-meta-block label { font-size: .65rem; text-transform: uppercase; letter-spacing: .1em; color: #16a34a; font-weight: 600; display: block; margin-bottom: 3px; }
-  .p-meta-block p { font-size: .8rem; color: #1a1a1a; line-height: 1.55; }
-  .p-meta-block p strong { font-size: .9rem; font-weight: 700; }
-  .p-dates { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.25rem; }
-  .p-date-cell { background: #f0fdf4; border-left: 3px solid #22c55e; padding: .5rem .75rem; border-radius: 0 8px 8px 0; }
-  .p-date-cell .dl { font-size: .65rem; text-transform: uppercase; letter-spacing: .06em; color: #16a34a; }
-  .p-date-cell .dv { font-size: .8rem; font-weight: 600; color: #1a1a1a; margin-top: 2px; }
-  .p-tbl { width: 100%; border-collapse: collapse; font-size: .78rem; }
-  .p-tbl thead tr { background: #f0fdf4; }
-  .p-tbl th { padding: 8px 8px; text-align: left; font-size: .65rem; text-transform: uppercase; letter-spacing: .06em; color: #16a34a; font-weight: 600; border-bottom: 1px solid #bbf7d0; }
-  .p-tbl th.r, .p-tbl td.r { text-align: right; }
-  .p-tbl td { padding: 8px 8px; border-bottom: .5px solid #dcfce7; color: #1a1a1a; }
-  .p-tbl tr:last-child td { border-bottom: none; }
-  .p-totals { margin-top: 1rem; display: flex; justify-content: flex-end; }
-  .p-totals-box { min-width: 210px; }
-  .p-tot-row { display: flex; justify-content: space-between; font-size: .78rem; padding: 3px 0; color: #555; }
-  .p-tot-row.grand { border-top: 1.5px solid #16a34a; margin-top: 5px; padding-top: 7px; font-size: .95rem; font-weight: 700; color: #1a1a1a; }
-  .p-tot-row.grand .gv { color: #16a34a; }
-  .p-notes { margin-top: 1.25rem; padding-top: 1.1rem; border-top: .5px solid #dcfce7; }
-  .p-notes-lbl { font-size: .65rem; text-transform: uppercase; letter-spacing: .1em; color: #16a34a; margin-bottom: 4px; }
-  .p-notes-txt { font-size: .75rem; color: #555; line-height: 1.6; }
-  .p-footer { background: #f0fdf4; padding: .85rem 2rem; display: flex; justify-content: space-between; align-items: center; margin-top: 1.25rem; }
-  .p-footer-brand { font-size: .7rem; color: #16a34a; font-weight: 600; }
-  .p-footer-thanks { font-size: .7rem; color: #888; font-style: italic; }
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s var(--ease-spring),transform .7s var(--ease-spring)}.reveal.visible{opacity:1;transform:translateY(0)}
+@media(max-width:768px){.nav-links,.nav-cta{display:none}.nav-mobile-toggle{display:flex}.page-hero{padding:120px 20px 80px}.page-hero h1{font-size:clamp(38px,10vw,60px)}.section{padding:70px 20px}.footer-hero{padding:40px 15px 0}.brand-logo{height:90px}.brand-description{font-size:1rem;padding:0 10px}.footer-card{padding:35px 25px 0}.footer-grid{grid-template-columns:60px 1fr 1fr 1.2fr;gap:20px}.social-column{flex-direction:column;gap:16px}.social-column a{font-size:1.6rem}.footer-column h3{font-size:1.4rem}.footer-column a,.footer-column p{font-size:.9rem}.footer-line{width:100%}}@media(max-width:480px){.footer-hero{padding:30px 10px 0}.footer-grid{grid-template-columns:1fr 1fr;gap:16px}.social-column{flex-direction:row;gap:12px}.social-column a{font-size:1.4rem}.footer-column h3{font-size:1.2rem}.footer-column:last-child{grid-column:span 2}}@media(prefers-reduced-motion:reduce){*{animation-duration:0.01ms!important;transition-duration:0.01ms!important}}
 </style>
 </head>
 <body>
-
-<!-- ── HEADER (reuses site nav) ── -->
-<header class="main-header">
-  <div class="nav-container">
-    <a href="index.html" class="logo">
-      <img class="logo-img" src="assets/images/logo/clover%20p1.png" alt="Clover Digital logo">
-      <span>CLOVER DIGITAL</span>
-    </a>
-    <ul class="nav-menu">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="services.html">Services</a></li>
-      <li><a href="portfolio.html">Portfolio</a></li>
-      <li><a href="pricing.html">Pricing</a></li>
-      <li><a href="blog.html">Insights</a></li>
-      <li><a href="contact.html">Contact</a></li>
-
-    </ul>
-    <a href="contact.html" class="btn btn-primary">Start a Project →</a>
-    <div class="mobile-menu-btn"><span></span><span></span><span></span></div>
+<nav class="nav" id="nav">
+  <a href="index.html" class="nav-logo"><img class="nav-logo-img" src="assets/images/logo/clover%20p1.png" alt="Clover Digital">CLOVER DIGITAL</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="services.html">Services</a></li><li><a href="portfolio.html">Portfolio</a></li><li><a href="pricing.html">Pricing</a></li><li><a href="blog.html">Insights</a></li>
+  </ul>
+  <a href="contact.html" class="nav-cta">Start a Project</a>
+  <button class="nav-mobile-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+</nav>
+<section class="page-hero"><h1 class="reveal">Invoice <em>Generator</em></h1><p class="page-hero-sub reveal">Create clean, branded PDF invoices for your clients in seconds.</p></section>
+<section class="section"><div class="inv-layout reveal">
+  <div>
+    <div class="inv-panel"><div class="inv-panel-title"><i class="fas fa-building"></i> Your Company</div><label>Company Name</label><input id="f-from-name" value="CLOVER DIGITAL" oninput="render()"><label>Address / City</label><input id="f-from-addr" value="Adama, Ethiopia" oninput="render()"><label>Email</label><input id="f-from-email" value="hello@cloverdigital.com" oninput="render()"><label>Phone</label><input id="f-from-phone" value="+251 998 065 377" oninput="render()"></div>
+    <div class="inv-panel"><div class="inv-panel-title"><i class="fas fa-user"></i> Bill To</div><label>Client / Company Name</label><input id="f-to-name" placeholder="Client Name" oninput="render()"><label>Address</label><input id="f-to-addr" placeholder="Client Address" oninput="render()"><label>Email</label><input id="f-to-email" placeholder="client@company.com" oninput="render()"></div>
+    <div class="inv-panel"><div class="inv-panel-title"><i class="fas fa-file-invoice"></i> Invoice Details</div><div class="row-2"><div><label>Invoice #</label><input id="f-inv-num" value="INV-001" oninput="render()"></div><div><label>Issue Date</label><input id="f-date" type="date" oninput="render()"></div></div><div class="row-2"><div><label>Due Date</label><input id="f-due" type="date" oninput="render()"></div><div><label>Tax %</label><input id="f-tax" type="number" value="15" min="0" max="100" step="1" oninput="render()"></div></div></div>
+    <div class="inv-panel"><div class="inv-panel-title"><i class="fas fa-list"></i> Line Items</div><table class="inv-items-tbl"><thead><tr><th style="width:42%">Description</th><th style="width:15%">Qty</th><th style="width:28%">Unit Price</th><th style="width:8%"></th></tr></thead><tbody id="items-body"></tbody></table><button class="add-item-btn" onclick="addItem()"><i class="fas fa-plus"></i> Add Line Item</button><div class="inv-totals"><div class="tot-row"><span>Subtotal</span><span id="sub-display">ETB 0.00</span></div><div class="tot-row"><span>Tax (<span id="tax-pct-lbl">15</span>%)</span><span id="tax-display">ETB 0.00</span></div><div class="tot-row grand"><span>Total</span><span id="total-display">ETB 0.00</span></div></div></div>
+    <div class="inv-panel"><div class="inv-panel-title"><i class="fas fa-sticky-note"></i> Notes</div><label>Payment Terms / Notes</label><textarea id="f-notes" oninput="render()">Payment due within 30 days. Bank transfer preferred.
+Thank you for choosing CLOVER DIGITAL!</textarea></div>
+    <div class="inv-actions"><button class="btn btn-download" onclick="downloadPDF()"><i class="fas fa-download"></i> Download PDF</button><button class="btn btn-print" onclick="printInvoice()"><i class="fas fa-print"></i> Print</button></div>
   </div>
-</header>
-
-<!-- ── MAIN ── -->
-<main class="invoice-page">
-  <div class="invoice-container">
-
-    <div class="invoice-heading">
-      <span class="section-tag">Internal Tool</span>
-      <h1>Invoice <span class="gradient-text">Generator</span></h1>
-      <p>Create clean, branded PDF invoices for your clients in seconds.</p>
+  <div>
+    <div id="invoice-preview">
+      <div class="p-header"><div class="p-logo-name" id="p-logo">CLOVER<span>.</span>DIGITAL</div><div class="p-tagline">Digital Agency — Adama, Ethiopia</div><div class="p-header-right"><div class="p-inv-word">Invoice</div><div class="p-inv-num" id="p-inv-num">#INV-001</div></div></div>
+      <div class="p-accent-bar"></div>
+      <div class="p-body">
+        <div class="p-meta"><div class="p-meta-block"><label>From</label><p><strong id="p-from-name">CLOVER DIGITAL</strong><br><span id="p-from-addr">Adama, Ethiopia</span><br><span id="p-from-email">hello@cloverdigital.com</span><br><span id="p-from-phone">+251 998 065 377</span></p></div><div class="p-meta-block"><label>Bill To</label><p><strong id="p-to-name" style="color:#16a34a">—</strong><br><span id="p-to-addr"></span><br><span id="p-to-email"></span></p></div></div>
+        <div class="p-dates"><div class="p-date-cell"><div class="dl">Issue Date</div><div class="dv" id="p-date">—</div></div><div class="p-date-cell"><div class="dl">Due Date</div><div class="dv" id="p-due">—</div></div></div>
+        <table class="p-tbl"><thead><tr><th>Description</th><th class="r">Qty</th><th class="r">Unit Price</th><th class="r">Amount</th></tr></thead><tbody id="p-items"></tbody></table>
+        <div class="p-totals"><div class="p-totals-box"><div class="p-tot-row"><span>Subtotal</span><span id="p-sub">ETB 0.00</span></div><div class="p-tot-row"><span>Tax (<span id="p-tax-pct">15</span>%)</span><span id="p-tax">ETB 0.00</span></div><div class="p-tot-row grand"><span>Total Due</span><span class="gv" id="p-total">ETB 0.00</span></div></div></div>
+        <div class="p-notes"><div class="p-notes-lbl">Notes & Payment Terms</div><div class="p-notes-txt" id="p-notes">Payment due within 30 days. Thank you for choosing CLOVER DIGITAL!</div></div>
+      </div>
+      <div class="p-footer"><div class="p-footer-brand">🍀 cloverdigital.com</div><div class="p-footer-thanks">Thank you for your business!</div></div>
     </div>
-
-    <div class="inv-layout">
-
-      <!-- ───── LEFT: FORM ───── -->
-      <div>
-
-        <!-- Sender info -->
-        <div class="inv-panel">
-          <div class="inv-panel-title"><i class="fas fa-building"></i> Your Company</div>
-          <label>Company Name</label>
-          <input id="f-from-name" value="CLOVER DIGITAL" oninput="render()">
-          <label>Address / City</label>
-          <input id="f-from-addr" value="Adama, Ethiopia" oninput="render()">
-          <label>Email</label>
-          <input id="f-from-email" value="hello@cloverdigital.com" oninput="render()">
-          <label>Phone</label>
-          <input id="f-from-phone" value="+251 998 065 377" oninput="render()">
-        </div>
-
-        <!-- Client info -->
-        <div class="inv-panel">
-          <div class="inv-panel-title"><i class="fas fa-user"></i> Bill To</div>
-          <label>Client / Company Name</label>
-          <input id="f-to-name" placeholder="Client Name" oninput="render()">
-          <label>Address</label>
-          <input id="f-to-addr" placeholder="Client Address" oninput="render()">
-          <label>Email</label>
-          <input id="f-to-email" placeholder="client@company.com" oninput="render()">
-        </div>
-
-        <!-- Invoice details -->
-        <div class="inv-panel">
-          <div class="inv-panel-title"><i class="fas fa-file-invoice"></i> Invoice Details</div>
-          <div class="row-2">
-            <div><label>Invoice #</label><input id="f-inv-num" value="INV-001" oninput="render()"></div>
-            <div><label>Issue Date</label><input id="f-date" type="date" oninput="render()"></div>
-          </div>
-          <div class="row-2">
-            <div><label>Due Date</label><input id="f-due" type="date" oninput="render()"></div>
-            <div><label>Tax %</label><input id="f-tax" type="number" value="15" min="0" max="100" step="1" oninput="render()"></div>
-          </div>
-        </div>
-
-        <!-- Line items -->
-        <div class="inv-panel">
-          <div class="inv-panel-title"><i class="fas fa-list"></i> Line Items</div>
-          <table class="inv-items-tbl">
-            <thead><tr>
-              <th style="width:42%">Description</th>
-              <th style="width:15%">Qty</th>
-              <th style="width:28%">Unit Price (ETB)</th>
-              <th style="width:8%"></th>
-            </tr></thead>
-            <tbody id="items-body"></tbody>
-          </table>
-          <button class="add-item-btn" onclick="addItem()"><i class="fas fa-plus"></i> Add Line Item</button>
-          <div class="inv-totals">
-            <div class="tot-row"><span>Subtotal</span><span id="sub-display">ETB 0.00</span></div>
-            <div class="tot-row"><span>Tax (<span id="tax-pct-lbl">15</span>%)</span><span id="tax-display">ETB 0.00</span></div>
-            <div class="tot-row grand"><span>Total</span><span id="total-display">ETB 0.00</span></div>
-          </div>
-        </div>
-
-        <!-- Notes -->
-        <div class="inv-panel">
-          <div class="inv-panel-title"><i class="fas fa-sticky-note"></i> Notes</div>
-          <label>Payment Terms / Notes</label>
-          <textarea id="f-notes" oninput="render()">Payment due within 30 days. Bank transfer preferred.
-Thank you for choosing CLOVER DIGITAL!</textarea>
-        </div>
-
-        <div class="inv-actions">
-          <button class="btn btn-download" onclick="downloadPDF()"><i class="fas fa-download"></i> Download PDF</button>
-          <button class="btn btn-print" onclick="printInvoice()"><i class="fas fa-print"></i> Print</button>
-        </div>
-      </div>
-
-      <!-- ───── RIGHT: PREVIEW ───── -->
-      <div>
-        <div id="invoice-preview">
-          <div class="p-header">
-            <div class="p-logo-name" id="p-logo">CLOVER<span>.</span>DIGITAL</div>
-            <div class="p-tagline">Digital Agency — Adama, Ethiopia</div>
-            <div class="p-header-right">
-              <div class="p-inv-word">Invoice</div>
-              <div class="p-inv-num" id="p-inv-num">#INV-001</div>
+  </div>
+</div></section>
+<!-- ═══════════════════════════════════════════════ -->
+<!-- ORIGINAL FOOTER — preserved as requested        -->
+<!-- ═══════════════════════════════════════════════ -->
+<footer class="footer-hero">
+    <div class="footer-glow"></div>
+    <div class="footer-container">
+        <!-- BRAND -->
+        <div class="brand-section">
+            <div class="brand-logo-row">
+                <img src="assets/images/logo/clover g2.png" alt="Clover Digital Logo" class="brand-logo">
             </div>
-          </div>
-          <div class="p-accent-bar"></div>
-          <div class="p-body">
-            <div class="p-meta">
-              <div class="p-meta-block">
-                <label>From</label>
-                <p><strong id="p-from-name">CLOVER DIGITAL</strong><br>
-                <span id="p-from-addr">Adama, Ethiopia</span><br>
-                <span id="p-from-email">hello@cloverdigital.com</span><br>
-                <span id="p-from-phone">+251 998 065 377</span></p>
-              </div>
-              <div class="p-meta-block">
-                <label>Bill To</label>
-                <p><strong id="p-to-name" style="color:#16a34a">—</strong><br>
-                <span id="p-to-addr"></span><br>
-                <span id="p-to-email"></span></p>
-              </div>
-            </div>
-            <div class="p-dates">
-              <div class="p-date-cell"><div class="dl">Issue Date</div><div class="dv" id="p-date">—</div></div>
-              <div class="p-date-cell"><div class="dl">Due Date</div><div class="dv" id="p-due">—</div></div>
-            </div>
-            <table class="p-tbl">
-              <thead><tr>
-                <th>Description</th>
-                <th class="r">Qty</th>
-                <th class="r">Unit Price</th>
-                <th class="r">Amount</th>
-              </tr></thead>
-              <tbody id="p-items"></tbody>
-            </table>
-            <div class="p-totals">
-              <div class="p-totals-box">
-                <div class="p-tot-row"><span>Subtotal</span><span id="p-sub">ETB 0.00</span></div>
-                <div class="p-tot-row"><span>Tax (<span id="p-tax-pct">15</span>%)</span><span id="p-tax">ETB 0.00</span></div>
-                <div class="p-tot-row grand"><span>Total Due</span><span class="gv" id="p-total">ETB 0.00</span></div>
-              </div>
-            </div>
-            <div class="p-notes">
-              <div class="p-notes-lbl">Notes & Payment Terms</div>
-              <div class="p-notes-txt" id="p-notes">Payment due within 30 days. Thank you for choosing CLOVER DIGITAL!</div>
-            </div>
-          </div>
-          <div class="p-footer">
-            <div class="p-footer-brand">🍀 cloverdigital.com</div>
-            <div class="p-footer-thanks">Thank you for your business!</div>
-          </div>
+            <p class="brand-description">
+                We engineer digital excellence that drives growth.
+                From startups to enterprises, we're your trusted digital partner.
+            </p>
         </div>
-      </div>
-
-    </div><!-- /.inv-layout -->
-  </div><!-- /.invoice-container -->
-</main>
-
-<!-- ── FOOTER (reuses site footer) ── -->
-<!-- Footer Hero (matches index.html) -->
-    <footer class="footer-hero">
-        <div class="footer-glow"></div>
-        <div class="footer-container">
-            <div class="brand-section">
-                <div class="brand-logo-row">
-                    <img src="assets/images/logo/clover g2.png" alt="Clover Digital Logo" class="brand-logo">
+        <!-- CARD -->
+        <div class="footer-card">
+            <div class="footer-grid">
+                <!-- SOCIAL -->
+                <div class="social-column">
+                    <a href="https://www.facebook.com/share/19GNou1sDR" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.tiktok.com/@dsg.clover" target="_blank" rel="noopener noreferrer"><i class="fab fa-tiktok"></i></a>
+                    <a href="https://t.me/cloverdigital1" target="_blank" rel="noopener noreferrer"><i class="fab fa-telegram-plane"></i></a>
+                    <a href="https://www.instagram.com/officialcloverdigital" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
                 </div>
-                <p class="brand-description">
-                    We engineer digital excellence that drives growth.
-                    From startups to enterprises, we're your trusted digital partner.
-                </p>
-            </div>
-            <div class="footer-card">
-                <div class="footer-grid">
-                    <div class="social-column">
-                        <a href="https://www.facebook.com/share/19GNou1sDR" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
-                        <a href="https://www.tiktok.com/@dsg.clover" target="_blank" rel="noopener noreferrer"><i class="fab fa-tiktok"></i></a>
-                        <a href="https://t.me/cloverdigital1" target="_blank" rel="noopener noreferrer"><i class="fab fa-telegram-plane"></i></a>
-                        <a href="https://www.instagram.com/officialcloverdigital" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
-                    </div>
-                    <div class="footer-column">
-                        <h3>COMPANY</h3>
-                        <a href="about.html">About Us</a>
-                        <a href="services.html">Services</a>
-                        <a href="portfolio.html">Portfolio</a>
-                        <a href="pricing.html">Pricing</a>
-                        <a href="blog.html">Insights</a>
-                        <a href="contact.html">Contact</a>
-                    </div>
-                    <div class="footer-column">
-                        <h3>SERVICES</h3>
-                        <a href="contact.html">Web Development</a>
-                        <a href="contact.html">UI Design</a>
-                        <a href="contact.html">Digital Marketing</a>
-                        <a href="contact.html">Graphic Design</a>
-                    </div>
-                    <div class="footer-column">
-                        <h3>CONTACT</h3>
-                        <p><i class="fas fa-map-marker-alt"></i> Adama, Ethiopia</p>
-                        <p><i class="fas fa-phone"></i> +251 998 065 377</p>
-                        <p><i class="fas fa-envelope"></i> hello@cloverdigital.com</p>
-                        <p><i class="fas fa-clock"></i> Mon-Fri: 9:00 AM - 6:00 PM</p>
-                    </div>
+                <!-- COMPANY -->
+                <div class="footer-column">
+                    <h3>COMPANY</h3>
+                    <a href="about.html">About Us</a>
+                    <a href="services.html">Services</a>
+                    <a href="portfolio.html">Portfolio</a>
+                    <a href="pricing.html">Pricing</a>
+                    <a href="blog.html">Insights</a>
+                    <a href="contact.html">Contact</a>
                 </div>
-                <div class="footer-bottom">
-                    <div class="footer-line"></div>
-                    <p>&copy; 2026 CLOVER DIGITAL. All rights reserved. | <a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Terms of Service</a></p>
+                <!-- SERVICES -->
+                <div class="footer-column">
+                    <h3>SERVICES</h3>
+                    <a href="contact.html">Web Development</a>
+                    <a href="contact.html">UI Design</a>
+                    <a href="contact.html">Digital Marketing</a>
+                    <a href="contact.html">Graphic Design</a>
+                </div>
+                <!-- CONTACT -->
+                <div class="footer-column">
+                    <h3>CONTACT</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Adama, Ethiopia</p>
+                    <p><i class="fas fa-phone"></i> +251 998 065 377</p>
+                    <p><i class="fas fa-envelope"></i> hello@cloverdigital.com</p>
+                    <p><i class="fas fa-clock"></i> Mon-Fri: 9:00 AM - 6:00 PM</p>
                 </div>
             </div>
+            <div class="footer-bottom">
+                <div class="footer-line"></div>
+                <p>&copy; 2026 CLOVER DIGITAL. All rights reserved. | <a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Terms of Service</a></p>
+            </div>
         </div>
-    </footer>
+    </div>
+</footer>
 
-<script src="assets/js/main.js"></script>
+<!-- WhatsApp Floating Button -->
+<div class="wa-float">
+    <span class="wa-tooltip">Chat with us on WhatsApp</span>
+    <a class="wa-btn" href="https://wa.me/251998065377?text=Hi%20Clover%20Digital%2C%20I%27d%20like%20to%20discuss%20a%20project." target="_blank" rel="noopener noreferrer" aria-label="Chat with Clover Digital on WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+</div>
 <script>
-/* ═══ Invoice Generator Logic ═══ */
-let items = [
-  { desc: 'Brand Identity Design', qty: 1, price: 15000 },
-  { desc: 'Website Development',   qty: 1, price: 45000 },
-];
-
-function fmt(n) {
-  return 'ETB ' + n.toLocaleString('en-ET', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-}
-function fmtDate(v) {
-  if (!v) return '—';
-  const d = new Date(v + 'T00:00:00');
-  return d.toLocaleDateString('en-ET', { year: 'numeric', month: 'long', day: 'numeric' });
-}
-
-function addItem() {
-  items.push({ desc: '', qty: 1, price: 0 });
-  renderItems();
-  render();
-}
-function removeItem(i) {
-  items.splice(i, 1);
-  renderItems();
-  render();
-}
-
-function renderItems() {
-  const tb = document.getElementById('items-body');
-  tb.innerHTML = '';
-  items.forEach((it, i) => {
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td><input value="${it.desc}" placeholder="Service" oninput="items[${i}].desc=this.value;render()" style="font-size:.78rem;padding:5px 8px"></td>
-      <td><input type="number" value="${it.qty}" min="0" step="1" oninput="items[${i}].qty=parseFloat(this.value)||0;render()" style="font-size:.78rem;padding:5px 8px;text-align:right"></td>
-      <td><input type="number" value="${it.price}" min="0" step="1" oninput="items[${i}].price=parseFloat(this.value)||0;render()" style="font-size:.78rem;padding:5px 8px;text-align:right"></td>
-      <td><button class="del-btn" onclick="removeItem(${i})"><i class="fas fa-trash"></i></button></td>
-    `;
-    tb.appendChild(tr);
-  });
-}
-
-function render() {
-  // Text field mirrors
-  [
-    ['f-from-name','p-from-name'],
-    ['f-from-addr','p-from-addr'],
-    ['f-from-email','p-from-email'],
-    ['f-from-phone','p-from-phone'],
-    ['f-to-name','p-to-name'],
-    ['f-to-addr','p-to-addr'],
-    ['f-to-email','p-to-email'],
-  ].forEach(([fid, pid]) => {
-    const el = document.getElementById(pid);
-    const val = document.getElementById(fid).value;
-    el.textContent = val || '—';
-  });
-
-  document.getElementById('p-inv-num').textContent = '#' + document.getElementById('f-inv-num').value;
-  document.getElementById('p-date').textContent   = fmtDate(document.getElementById('f-date').value);
-  document.getElementById('p-due').textContent    = fmtDate(document.getElementById('f-due').value);
-  document.getElementById('p-notes').textContent  = document.getElementById('f-notes').value;
-
-  const taxPct = parseFloat(document.getElementById('f-tax').value) || 0;
-  ['tax-pct-lbl','p-tax-pct'].forEach(id => document.getElementById(id).textContent = taxPct);
-
-  // Logo text
-  const name = document.getElementById('f-from-name').value || 'CLOVER DIGITAL';
-  document.getElementById('p-logo').innerHTML = name.replace(' ', '<span>.</span>');
-
-  // Items preview
-  const ptb = document.getElementById('p-items');
-  ptb.innerHTML = '';
-  let sub = 0;
-  items.forEach(it => {
-    const amt = (it.qty || 0) * (it.price || 0);
-    sub += amt;
-    const tr = document.createElement('tr');
-    tr.innerHTML = `<td>${it.desc || '—'}</td><td class="r">${it.qty}</td><td class="r">${fmt(it.price)}</td><td class="r">${fmt(amt)}</td>`;
-    ptb.appendChild(tr);
-  });
-
-  const tax   = sub * taxPct / 100;
-  const total = sub + tax;
-
-  ['sub-display','p-sub'].forEach(id => document.getElementById(id).textContent = fmt(sub));
-  ['tax-display','p-tax'].forEach(id => document.getElementById(id).textContent = fmt(tax));
-  ['total-display','p-total'].forEach(id => document.getElementById(id).textContent = fmt(total));
-}
-
-function downloadPDF() {
-  const el = document.getElementById('invoice-preview');
-  html2canvas(el, { scale: 2, useCORS: true, backgroundColor: '#ffffff' }).then(canvas => {
-    const imgData = canvas.toDataURL('image/png');
-    const { jsPDF } = window.jspdf;
-    const pdf = new jsPDF('p', 'mm', 'a4');
-    const w   = pdf.internal.pageSize.getWidth();
-    const h   = (canvas.height * w) / canvas.width;
-    pdf.addImage(imgData, 'PNG', 0, 0, w, h);
-    const num = document.getElementById('f-inv-num').value || 'invoice';
-    pdf.save(`${num}-clover-digital.pdf`);
-  });
-}
-
-function printInvoice() {
-  const content = document.getElementById('invoice-preview').outerHTML;
-  const win = window.open('', '_blank');
-  win.document.write(`<!DOCTYPE html><html><head>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
-    <style>
-      *{box-sizing:border-box;margin:0;padding:0}body{font-family:'DM Sans',sans-serif;background:#fff}
-      .p-header{background:#1a3d1a;padding:1.75rem 2rem 1.5rem;position:relative}
-      .p-logo-name{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:600;color:#fff}
-      .p-logo-name span{color:#4ade80}.p-tagline{font-size:.65rem;text-transform:uppercase;letter-spacing:.12em;color:#86efac;margin-top:2px}
-      .p-header-right{position:absolute;top:1.75rem;right:2rem;text-align:right}
-      .p-inv-word{font-size:1.6rem;font-weight:300;letter-spacing:3px;text-transform:uppercase;color:#fff;opacity:.9}
-      .p-inv-num{font-size:.8rem;color:#86efac;margin-top:3px}.p-accent-bar{background:#166534;height:3px}
-      .p-body{padding:1.5rem 2rem}.p-meta{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.25rem}
-      .p-meta-block label{font-size:.65rem;text-transform:uppercase;letter-spacing:.1em;color:#16a34a;font-weight:600;display:block;margin-bottom:3px}
-      .p-meta-block p{font-size:.8rem;color:#1a1a1a;line-height:1.55}.p-meta-block p strong{font-size:.9rem;font-weight:700}
-      .p-dates{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.25rem}
-      .p-date-cell{background:#f0fdf4;border-left:3px solid #22c55e;padding:.5rem .75rem;border-radius:0 8px 8px 0}
-      .p-date-cell .dl{font-size:.65rem;text-transform:uppercase;letter-spacing:.06em;color:#16a34a}
-      .p-date-cell .dv{font-size:.8rem;font-weight:600;color:#1a1a1a;margin-top:2px}
-      .p-tbl{width:100%;border-collapse:collapse;font-size:.78rem}.p-tbl thead tr{background:#f0fdf4}
-      .p-tbl th{padding:8px;text-align:left;font-size:.65rem;text-transform:uppercase;letter-spacing:.06em;color:#16a34a;font-weight:600;border-bottom:1px solid #bbf7d0}
-      .p-tbl th.r,.p-tbl td.r{text-align:right}.p-tbl td{padding:8px;border-bottom:.5px solid #dcfce7;color:#1a1a1a}
-      .p-totals{margin-top:1rem;display:flex;justify-content:flex-end}.p-totals-box{min-width:210px}
-      .p-tot-row{display:flex;justify-content:space-between;font-size:.78rem;padding:3px 0;color:#555}
-      .p-tot-row.grand{border-top:1.5px solid #16a34a;margin-top:5px;padding-top:7px;font-size:.95rem;font-weight:700;color:#1a1a1a}
-      .p-tot-row.grand .gv{color:#16a34a}.p-notes{margin-top:1.25rem;padding-top:1.1rem;border-top:.5px solid #dcfce7}
-      .p-notes-lbl{font-size:.65rem;text-transform:uppercase;letter-spacing:.1em;color:#16a34a;margin-bottom:4px}
-      .p-notes-txt{font-size:.75rem;color:#555;line-height:1.6}
-      .p-footer{background:#f0fdf4;padding:.85rem 2rem;display:flex;justify-content:space-between;align-items:center;margin-top:1.25rem}
-      .p-footer-brand{font-size:.7rem;color:#16a34a;font-weight:600}.p-footer-thanks{font-size:.7rem;color:#888;font-style:italic}
-    </style></head><body>${content}</body></html>`);
-  win.document.close();
-  win.print();
-}
-
-// Defaults
-const today = new Date().toISOString().split('T')[0];
-document.getElementById('f-date').value = today;
-const due = new Date(); due.setDate(due.getDate() + 30);
-document.getElementById('f-due').value = due.toISOString().split('T')[0];
-
-renderItems();
-render();
+const nav=document.getElementById('nav');window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',window.scrollY>60)},{passive:true});
+const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}}),{threshold:0.1,rootMargin:'0px 0px -50px 0px'});document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+const toggle=document.querySelector('.nav-mobile-toggle'),navLinks=document.querySelector('.nav-links'),navCta=document.querySelector('.nav-cta');
+if(toggle)toggle.addEventListener('click',()=>{const o=toggle.classList.toggle('open');if(navLinks)navLinks.style.display=o?'flex':'';if(navCta)navCta.style.display=o?'block':''});
+let items=[{desc:'Brand Identity Design',qty:1,price:15000},{desc:'Website Development',qty:1,price:45000}];
+function fmt(n){return 'ETB '+n.toLocaleString('en-ET',{minimumFractionDigits:2,maximumFractionDigits:2})}
+function fmtDate(v){if(!v)return '—';const d=new Date(v+'T00:00:00');return d.toLocaleDateString('en-ET',{year:'numeric',month:'long',day:'numeric'})}
+function addItem(){items.push({desc:'',qty:1,price:0});renderItems();render()}
+function removeItem(i){items.splice(i,1);renderItems();render()}
+function renderItems(){const tb=document.getElementById('items-body');tb.innerHTML='';items.forEach((it,i)=>{const tr=document.createElement('tr');tr.innerHTML='<td><input value="'+it.desc+'" placeholder="Service" oninput="items['+i+'].desc=this.value;render()" style="font-size:.78rem;padding:5px 8px"></td><td><input type="number" value="'+it.qty+'" min="0" step="1" oninput="items['+i+'].qty=parseFloat(this.value)||0;render()" style="font-size:.78rem;padding:5px 8px;text-align:right"></td><td><input type="number" value="'+it.price+'" min="0" step="1" oninput="items['+i+'].price=parseFloat(this.value)||0;render()" style="font-size:.78rem;padding:5px 8px;text-align:right"></td><td><button class="del-btn" onclick="removeItem('+i+')"><i class="fas fa-trash"></i></button></td>';tb.appendChild(tr)})}
+function render(){[['f-from-name','p-from-name'],['f-from-addr','p-from-addr'],['f-from-email','p-from-email'],['f-from-phone','p-from-phone'],['f-to-name','p-to-name'],['f-to-addr','p-to-addr'],['f-to-email','p-to-email']].forEach(function(a){var el=document.getElementById(a[1]),val=document.getElementById(a[0]).value;el.textContent=val||'—'});document.getElementById('p-inv-num').textContent='#'+document.getElementById('f-inv-num').value;document.getElementById('p-date').textContent=fmtDate(document.getElementById('f-date').value);document.getElementById('p-due').textContent=fmtDate(document.getElementById('f-due').value);document.getElementById('p-notes').textContent=document.getElementById('f-notes').value;var taxPct=parseFloat(document.getElementById('f-tax').value)||0;['tax-pct-lbl','p-tax-pct'].forEach(function(id){document.getElementById(id).textContent=taxPct});var name=document.getElementById('f-from-name').value||'CLOVER DIGITAL';document.getElementById('p-logo').innerHTML=name.replace(' ','<span>.</span>');var ptb=document.getElementById('p-items');ptb.innerHTML='';var sub=0;items.forEach(function(it){var amt=(it.qty||0)*(it.price||0);sub+=amt;var tr=document.createElement('tr');tr.innerHTML='<td>'+(it.desc||'—')+'</td><td class="r">'+it.qty+'</td><td class="r">'+fmt(it.price)+'</td><td class="r">'+fmt(amt)+'</td>';ptb.appendChild(tr)});var tax=sub*taxPct/100,total=sub+tax;['sub-display','p-sub'].forEach(function(id){document.getElementById(id).textContent=fmt(sub)});['tax-display','p-tax'].forEach(function(id){document.getElementById(id).textContent=fmt(tax)});['total-display','p-total'].forEach(function(id){document.getElementById(id).textContent=fmt(total)})}
+function downloadPDF(){var el=document.getElementById('invoice-preview');html2canvas(el,{scale:2,useCORS:true,backgroundColor:'#ffffff'}).then(function(canvas){var imgData=canvas.toDataURL('image/png');var pdf=new jspdf.jsPDF('p','mm','a4');var w=pdf.internal.pageSize.getWidth();var h=(canvas.height*w)/canvas.width;pdf.addImage(imgData,'PNG',0,0,w,h);var num=document.getElementById('f-inv-num').value||'invoice';pdf.save(num+'-clover-digital.pdf')})}
+function printInvoice(){var content=document.getElementById('invoice-preview').outerHTML;var win=window.open('','_blank');win.document.write('<!DOCTYPE html><html><head><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"><style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:\'Inter\',sans-serif;background:#fff}.p-header{background:#1a3d1a;padding:1.75rem 2rem 1.5rem;position:relative}.p-logo-name{font-size:1.3rem;font-weight:600;color:#fff}.p-logo-name span{color:#4ade80}.p-tagline{font-size:.65rem;text-transform:uppercase;letter-spacing:.12em;color:#86efac;margin-top:2px}.p-header-right{position:absolute;top:1.75rem;right:2rem;text-align:right}.p-inv-word{font-size:1.6rem;font-weight:300;letter-spacing:3px;text-transform:uppercase;color:#fff;opacity:.9}.p-inv-num{font-size:.8rem;color:#86efac;margin-top:3px}.p-accent-bar{background:#166534;height:3px}.p-body{padding:1.5rem 2rem}.p-meta{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.25rem}.p-meta-block label{font-size:.65rem;text-transform:uppercase;letter-spacing:.1em;color:#16a34a;font-weight:600;display:block;margin-bottom:3px}.p-meta-block p{font-size:.8rem;color:#1a1a1a;line-height:1.55}.p-meta-block p strong{font-size:.9rem;font-weight:700}.p-dates{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.25rem}.p-date-cell{background:#f0fdf4;border-left:3px solid #22c55e;padding:.5rem .75rem;border-radius:0 8px 8px 0}.p-date-cell .dl{font-size:.65rem;text-transform:uppercase;letter-spacing:.06em;color:#16a34a}.p-date-cell .dv{font-size:.8rem;font-weight:600;color:#1a1a1a;margin-top:2px}.p-tbl{width:100%;border-collapse:collapse;font-size:.78rem}.p-tbl thead tr{background:#f0fdf4}.p-tbl th{padding:8px;text-align:left;font-size:.65rem;text-transform:uppercase;letter-spacing:.06em;color:#16a34a;font-weight:600;border-bottom:1px solid #bbf7d0}.p-tbl th.r,.p-tbl td.r{text-align:right}.p-tbl td{padding:8px;border-bottom:.5px solid #dcfce7;color:#1a1a1a}.p-totals{margin-top:1rem;display:flex;justify-content:flex-end}.p-totals-box{min-width:210px}.p-tot-row{display:flex;justify-content:space-between;font-size:.78rem;padding:3px 0;color:#555}.p-tot-row.grand{border-top:1.5px solid #16a34a;margin-top:5px;padding-top:7px;font-size:.95rem;font-weight:700;color:#1a1a1a}.p-tot-row.grand .gv{color:#16a34a}.p-notes{margin-top:1.25rem;padding-top:1.1rem;border-top:.5px solid #dcfce7}.p-notes-lbl{font-size:.65rem;text-transform:uppercase;letter-spacing:.1em;color:#16a34a;margin-bottom:4px}.p-notes-txt{font-size:.75rem;color:#555;line-height:1.6}.p-footer{background:#f0fdf4;padding:.85rem 2rem;display:flex;justify-content:space-between;align-items:center;margin-top:1.25rem}.p-footer-brand{font-size:.7rem;color:#16a34a;font-weight:600}.p-footer-thanks{font-size:.7rem;color:#888;font-style:italic}</style></head><body>'+content+'</body></html>');win.document.close();win.print()}
+const today=new Date().toISOString().split('T')[0];document.getElementById('f-date').value=today;const due=new Date();due.setDate(due.getDate()+30);document.getElementById('f-due').value=due.toISOString().split('T')[0];renderItems();render();
 </script>
 </body>
 </html>
