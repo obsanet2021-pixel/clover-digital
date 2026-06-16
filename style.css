@@ -987,9 +987,26 @@ body::before {
   .nav-mobile-toggle { display: flex; }
   .hero { padding: 110px 20px 80px; }
   .hero-headline { font-size: clamp(38px, 10vw, 60px); }
-  .hero-stats { flex-direction: column; border-radius: var(--radius-xl); }
-  .stat-item { border-right: none; border-bottom: 1px solid var(--border-subtle); padding: 16px 24px; }
-  .stat-item:last-child { border-bottom: none; }
+  .hero-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+  }
+  .stat-item {
+    padding: 20px 16px;
+    text-align: center;
+    border-right: none;
+    border-bottom: none;
+  }
+  .stat-item:nth-child(odd) {
+    border-right: 1px solid var(--border-subtle);
+  }
+  .stat-item:nth-child(1),
+  .stat-item:nth-child(2) {
+    border-bottom: 1px solid var(--border-subtle);
+  }
   .section, .about-section, .process-section, .testimonials-section, .cta-section { padding: 70px 20px; }
   .services-bento { grid-template-columns: 1fr; }
   .service-card.featured { grid-column: span 1; }
