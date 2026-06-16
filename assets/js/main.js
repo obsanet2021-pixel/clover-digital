@@ -84,13 +84,16 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 // Initialize everything on DOMContentLoaded
 document.addEventListener('DOMContentLoaded', () => {
     // ── Counter animation (triggered by Intersection Observer) ──
-    const counters = document.querySelectorAll('.stat-number');
+    // Only targets .stat-number elements that have a data-count attribute
+    const counters = document.querySelectorAll('.stat-number[data-count]');
     if (counters.length > 0) {
         const counterObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    const target = parseInt(entry.target.dataset.count);
-                    animateCounter(entry.target, target);
+                    const target = parseInt(entry.target.dataset.count, 10);
+                    if (!isNaN(target)) {
+                        animateCounter(entry.target, target);
+                    }
                     counterObserver.unobserve(entry.target);
                 }
             });

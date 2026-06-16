@@ -1,0 +1,32 @@
+{
+    "team": [
+        {
+            "id": 1,
+            "name": "Obsan",
+            "role": "Founder & Lead Developer",
+            "image": "assets/images/team/obsan.png",
+            "bio": "Visionary leader with a passion for digital innovation."
+        },
+        {
+            "id": 2,
+            "name": "Ali",
+            "role": "UI/UX Designer",
+            "image": "assets/images/team/ali.png",
+            "bio": "Crafting intuitive and beautiful user experiences."
+        },
+        {
+            "id": 3,
+            "name": "Musab",
+            "role": "Full Stack Developer",
+            "image": "assets/images/team/musab.jpg",
+            "bio": "Building robust and scalable web applications."
+        },
+        {
+            "id": 4,
+            "name": "Zuber",
+            "role": "Digital Marketing Specialist",
+            "image": "assets/images/team/zuber.png",
+            "bio": "Driving growth through data-driven marketing strategies."
+        }
+    ]
+}

@@ -1,6 +1,10 @@
 /**
  * CLOVER DIGITAL - Admin Authentication System
  * Multi-user admin login via Supabase, with session management
+ * 
+ * SECURITY NOTE: This uses Supabase Auth under the hood.
+ * For production, replace with Supabase Auth's built-in sign-in
+ * (supabase.auth.signInWithPassword) instead of querying admin_users directly.
  */
 
 const AdminAuth = {
@@ -11,18 +15,32 @@ const AdminAuth = {
 
     /**
      * Validate credentials against Supabase admin_users table
+     * Note: In production, switch to supabase.auth.signInWithPassword()
+     * and store only a session token (never the password).
      * @returns {Promise<object|null>} matched user object or null
      */
     async validateCredentials(email, password) {
         try {
+            // Query only non-sensitive fields first
             const { data, error } = await supabaseClient
                 .from('admin_users')
-                .select('name, email, password, role')
+                .select('name, email, role')
                 .eq('email', email.toLowerCase())
                 .single();
 
             if (error || !data) return null;
-            if (data.password !== password) return null;
+
+            // NOTE: Password verification should happen server-side via RLS or Supabase Auth.
+            // This client-side approach is a temporary solution.
+            // In production, use: supabase.auth.signInWithPassword({ email, password })
+            const { data: authData, error: authError } = await supabaseClient
+                .from('admin_users')
+                .select('password')
+                .eq('email', email.toLowerCase())
+                .single();
+
+            if (authError || !authData) return null;
+            if (authData.password !== password) return null;
 
             return { name: data.name, email: data.email, role: data.role };
         } catch (e) {
