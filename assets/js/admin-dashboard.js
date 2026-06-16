@@ -74,6 +74,9 @@ function updateAdminInfo() {
    PORTFOLIO CRUD (Supabase)
 ═══════════════════════════════════════ */
 
+const STORAGE_BUCKET = 'portfolio-images';
+let uploadedImageUrl = '';
+
 const CATEGORY_LABELS = {
     web: 'Web Development',
     design: 'UI Design',
@@ -132,26 +135,138 @@ async function renderPortfolioTable() {
     if (statEl) statEl.textContent = projects.filter(p => p.status === 'published').length;
 }
 
-function previewProjectImage(event) {
-    const file = event.target.files[0];
-    if (!file) return;
+/* ═══════════════════════════════════════
+   IMAGE UPLOAD
+═══════════════════════════════════════ */
 
-    // Validate file size (max 5MB)
-    if (file.size > 5 * 1024 * 1024) {
-        showNotification('Image too large. Maximum size is 5MB.', 'error');
-        event.target.value = '';
+function initImageUpload() {
+    const dropzone = document.getElementById('imageDropzone');
+    const fileInput = document.getElementById('projectImageFile');
+    if (!dropzone || !fileInput) return;
+
+    dropzone.addEventListener('click', () => fileInput.click());
+    dropzone.querySelector('.browse-link')?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        fileInput.click();
+    });
+
+    fileInput.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (file) handleImageFile(file);
+    });
+
+    dropzone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        dropzone.classList.add('dragover');
+    });
+    dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragover'));
+    dropzone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropzone.classList.remove('dragover');
+        const file = e.dataTransfer.files[0];
+        if (file && file.type.startsWith('image/')) handleImageFile(file);
+    });
+}
+
+function switchImageTab(tab) {
+    document.querySelectorAll('.upload-tab').forEach(t => t.classList.remove('active'));
+    document.querySelector(`.upload-tab[data-tab="${tab}"]`).classList.add('active');
+    document.getElementById('uploadTabContent').style.display = tab === 'upload' ? 'block' : 'none';
+    document.getElementById('urlTabContent').style.display = tab === 'url' ? 'block' : 'none';
+}
+
+async function handleImageFile(file) {
+    const maxSize = 5 * 1024 * 1024; // 5 MB
+    if (file.size > maxSize) {
+        showNotification('Image must be under 5 MB', 'error');
         return;
     }
 
-    const preview = document.getElementById('imagePreview');
-    const previewImg = preview.querySelector('img');
-    const reader = new FileReader();
+    const allowed = ['image/jpeg', 'image/png', 'image/webp'];
+    if (!allowed.includes(file.type)) {
+        showNotification('Only JPG, PNG, and WebP files are supported', 'error');
+        return;
+    }
 
-    reader.onload = function(e) {
-        previewImg.src = e.target.result;
-        preview.style.display = 'block';
-    };
+    // Show local preview immediately
+    const reader = new FileReader();
+    reader.onload = (e) => showImagePreview(e.target.result);
     reader.readAsDataURL(file);
+
+    // Upload to Supabase Storage
+    await uploadImageToStorage(file);
+}
+
+async function uploadImageToStorage(file) {
+    const progressEl = document.getElementById('uploadProgress');
+    const progressFill = document.getElementById('progressFill');
+    const statusText = document.getElementById('uploadStatusText');
+    const dropzone = document.getElementById('imageDropzone');
+
+    progressEl.style.display = 'flex';
+    dropzone.style.display = 'none';
+    progressFill.style.width = '30%';
+    statusText.textContent = 'Uploading...';
+
+    const ext = file.name.split('.').pop();
+    const fileName = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
+    const filePath = `projects/${fileName}`;
+
+    try {
+        progressFill.style.width = '60%';
+        const { data, error } = await supabaseClient.storage
+            .from(STORAGE_BUCKET)
+            .upload(filePath, file, {
+                cacheControl: '3600',
+                upsert: false
+            });
+
+        if (error) throw error;
+
+        progressFill.style.width = '90%';
+        statusText.textContent = 'Getting public URL...';
+
+        const { data: urlData } = supabaseClient.storage
+            .from(STORAGE_BUCKET)
+            .getPublicUrl(filePath);
+
+        uploadedImageUrl = urlData.publicUrl;
+        progressFill.style.width = '100%';
+        statusText.textContent = 'Upload complete!';
+
+        setTimeout(() => {
+            progressEl.style.display = 'none';
+            dropzone.style.display = 'flex';
+        }, 1000);
+
+        showNotification('Image uploaded successfully', 'success');
+    } catch (err) {
+        console.error('Upload error:', err);
+        progressEl.style.display = 'none';
+        dropzone.style.display = 'flex';
+        showNotification('Upload failed: ' + err.message, 'error');
+        uploadedImageUrl = '';
+    }
+}
+
+function showImagePreview(src) {
+    const preview = document.getElementById('imagePreview');
+    const img = document.getElementById('imagePreviewImg');
+    if (preview && img) {
+        img.src = src;
+        preview.style.display = 'flex';
+    }
+}
+
+function removeImagePreview() {
+    const preview = document.getElementById('imagePreview');
+    const img = document.getElementById('imagePreviewImg');
+    const fileInput = document.getElementById('projectImageFile');
+    if (preview) preview.style.display = 'none';
+    if (img) img.src = '';
+    if (fileInput) fileInput.value = '';
+    uploadedImageUrl = '';
+    document.getElementById('projectImage').value = '';
 }
 
 function openPortfolioModal(project) {
@@ -159,12 +274,9 @@ function openPortfolioModal(project) {
     const title = document.getElementById('portfolioModalTitle');
     document.getElementById('portfolioForm').reset();
     document.getElementById('projectId').value = '';
-
-    // Reset file upload and preview
-    document.getElementById('projectImageUpload').value = '';
-    const preview = document.getElementById('imagePreview');
-    preview.style.display = 'none';
-    preview.querySelector('img').src = '';
+    uploadedImageUrl = '';
+    removeImagePreview();
+    switchImageTab('upload');
 
     if (project) {
         title.textContent = 'Edit Project';
@@ -173,47 +285,21 @@ function openPortfolioModal(project) {
         document.getElementById('projectDesc').value = project.description;
         document.getElementById('projectCategory').value = project.category;
         document.getElementById('projectStatus').value = project.status;
-        document.getElementById('projectImage').value = project.image || '';
         document.getElementById('projectPrice').value = project.price || '';
         document.getElementById('projectClient').value = project.client || '';
-
-        // Show existing image preview if there's a URL
         if (project.image) {
-            const preview = document.getElementById('imagePreview');
-            const previewImg = preview.querySelector('img');
-            previewImg.src = project.image;
-            preview.style.display = 'block';
+            uploadedImageUrl = project.image;
+            showImagePreview(project.image);
         }
     } else {
         title.textContent = 'Add New Project';
     }
     modal.style.display = 'flex';
+    initImageUpload();
 }
 
 function closePortfolioModal() {
     document.getElementById('portfolioModal').style.display = 'none';
-}
-
-async function uploadImage(file) {
-    // Generate a unique file name
-    const ext = file.name.split('.').pop();
-    const fileName = `portfolio/${Date.now()}_${Math.random().toString(36).substring(2, 8)}.${ext}`;
-
-    const { data, error } = await supabaseClient.storage
-        .from('portfolio-images')
-        .upload(fileName, file, {
-            cacheControl: '3600',
-            upsert: false
-        });
-
-    if (error) throw error;
-
-    // Get the public URL
-    const { data: urlData } = supabaseClient.storage
-        .from('portfolio-images')
-        .getPublicUrl(fileName);
-
-    return urlData.publicUrl;
 }
 
 async function saveProject(e) {
@@ -222,31 +308,24 @@ async function saveProject(e) {
     const submitBtn = e.target.querySelector('button[type="submit"]');
     const originalText = submitBtn.innerHTML;
     submitBtn.disabled = true;
-    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Uploading...';
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
 
     const id = document.getElementById('projectId').value;
-    const fileInput = document.getElementById('projectImageUpload');
-    const file = fileInput.files[0];
+    const imageUrl = uploadedImageUrl || document.getElementById('projectImage').value.trim();
+
+    const projectData = {
+        title: document.getElementById('projectTitle').value.trim(),
+        description: document.getElementById('projectDesc').value.trim(),
+        category: document.getElementById('projectCategory').value,
+        status: document.getElementById('projectStatus').value,
+        image: imageUrl,
+        price: document.getElementById('projectPrice').value.trim(),
+        client: document.getElementById('projectClient').value.trim(),
+        created_by: AdminAuth.getAdminName(),
+        updated_at: new Date().toISOString()
+    };
 
     try {
-        // If a new file was selected, upload it to Supabase Storage
-        if (file) {
-            const publicUrl = await uploadImage(file);
-            document.getElementById('projectImage').value = publicUrl;
-        }
-
-        const projectData = {
-            title: document.getElementById('projectTitle').value.trim(),
-            description: document.getElementById('projectDesc').value.trim(),
-            category: document.getElementById('projectCategory').value,
-            status: document.getElementById('projectStatus').value,
-            image: document.getElementById('projectImage').value.trim(),
-            price: document.getElementById('projectPrice').value.trim(),
-            client: document.getElementById('projectClient').value.trim(),
-            created_by: AdminAuth.getAdminName(),
-            updated_at: new Date().toISOString()
-        };
-
         if (id) {
             const { error } = await supabaseClient
                 .from('portfolio_projects')
