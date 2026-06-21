@@ -144,7 +144,14 @@ USING (status = 'published');
 DROP POLICY IF EXISTS "Allow authenticated read on admin_users" ON public.admin_users;
 DROP POLICY IF EXISTS "Allow anon to read admin_users" ON public.admin_users;
 
--- Allow authenticated users to read admin_users (for login verification)
+-- Allow anon users to read admin_users (needed because custom auth queries as anon)
+CREATE POLICY "Allow anon to read admin_users"
+ON public.admin_users
+FOR SELECT
+TO anon
+USING (true);
+
+-- Allow authenticated users to read admin_users (if Supabase Auth is used later)
 CREATE POLICY "Allow authenticated read on admin_users"
 ON public.admin_users
 FOR SELECT
