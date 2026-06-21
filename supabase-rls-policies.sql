@@ -7,30 +7,45 @@
 -- PART 1: STORAGE BUCKET POLICIES (fixes "new row violates 
 -- row-level security policy" error on image upload)
 -- ============================================================
+-- NOTE: Since the admin dashboard uses a custom auth system (not
+-- Supabase Auth's signInWithPassword), the user is recognized as
+-- 'anon' by Supabase. So we need policies for BOTH anon and
+-- authenticated roles.
 
--- 1. Allow authenticated users to upload files to portfolio-images bucket
-CREATE POLICY "Allow authenticated uploads to portfolio-images"
+-- First, drop existing policies if they exist (to make this re-runnable)
+DROP POLICY IF EXISTS "Allow authenticated uploads to portfolio-images" ON storage.objects;
+DROP POLICY IF EXISTS "Allow authenticated selects on portfolio-images" ON storage.objects;
+DROP POLICY IF EXISTS "Allow authenticated updates on portfolio-images" ON storage.objects;
+DROP POLICY IF EXISTS "Allow authenticated deletes on portfolio-images" ON storage.objects;
+DROP POLICY IF EXISTS "Allow public read on portfolio-images" ON storage.objects;
+DROP POLICY IF EXISTS "Allow anon uploads to portfolio-images" ON storage.objects;
+DROP POLICY IF EXISTS "Allow anon selects on portfolio-images" ON storage.objects;
+DROP POLICY IF EXISTS "Allow anon updates on portfolio-images" ON storage.objects;
+DROP POLICY IF EXISTS "Allow anon deletes on portfolio-images" ON storage.objects;
+
+-- 1. Allow anon users (admin dashboard) to upload files to portfolio-images bucket
+CREATE POLICY "Allow anon uploads to portfolio-images"
 ON storage.objects
 FOR INSERT
-TO authenticated
+TO anon
 WITH CHECK (
     bucket_id = 'portfolio-images'
 );
 
--- 2. Allow authenticated users to select/view files in portfolio-images bucket
-CREATE POLICY "Allow authenticated selects on portfolio-images"
+-- 2. Allow anon users to select/view files in portfolio-images bucket
+CREATE POLICY "Allow anon selects on portfolio-images"
 ON storage.objects
 FOR SELECT
-TO authenticated
+TO anon
 USING (
     bucket_id = 'portfolio-images'
 );
 
--- 3. Allow authenticated users to update files in portfolio-images bucket
-CREATE POLICY "Allow authenticated updates on portfolio-images"
+-- 3. Allow anon users to update files in portfolio-images bucket
+CREATE POLICY "Allow anon updates on portfolio-images"
 ON storage.objects
 FOR UPDATE
-TO authenticated
+TO anon
 USING (
     bucket_id = 'portfolio-images'
 )
@@ -38,24 +53,40 @@ WITH CHECK (
     bucket_id = 'portfolio-images'
 );
 
--- 4. Allow authenticated users to delete files from portfolio-images bucket
-CREATE POLICY "Allow authenticated deletes on portfolio-images"
+-- 4. Allow anon users to delete files from portfolio-images bucket
+CREATE POLICY "Allow anon deletes on portfolio-images"
 ON storage.objects
 FOR DELETE
-TO authenticated
-USING (
-    bucket_id = 'portfolio-images'
-);
-
--- 5. Allow public/anonymous users to view (read) files in portfolio-images bucket
--- This is needed so the public portfolio page can display images
-CREATE POLICY "Allow public read on portfolio-images"
-ON storage.objects
-FOR SELECT
 TO anon
 USING (
     bucket_id = 'portfolio-images'
 );
+
+-- 5. Also allow authenticated users (if Supabase Auth is used later)
+CREATE POLICY "Allow authenticated uploads to portfolio-images"
+ON storage.objects
+FOR INSERT
+TO authenticated
+WITH CHECK (bucket_id = 'portfolio-images');
+
+CREATE POLICY "Allow authenticated selects on portfolio-images"
+ON storage.objects
+FOR SELECT
+TO authenticated
+USING (bucket_id = 'portfolio-images');
+
+CREATE POLICY "Allow authenticated updates on portfolio-images"
+ON storage.objects
+FOR UPDATE
+TO authenticated
+USING (bucket_id = 'portfolio-images')
+WITH CHECK (bucket_id = 'portfolio-images');
+
+CREATE POLICY "Allow authenticated deletes on portfolio-images"
+ON storage.objects
+FOR DELETE
+TO authenticated
+USING (bucket_id = 'portfolio-images');
 
 -- ============================================================
 -- PART 2: PORTFOLIO_PROJECTS TABLE POLICIES
