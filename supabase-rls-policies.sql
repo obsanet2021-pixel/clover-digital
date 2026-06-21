@@ -92,7 +92,12 @@ USING (bucket_id = 'portfolio-images');
 -- PART 2: PORTFOLIO_PROJECTS TABLE POLICIES
 -- ============================================================
 
--- Remove the overly permissive anonymous full-access policy (security risk)
+-- Drop existing portfolio_projects policies to make this re-runnable
+DROP POLICY IF EXISTS "Allow authenticated read on portfolio_projects" ON public.portfolio_projects;
+DROP POLICY IF EXISTS "Allow authenticated insert on portfolio_projects" ON public.portfolio_projects;
+DROP POLICY IF EXISTS "Allow authenticated update on portfolio_projects" ON public.portfolio_projects;
+DROP POLICY IF EXISTS "Allow authenticated delete on portfolio_projects" ON public.portfolio_projects;
+DROP POLICY IF EXISTS "Allow public read published on portfolio_projects" ON public.portfolio_projects;
 DROP POLICY IF EXISTS "Allow anon full access to portfolio_projects" ON public.portfolio_projects;
 
 -- Allow authenticated users to read all projects
@@ -134,6 +139,10 @@ USING (status = 'published');
 -- ============================================================
 -- PART 3: ADMIN_USERS TABLE POLICIES
 -- ============================================================
+
+-- Drop existing admin_users policies to make this re-runnable
+DROP POLICY IF EXISTS "Allow authenticated read on admin_users" ON public.admin_users;
+DROP POLICY IF EXISTS "Allow anon to read admin_users" ON public.admin_users;
 
 -- Allow authenticated users to read admin_users (for login verification)
 CREATE POLICY "Allow authenticated read on admin_users"
