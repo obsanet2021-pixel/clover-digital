@@ -61,6 +61,9 @@ USING (
 -- PART 2: PORTFOLIO_PROJECTS TABLE POLICIES
 -- ============================================================
 
+-- Remove the overly permissive anonymous full-access policy (security risk)
+DROP POLICY IF EXISTS "Allow anon full access to portfolio_projects" ON public.portfolio_projects;
+
 -- Allow authenticated users to read all projects
 CREATE POLICY "Allow authenticated read on portfolio_projects"
 ON public.portfolio_projects
