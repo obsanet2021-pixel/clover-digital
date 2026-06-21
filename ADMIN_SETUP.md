@@ -207,6 +207,22 @@ Restrict admin access to specific IP addresses
 
 ---
 
+## Supabase Storage Setup
+
+The portfolio gallery requires a Supabase **Storage bucket** named `portfolio-images` to upload project images. The dashboard will attempt to create it automatically, but if your Supabase policies restrict bucket creation you must create it manually:
+
+1. Open your Supabase project dashboard at [https://supabase.com/dashboard](https://supabase.com/dashboard)
+2. Navigate to **Storage** in the left sidebar
+3. Click **New bucket**
+4. Set the name to `portfolio-images`
+5. Toggle **Public bucket** to **ON** (so images are publicly viewable)
+6. Click **Create bucket**
+
+If you skip this step and upload an image in the admin panel, you will see:
+> *"Storage bucket 'portfolio-images' not found. Please create it in your Supabase dashboard under Storage, then enable public access."*
+
+---
+
 ## Troubleshooting
 
 ### "Cannot access admin page"
