@@ -9,10 +9,16 @@
 -- ============================================================
 -- NOTE: Since the admin dashboard uses a custom auth system (not
 -- Supabase Auth's signInWithPassword), the user is recognized as
--- 'anon' by Supabase. So we need policies for BOTH anon and
--- authenticated roles.
+-- 'anon' by Supabase. So we need policies for anon role.
 
--- First, drop existing policies if they exist (to make this re-runnable)
+-- STEP 1: Make the bucket public so images are accessible without RLS
+-- (This eliminates the need for broad SELECT policies and fixes the warning)
+UPDATE storage.buckets
+SET public = true
+WHERE id = 'portfolio-images';
+
+-- STEP 2: Drop ALL existing policies on storage.objects for this bucket
+-- to clean up the duplicate SELECT policies causing the warning
 DROP POLICY IF EXISTS "Allow authenticated uploads to portfolio-images" ON storage.objects;
 DROP POLICY IF EXISTS "Allow authenticated selects on portfolio-images" ON storage.objects;
 DROP POLICY IF EXISTS "Allow authenticated updates on portfolio-images" ON storage.objects;
@@ -23,7 +29,11 @@ DROP POLICY IF EXISTS "Allow anon selects on portfolio-images" ON storage.object
 DROP POLICY IF EXISTS "Allow anon updates on portfolio-images" ON storage.objects;
 DROP POLICY IF EXISTS "Allow anon deletes on portfolio-images" ON storage.objects;
 
--- 1. Allow anon users (admin dashboard) to upload files to portfolio-images bucket
+-- STEP 3: Create ONLY the INSERT policy needed for uploads
+-- Since the bucket is public, SELECT/READ is automatically allowed
+-- without needing any SELECT policy on storage.objects
+
+-- Allow anon users (admin dashboard) to upload files to portfolio-images bucket
 CREATE POLICY "Allow anon uploads to portfolio-images"
 ON storage.objects
 FOR INSERT
@@ -32,16 +42,7 @@ WITH CHECK (
     bucket_id = 'portfolio-images'
 );
 
--- 2. Allow anon users to select/view files in portfolio-images bucket
-CREATE POLICY "Allow anon selects on portfolio-images"
-ON storage.objects
-FOR SELECT
-TO anon
-USING (
-    bucket_id = 'portfolio-images'
-);
-
--- 3. Allow anon users to update files in portfolio-images bucket
+-- Allow anon users to update files in portfolio-images bucket
 CREATE POLICY "Allow anon updates on portfolio-images"
 ON storage.objects
 FOR UPDATE
@@ -53,7 +54,7 @@ WITH CHECK (
     bucket_id = 'portfolio-images'
 );
 
--- 4. Allow anon users to delete files from portfolio-images bucket
+-- Allow anon users to delete files from portfolio-images bucket
 CREATE POLICY "Allow anon deletes on portfolio-images"
 ON storage.objects
 FOR DELETE
@@ -61,32 +62,6 @@ TO anon
 USING (
     bucket_id = 'portfolio-images'
 );
-
--- 5. Also allow authenticated users (if Supabase Auth is used later)
-CREATE POLICY "Allow authenticated uploads to portfolio-images"
-ON storage.objects
-FOR INSERT
-TO authenticated
-WITH CHECK (bucket_id = 'portfolio-images');
-
-CREATE POLICY "Allow authenticated selects on portfolio-images"
-ON storage.objects
-FOR SELECT
-TO authenticated
-USING (bucket_id = 'portfolio-images');
-
-CREATE POLICY "Allow authenticated updates on portfolio-images"
-ON storage.objects
-FOR UPDATE
-TO authenticated
-USING (bucket_id = 'portfolio-images')
-WITH CHECK (bucket_id = 'portfolio-images');
-
-CREATE POLICY "Allow authenticated deletes on portfolio-images"
-ON storage.objects
-FOR DELETE
-TO authenticated
-USING (bucket_id = 'portfolio-images');
 
 -- ============================================================
 -- PART 2: PORTFOLIO_PROJECTS TABLE POLICIES
