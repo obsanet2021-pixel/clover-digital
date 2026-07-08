@@ -5,10 +5,11 @@
 
 AdminAuth.requireLogin();
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     initializeDashboard();
     setupEventListeners();
     updateAdminInfo();
+    await ensureStorageBucket();
     renderPortfolioTable();
 });
 
@@ -194,23 +195,47 @@ function closePortfolioModal() {
     document.getElementById('portfolioModal').style.display = 'none';
 }
 
+const STORAGE_BUCKET = 'portfolio-images';
+
+async function ensureStorageBucket() {
+    try {
+        const { error } = await supabaseClient.storage.createBucket(STORAGE_BUCKET, {
+            public: true,
+            fileSizeLimit: 5 * 1024 * 1024
+        });
+        // 'already exists' is fine — bucket is ready
+        if (error && !error.message.includes('already exists')) {
+            console.warn('Could not auto-create storage bucket:', error.message);
+        }
+    } catch (e) {
+        console.warn('Storage bucket check skipped:', e.message);
+    }
+}
+
 async function uploadImage(file) {
-    // Generate a unique file name
     const ext = file.name.split('.').pop();
     const fileName = `portfolio/${Date.now()}_${Math.random().toString(36).substring(2, 8)}.${ext}`;
 
     const { data, error } = await supabaseClient.storage
-        .from('portfolio-images')
+        .from(STORAGE_BUCKET)
         .upload(fileName, file, {
             cacheControl: '3600',
             upsert: false
         });
 
-    if (error) throw error;
+    if (error) {
+        if (error.message.includes('Bucket not found') || error.statusCode === '404') {
+            throw new Error(
+                'Storage bucket "' + STORAGE_BUCKET + '" not found. '
+                + 'Please create it in your Supabase dashboard under Storage, '
+                + 'then enable public access.'
+            );
+        }
+        throw error;
+    }
 
-    // Get the public URL
     const { data: urlData } = supabaseClient.storage
-        .from('portfolio-images')
+        .from(STORAGE_BUCKET)
         .getPublicUrl(fileName);
 
     return urlData.publicUrl;
@@ -231,8 +256,16 @@ async function saveProject(e) {
     try {
         // If a new file was selected, upload it to Supabase Storage
         if (file) {
-            const publicUrl = await uploadImage(file);
-            document.getElementById('projectImage').value = publicUrl;
+            try {
+                const publicUrl = await uploadImage(file);
+                document.getElementById('projectImage').value = publicUrl;
+            } catch (uploadErr) {
+                console.error('Image upload failed:', uploadErr);
+                showNotification('Image upload failed: ' + uploadErr.message, 'error');
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalText;
+                return;
+            }
         }
 
         const projectData = {
