@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CLOVER DIGITAL â€” Portfolio | Our Work</title>
-<meta name="description" content="Explore our portfolio of successful digital projects â€” web development, UI design, graphic design, and marketing campaigns">
+<title>CLOVER DIGITAL - Portfolio | Our Work</title>
+<meta name="description" content="Explore our portfolio of successful digital projects - web development, UI design, graphic design, and marketing campaigns">
 <meta name="robots" content="index, follow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,6 +20,47 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .btn-primary{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;background:var(--accent-green);color:#000;font-size:14px;font-weight:600;border-radius:var(--radius-pill);transition:all 0.2s var(--ease-smooth);position:relative;overflow:hidden}.btn-primary::before{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(255,255,255,0.12),transparent);border-radius:inherit}.btn-primary:hover{transform:translateY(-2px);box-shadow:0 0 28px var(--accent-green-glow),0 4px 16px rgba(0,0,0,0.3)}.btn-primary svg{transition:transform 0.2s var(--ease-spring)}.btn-primary:hover svg{transform:translateX(3px)}.btn-ghost{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;background:rgba(255,255,255,0.05);color:rgba(255,255,255,0.75);font-size:14px;font-weight:500;border-radius:var(--radius-pill);border:1px solid rgba(255,255,255,0.10);transition:all 0.2s var(--ease-smooth)}.btn-ghost:hover{background:rgba(255,255,255,0.09);border-color:rgba(255,255,255,0.18);color:#fff}
 .portfolio-filter{display:flex;justify-content:center;gap:0.75rem;margin:60px 0 2rem;flex-wrap:wrap}.filter-btn{padding:9px 20px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.10);border-radius:var(--radius-pill);cursor:pointer;transition:all 0.2s var(--ease-smooth);font-weight:500;font-size:13.5px;color:rgba(255,255,255,0.58);font-family:'Inter',system-ui,sans-serif}.filter-btn:hover,.filter-btn.active{background:var(--accent-green);color:#000;border-color:var(--accent-green);box-shadow:0 0 20px var(--accent-green-glow)}
 .portfolio-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.portfolio-card{position:relative;border-radius:var(--radius-xl);overflow:hidden;cursor:pointer;aspect-ratio:16/11;background:var(--bg-card);border:1px solid var(--border-subtle);transition:transform 0.4s var(--ease-spring),border-color 0.3s ease}.portfolio-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--border-default),transparent);z-index:2}.portfolio-card:hover{transform:translateY(-4px);border-color:var(--border-hover)}.portfolio-card img{width:100%;height:100%;object-fit:cover;transition:transform 0.5s var(--ease-smooth);filter:brightness(0.88)}.portfolio-card:hover img{transform:scale(1.06);filter:brightness(0.96)}.portfolio-overlay{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(13,13,13,0.95) 0%,rgba(13,13,13,0.6) 60%,transparent 100%);color:#fff;padding:1.5rem;transform:translateY(40px);opacity:0;transition:transform 0.4s var(--ease-spring),opacity 0.4s ease;z-index:1}.portfolio-card:hover .portfolio-overlay{transform:translateY(0);opacity:1}.portfolio-tag{display:inline-block;padding:3px 10px;background:rgba(44,197,110,0.10);color:var(--accent-green);border:1px solid rgba(44,197,110,0.20);border-radius:var(--radius-pill);font-size:11.5px;font-weight:600;text-transform:uppercase;letter-spacing:0.04em;margin-bottom:0.5rem}.portfolio-overlay h3{font-size:16px;font-weight:600;margin-bottom:4px;letter-spacing:-0.02em}.portfolio-overlay p{font-size:13px;color:rgba(255,255,255,0.55);line-height:1.45}.portfolio-price{margin-top:0.5rem;font-size:12.5px;color:var(--accent-green);font-weight:500}.portfolio-placeholder{display:flex;align-items:center;justify-content:center;width:100%;height:100%;background:linear-gradient(135deg,rgba(44,197,110,0.08),rgba(13,13,13,1));color:var(--accent-green);font-size:3.5rem}.no-projects{text-align:center;padding:4rem 2rem;color:var(--text-muted)}.no-projects i{font-size:3rem;margin-bottom:1rem;color:var(--text-muted)}
+/* Card Component Styles */
+.card{background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:20px;overflow:hidden;transition:transform 0.35s cubic-bezier(0.16,1,0.3,1),border-color 0.3s ease;position:relative}
+.card:hover{transform:translateY(-4px);border-color:var(--border-hover)}
+.card-thumb{aspect-ratio:16/10;background:linear-gradient(160deg,#151515,#0a0a0a);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.card-thumb img{width:100%;height:100%;object-fit:cover;transition:transform 0.5s var(--ease-smooth)}
+.card:hover .card-thumb img{transform:scale(1.06)}
+.tag{position:absolute;top:12px;left:12px;font-size:11px;font-weight:600;padding:4px 10px;border-radius:var(--radius-pill);background:rgba(0,0,0,0.55);color:var(--text-secondary);border:1px solid var(--border-default);backdrop-filter:blur(6px);z-index:2}
+.card-body{padding:18px 20px 20px}
+.card-body h3{font-size:16.5px;font-weight:600;letter-spacing:-0.01em;margin-bottom:4px}
+.card-body p{font-size:13.5px;color:var(--text-muted)}
+/* Featured Card with Live Preview */
+.card.featured{grid-column:span 3;background:linear-gradient(135deg,#0d1712,#0a0a0a 60%);border:1px solid rgba(44,197,110,0.25)}
+.featured-inner{display:grid;grid-template-columns:1fr 1.35fr;align-items:stretch}
+.featured-copy{padding:36px 40px;display:flex;flex-direction:column;justify-content:center;gap:14px}
+.live-dot{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:var(--accent-green);width:fit-content}
+.live-dot::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent-green)}
+.featured-copy h3{font-family:'Instrument Serif',Georgia,serif;font-weight:400;font-size:26px;letter-spacing:-0.01em;color:#fff}
+.featured-copy p{font-size:14px;color:var(--text-secondary);line-height:1.6;max-width:38ch}
+.featured-btn{margin-top:6px;display:inline-flex;align-items:center;gap:8px;background:var(--accent-green);color:#062513;font-weight:600;font-size:13.5px;padding:11px 20px;border-radius:var(--radius-pill);width:fit-content;cursor:pointer;border:none;font-family:inherit;transition:transform 0.2s}
+.featured-btn:hover{transform:scale(1.03)}
+.featured-btn svg{transition:transform 0.2s}
+.featured-btn:hover svg{transform:translate(2px,-2px)}
+.browser-frame{background:#0a0a0a;border-left:1px solid var(--border-subtle);padding:20px 20px 0;display:flex;flex-direction:column}
+.browser-chrome{display:flex;align-items:center;gap:8px;padding-bottom:12px}
+.dot{width:9px;height:9px;border-radius:50%}
+.dot.r{background:#ff5f57}.dot.y{background:#febc2e}.dot.g{background:#28c840}
+.browser-url{flex:1;margin-left:8px;font-size:11.5px;color:var(--text-muted);background:rgba(255,255,255,0.03);border:1px solid var(--border-subtle);padding:5px 12px;border-radius:6px;font-family:'JetBrains Mono',monospace}
+.browser-body{flex:1;border-radius:10px 10px 0 0;overflow:hidden;border:1px solid var(--border-subtle);border-bottom:none;background:#f4f6f9}
+.browser-body iframe{width:100%;height:100%;border:none;display:block;min-height:300px}
+/* Modal Overlay */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.75);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;z-index:100;padding:24px}
+.modal-overlay.open{display:flex}
+.modal-box{width:100%;max-width:1100px;height:82vh;background:#0a0a0a;border:1px solid var(--border-default);border-radius:18px;overflow:hidden;display:flex;flex-direction:column}
+.modal-top{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(--border-subtle)}
+.modal-top-left{display:flex;align-items:center;gap:10px;font-size:13.5px;color:var(--text-secondary)}
+.modal-close{width:30px;height:30px;border-radius:50%;border:1px solid var(--border-default);background:transparent;color:var(--text-secondary);cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:color 0.2s,border-color 0.2s}
+.modal-close:hover{color:var(--text-primary);border-color:var(--border-hover)}
+.modal-frame-wrap{flex:1;background:#f4f6f9}
+.modal-frame-wrap iframe{width:100%;height:100%;border:none;display:block}
+@media(max-width:860px){.card.featured{grid-column:span 2}.featured-inner{grid-template-columns:1fr}.browser-frame{border-left:none;border-top:1px solid var(--border-subtle)}.portfolio-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.card.featured{grid-column:span 1}.portfolio-grid{grid-template-columns:1fr}}
 .cta-section{padding:0 24px 120px;position:relative;z-index:1}.cta-inner{max-width:var(--width-content);margin:0 auto;background:linear-gradient(135deg,var(--accent-green-dim) 0%,rgba(44,197,110,0.04) 50%,rgba(0,0,0,0) 100%);border:1px solid rgba(44,197,110,0.18);border-radius:32px;padding:80px 60px;text-align:center;position:relative;overflow:hidden}.cta-inner::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(44,197,110,0.4),transparent)}.cta-glow{position:absolute;top:-40%;left:50%;transform:translateX(-50%);width:60%;height:80%;background:radial-gradient(ellipse,var(--accent-green-glow) 0%,transparent 70%);pointer-events:none}.cta-headline{font-size:clamp(36px,5vw,64px);font-weight:500;letter-spacing:-0.04em;line-height:0.95;color:var(--text-primary);margin-bottom:18px;position:relative}.cta-headline em{font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-weight:400;color:var(--accent-green)}.cta-sub{font-size:16px;color:var(--text-secondary);max-width:420px;margin:0 auto 36px;line-height:1.6;position:relative}.cta-actions{display:flex;align-items:center;gap:12px;justify-content:center;flex-wrap:wrap;position:relative}
 /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    FOOTER HERO
@@ -161,6 +202,22 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
     </div>
 </footer>
 
+<!-- ===== modal: the real preview.html dashboard, full size ===== -->
+<div class="modal-overlay" id="previewModal">
+  <div class="modal-box">
+    <div class="modal-top">
+      <div class="modal-top-left">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2cc56e" stroke-width="2.4"><circle cx="12" cy="12" r="9"></circle></svg>
+        Project explorer
+      </div>
+      <button class="modal-close" onclick="document.getElementById('previewModal').classList.remove('open')">✕</button>
+    </div>
+    <div class="modal-frame-wrap">
+      <iframe src="website_preview.html" title="Clover Digital project explorer"></iframe>
+    </div>
+  </div>
+</div>
+
 <!-- WhatsApp Floating Button -->
 <div class="wa-float">
     <span class="wa-tooltip">Chat with us on WhatsApp</span>
@@ -178,10 +235,10 @@ if(toggle){toggle.addEventListener('click',()=>{nav.classList.toggle('menu-open'
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="assets/js/supabase-config.js"></script>
 <script>
-const CATEGORY_LABELS={web:'Web Development',design:'UI Design',marketing:'Digital Marketing',graphic:'Graphic Design'};
+const CATEGORY_LABELS={web:'Web development',design:'UI design',marketing:'Marketing',graphic:'Graphic design'};
 let allProjects=[];
 async function fetchProjects(){const grid=document.getElementById('portfolio-grid');grid.innerHTML='<div class="no-projects"><i class="fas fa-spinner fa-spin"></i><p>Loading projects...</p></div>';try{const{data,error}=await supabaseClient.from('portfolio_projects').select('*').eq('status','published').order('created_at',{ascending:false});if(error)throw error;allProjects=data||[]}catch(e){console.error('Error fetching portfolio:',e);allProjects=[]}renderPortfolio('all')}
-function renderPortfolio(category){const grid=document.getElementById('portfolio-grid');let projects=allProjects;if(category&&category!=='all'){projects=projects.filter(p=>p.category===category)}if(projects.length===0){grid.innerHTML='<div class="no-projects"><i class="fas fa-folder-open"></i><p>No projects in this category yet.</p></div>';return}grid.innerHTML=projects.map(p=>`<div class="portfolio-card" data-category="${p.category}">${p.image?`<img src="${p.image}" alt="${p.title}" loading="lazy">`:`<div class="portfolio-placeholder"><i class="fas fa-image"></i></div>`}<div class="portfolio-overlay"><span class="portfolio-tag">${CATEGORY_LABELS[p.category]||p.category}</span><h3>${p.title}</h3><p>${p.description||''}</p>${p.price?`<div class="portfolio-price"><i class="fas fa-tag"></i> ${p.price} ETB</div>`:''}${p.client?`<div class="portfolio-price" style="color:rgba(255,255,255,0.5);"><i class="fas fa-user"></i> ${p.client}</div>`:''}</div></div>`).join('')}
+function renderPortfolio(category){const grid=document.getElementById('portfolio-grid');let projects=allProjects;if(category&&category!=='all'){projects=projects.filter(p=>p.category===category)}const featuredCard=`<div class="card featured"><div class="featured-inner"><div class="featured-copy"><span class="live-dot">Live · click to explore</span><h3>Browse our builds, live</h3><p>Skip the screenshots — open any project we've shipped right here and click around it for yourself.</p><button class="featured-btn" onclick="document.getElementById('previewModal').classList.add('open')">Launch preview<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></button></div><div class="browser-frame"><div class="browser-chrome"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="browser-url">hararmart.vercel.app</span></div><div class="browser-body"><iframe src="https://hararmart.vercel.app/" loading="lazy" title="Live project preview thumbnail"></iframe></div></div></div></div>`;if(projects.length===0){grid.innerHTML=featuredCard+'<div class="no-projects"><i class="fas fa-folder-open"></i><p>No projects in this category yet.</p></div>';return}const projectCards=projects.map(p=>`<div class="card"><div class="card-thumb"><span class="tag">${CATEGORY_LABELS[p.category]||p.category}</span>${p.image?`<img src="${p.image}" alt="${p.title}" loading="lazy">`:'<div style="width:100%;height:100%;background:linear-gradient(160deg,#151515,#0a0a0a);display:flex;align-items:center;justify-content:center;"><i class="fas fa-image" style="font-size:2rem;color:rgba(255,255,255,0.3);"></i></div>'}</div><div class="card-body"><h3>${p.title}</h3><p>${p.description||''}</p></div></div>`).join('');grid.innerHTML=featuredCard+projectCards}
 document.querySelectorAll('.filter-btn').forEach(btn=>{btn.addEventListener('click',()=>{document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderPortfolio(btn.dataset.filter)})});
 fetchProjects();
 </script>

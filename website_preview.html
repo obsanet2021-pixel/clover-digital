@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Website Preview · Clover Digital</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:'Inter',system-ui,-apple-system,sans-serif;
+      display:flex;
+      height:100vh;
+      background:#080808;
+      overflow:hidden;
+      -webkit-font-smoothing:antialiased;
+    }
+    a{text-decoration:none;color:inherit}
+    button{cursor:pointer;border:none;background:none;font:inherit}
+
+    /* ---------- sidebar ---------- */
+    .sidebar {
+      width: 280px;
+      background: #0d0d0d;
+      color: #fff;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      border-right: 1px solid rgba(255,255,255,0.06);
+      scrollbar-width: thin;
+      scrollbar-color: rgba(44,197,110,0.3) #111;
+    }
+    .sidebar::-webkit-scrollbar{width:5px}
+    .sidebar::-webkit-scrollbar-track{background:#111}
+    .sidebar::-webkit-scrollbar-thumb{background:rgba(44,197,110,0.3);border-radius:10px}
+
+    .sidebar h2 {
+      padding: 24px 20px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 1.15rem;
+      letter-spacing:-0.01em;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      background: #0a0a0a;
+      color:#fff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+    }
+    .sidebar h2::before{
+      content:"";
+      width:8px;height:8px;
+      border-radius:50%;
+      background:#2cc56e;
+      flex-shrink:0;
+    }
+
+    .category {
+      padding: 20px 20px 8px 20px;
+      font-size: 11px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.38);
+      letter-spacing: 0.08em;
+      font-weight: 500;
+    }
+
+    .site-btn {
+      width: 100%;
+      border: none;
+      outline: none;
+      background: transparent;
+      color: rgba(255,255,255,0.58);
+      text-align: left;
+      padding: 12px 24px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-size: 14px;
+      font-weight: 450;
+      border-left: 3px solid transparent;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family:'Inter',system-ui,sans-serif;
+    }
+    .site-btn:hover {
+      background: rgba(255,255,255,0.04);
+      color: #fff;
+    }
+    .site-btn.active {
+      background: rgba(44,197,110,0.10);
+      color: #2cc56e;
+      border-left: 3px solid #2cc56e;
+      font-weight: 500;
+    }
+    .site-btn.active::before {
+      content: "▸";
+      font-size: 13px;
+      opacity: 0.8;
+      margin-right: 4px;
+    }
+    .site-btn:focus-visible {
+      outline: 2px solid rgba(44,197,110,0.5);
+      outline-offset: -2px;
+    }
+
+    /* ---------- main ---------- */
+    .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      background:#080808;
+    }
+
+    /* top bar */
+    .topbar {
+      height: 64px;
+      background: #0d0d0d;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      flex-shrink: 0;
+    }
+
+    .title {
+      font-weight: 500;
+      font-size: 1.1rem;
+      color: #fff;
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .title::before {
+      content: "";
+      width: 8px;height:8px;
+      border-radius:50%;
+      background: #2cc56e;
+      flex-shrink:0;
+    }
+
+    .open-btn {
+      text-decoration: none;
+      background: #2cc56e;
+      color: #062513;
+      padding: 9px 22px;
+      border-radius: 9999px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      transition: all 0.2s cubic-bezier(0.16,1,0.3,1);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family:'Inter',system-ui,sans-serif;
+      position:relative;
+      overflow:hidden;
+    }
+    .open-btn::before{
+      content:'';
+      position:absolute;
+      inset:0;
+      background:linear-gradient(to bottom,rgba(255,255,255,0.12),transparent);
+      border-radius:inherit;
+    }
+    .open-btn:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 20px rgba(44,197,110,0.22);
+    }
+    .open-btn::after {
+      content: "↗";
+      font-size: 1rem;
+      transition: transform 0.2s;
+      position:relative;
+      z-index:1;
+    }
+    .open-btn:hover::after {
+      transform: translate(2px, -2px);
+    }
+
+    /* iframe viewer */
+    .viewer {
+      flex: 1;
+      background: #080808;
+      padding: 8px;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.3);
+    }
+
+    /* ---------- mobile ---------- */
+    @media (max-width: 768px) {
+      body {
+        flex-direction: column;
+        height: 100dvh;
+        overflow: hidden;
+      }
+      .sidebar {
+        width: 100%;
+        height: 200px;
+        flex-shrink: 0;
+        overflow-y: auto;
+        border-right: none;
+        border-bottom: 1px solid rgba(255,255,255,0.06);
+      }
+      .sidebar h2 {
+        padding: 14px 16px;
+        font-size: 1rem;
+      }
+      .site-btn {
+        padding: 10px 18px;
+        font-size: 13px;
+      }
+      .category {
+        padding: 12px 18px 4px 18px;
+        font-size: 10px;
+      }
+      .topbar {
+        height: 56px;
+        padding: 0 14px;
+      }
+      .title {
+        font-size: 0.95rem;
+      }
+      .open-btn {
+        padding: 6px 14px;
+        font-size: 0.75rem;
+      }
+      .viewer {
+        padding: 4px;
+      }
+      iframe {
+        border-radius: 6px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="sidebar">
+  <h2>🌐 Preview</h2>
+
+  <div class="category">Projects</div>
+
+  </button>
+  <button class="site-btn active" data-url="https://ethiogeeksoffcial-boop.github.io/guzodigital/">
+    GuzoDigital
+  </button>
+
+  <button class="site-btn" data-url="https://phoenixbacktest.xyz/">
+    Phoenix
+  </button>
+
+  <button class="site-btn" data-url="https://cloverdig1.github.io/acwsse/">
+    ACWSSE
+  </button>
+
+  <div class="category">Hotels</div>
+
+  <button class="site-btn" data-url="https://cloverdig1.github.io/ayuhotel/">
+    Ayu Hotel
+  </button>
+  <button class="site-btn" data-url="https://cloverdig1.github.io/ahyhotel/">
+    Ahy Hotel
+  </button>
+  <button class="site-btn" data-url="https://obsanet2021-pixel.github.io/ggtint-hotel">
+    GGT-INT Hotel
+  </button>
+</div>
+
+<div class="main">
+  <div class="topbar">
+    <div class="title" id="siteName">HararMart</div>
+    <a id="openSite" class="open-btn" href="https://ethiogeeksoffcial-boop.github.io/guzodigital/" target="_blank">
+      Open Website
+    </a>
+  </div>
+
+  <div class="viewer">
+    <iframe id="previewFrame" src="https://ethiogeeksoffcial-boop.github.io/guzodigital/" title="Website Preview" loading="lazy" allowfullscreen></iframe>
+  </div>
+</div>
+
+<script>
+  (function() {
+    const buttons = document.querySelectorAll('.site-btn');
+    const frame = document.getElementById('previewFrame');
+    const title = document.getElementById('siteName');
+    const openLink = document.getElementById('openSite');
+
+    // Helper: set active state
+    function setActive(activeBtn) {
+      buttons.forEach(b => b.classList.remove('active'));
+      activeBtn.classList.add('active');
+    }
+
+    // Update UI with url and button text
+    function updateViewer(btn) {
+      const url = btn.dataset.url;
+      const name = btn.textContent.trim();
+
+      frame.src = url;
+      title.textContent = name;
+      openLink.href = url;
+    }
+
+    // Click handler
+    buttons.forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        if (this.classList.contains('active')) {
+          // if already active, do nothing (but we could reload)
+          // but we still want to reload iframe? maybe not.
+          // we'll just keep it as is.
+          return;
+        }
+        setActive(this);
+        updateViewer(this);
+      });
+    });
+
+    // optional: if the active button changes externally (like on load)
+    // set the initial active one (already active class on HararMart)
+    const initialActive = document.querySelector('.site-btn.active');
+    if (initialActive) {
+      // ensure viewer reflects it (in case of mismatch)
+      const url = initialActive.dataset.url;
+      const name = initialActive.textContent.trim();
+      frame.src = url;
+      title.textContent = name;
+      openLink.href = url;
+    } else {
+      // fallback: if none active, activate first
+      const first = buttons[0];
+      if (first) {
+        first.classList.add('active');
+        updateViewer(first);
+      }
+    }
+
+    // small extra: iframe load error fallback (silent)
+    frame.addEventListener('error', function() {
+      // do nothing, just keep it quiet
+    });
+
+  })();
+</script>
+</body>
+</html>
