@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -6,6 +6,16 @@
 <title>CLOVER DIGITAL — Contact Us | Let's Talk</title>
 <meta name="description" content="Get in touch with Clover Digital — your trusted digital partner in Adama, Ethiopia. Let's discuss your next project.">
 <meta name="robots" content="index, follow">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://officialcloverdigital.com/contact.html">
+<meta property="og:title" content="CLOVER DIGITAL — Contact Us | Let's Talk">
+<meta property="og:description" content="Get in touch with Clover Digital — your trusted digital partner in Adama, Ethiopia. Let's discuss your next project.">
+<meta property="og:image" content="https://officialcloverdigital.com/assets/images/logo/clover%20p1.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="CLOVER DIGITAL — Contact Us | Let's Talk">
+<meta name="twitter:description" content="Get in touch with Clover Digital — your trusted digital partner in Adama, Ethiopia. Let's discuss your next project.">
+<meta name="twitter:image" content="https://officialcloverdigital.com/assets/images/logo/clover%20p1.png">
+<link rel="canonical" href="https://officialcloverdigital.com/contact.html">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -73,6 +83,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
   <button class="nav-mobile-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
 </nav>
 
+<main>
 <section class="page-hero">
   <h1 class="reveal">Let's <em>Talk</em></h1>
   <p class="page-hero-sub reveal">Ready to start your project? We'd love to hear from you.</p>
@@ -113,34 +124,35 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 
     <div class="contact-form-card reveal">
       <h3>Send a Message</h3>
-      <form id="contactForm" onsubmit="return false;">
+      <form id="contactForm" action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSeL1bGLDdpAyGJlLcvPiqj-PrJRBFdtpAD5vRo1qXKbkuS-OA/formResponse" method="POST" target="hidden_iframe">
         <div class="form-group">
           <label>Full Name</label>
-          <input type="text" placeholder="Your name" required>
+          <input type="text" name="entry.1762200883" placeholder="Your name" required>
         </div>
         <div class="form-group">
           <label>Email Address</label>
-          <input type="email" placeholder="you@example.com" required>
+          <input type="email" name="emailAddress" placeholder="you@example.com" required>
         </div>
         <div class="form-group">
           <label>Service Interested In</label>
-          <select>
-            <option>Web Development</option>
-            <option>Graphic Design</option>
-            <option>UI Design</option>
-            <option>Digital Marketing</option>
-            <option>Other</option>
+          <select name="entry.530003242" required>
+            <option value="Web Development">Web Development</option>
+            <option value="UI design">UI Design</option>
+            <option value="Graphics Design">Graphics Design</option>
           </select>
         </div>
         <div class="form-group">
           <label>Message</label>
-          <textarea rows="5" placeholder="Tell us about your project..."></textarea>
+          <textarea rows="5" name="entry.498771303" placeholder="Tell us about your project..." required></textarea>
         </div>
-        <button type="submit" class="btn-primary" style="width:100%;padding:15px 24px;justify-content:center">Send Message <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7h9M7.5 3l4 4-4 4" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button type="submit" id="contactSubmitBtn" class="btn-primary" style="width:100%;padding:15px 24px;justify-content:center">Send Message <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7h9M7.5 3l4 4-4 4" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <p id="contactFormStatus" style="margin-top:14px;font-size:13.5px;color:var(--accent-green);display:none">Thanks! Your message has been sent — we'll get back to you within 24 hours.</p>
       </form>
+      <iframe name="hidden_iframe" id="hidden_iframe" style="display:none" title="submit"></iframe>
     </div>
   </div>
 </section>
+</main>
 
 <!-- ═══════════════════════════════════════════════ -->
 <!-- ORIGINAL FOOTER — preserved as requested        -->
@@ -189,9 +201,9 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
                 <!-- CONTACT -->
                 <div class="footer-column">
                     <h3>CONTACT</h3>
-                    <p><i class="fas fa-map-marker-alt"></i> Adama, Ethiopia</p>
-                    <p><i class="fas fa-phone"></i> +251 998 065 377</p>
-                    <p><i class="fas fa-envelope"></i> Officialcloverdigital@gmail.com</p>
+                    <p><i class="fas fa-map-marker-alt"></i> <a href="https://maps.google.com/?q=Adama,Ethiopia" target="_blank" rel="noopener">Adama, Ethiopia</a></p>
+                    <p><i class="fas fa-phone"></i> <a href="tel:+251998065377">+251 998 065 377</a></p>
+                    <p><i class="fas fa-envelope"></i> <a href="mailto:Officialcloverdigital@gmail.com">Officialcloverdigital@gmail.com</a></p>
                     <p><i class="fas fa-clock"></i> Mon-Fri: 9:00 AM - 6:00 PM</p>
                 </div>
             </div>
@@ -216,6 +228,25 @@ const nav=document.getElementById('nav');window.addEventListener('scroll',()=>{n
 const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}}),{threshold:0.1,rootMargin:'0px 0px -50px 0px'});document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
 const toggle=document.querySelector('.nav-mobile-toggle');
 if(toggle){toggle.addEventListener('click',()=>{nav.classList.toggle('menu-open');toggle.classList.toggle('active')});nav.querySelectorAll('.nav-links a').forEach(link=>{link.addEventListener('click',()=>{nav.classList.remove('menu-open');toggle.classList.remove('active')})})}
+
+const contactForm=document.getElementById('contactForm');
+if(contactForm){
+  const btn=document.getElementById('contactSubmitBtn');
+  const status=document.getElementById('contactFormStatus');
+  contactForm.addEventListener('submit',()=>{
+    btn.disabled=true;
+    btn.style.opacity='0.6';
+    const originalHTML=btn.innerHTML;
+    btn.innerHTML='Sending...';
+    setTimeout(()=>{
+      status.style.display='block';
+      contactForm.reset();
+      btn.disabled=false;
+      btn.style.opacity='1';
+      btn.innerHTML=originalHTML;
+    },1200);
+  });
+}
 </script>
 </body>
 </html>
