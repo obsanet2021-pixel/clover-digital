@@ -111,6 +111,28 @@ FOR SELECT
 TO anon
 USING (status = 'published');
 
+-- Allow anon users (admin dashboard) to insert projects
+CREATE POLICY "Allow anon insert on portfolio_projects"
+ON public.portfolio_projects
+FOR INSERT
+TO anon
+WITH CHECK (true);
+
+-- Allow anon users to update projects
+CREATE POLICY "Allow anon update on portfolio_projects"
+ON public.portfolio_projects
+FOR UPDATE
+TO anon
+USING (true)
+WITH CHECK (true);
+
+-- Allow anon users to delete projects
+CREATE POLICY "Allow anon delete on portfolio_projects"
+ON public.portfolio_projects
+FOR DELETE
+TO anon
+USING (true);
+
 -- ============================================================
 -- PART 3: ADMIN_USERS TABLE POLICIES
 -- ============================================================

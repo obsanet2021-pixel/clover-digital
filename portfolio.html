@@ -6,6 +6,16 @@
 <title>CLOVER DIGITAL - Portfolio | Our Work</title>
 <meta name="description" content="Explore our portfolio of successful digital projects - web development, UI design, graphic design, and marketing campaigns">
 <meta name="robots" content="index, follow">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://officialcloverdigital.com/portfolio.html">
+<meta property="og:title" content="CLOVER DIGITAL - Portfolio | Our Work">
+<meta property="og:description" content="Explore our portfolio of successful digital projects - web development, UI design, graphic design, and marketing campaigns">
+<meta property="og:image" content="https://officialcloverdigital.com/assets/images/logo/clover%20p1.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="CLOVER DIGITAL - Portfolio | Our Work">
+<meta name="twitter:description" content="Explore our portfolio of successful digital projects - web development, UI design, graphic design, and marketing campaigns">
+<meta name="twitter:image" content="https://officialcloverdigital.com/assets/images/logo/clover%20p1.png">
+<link rel="canonical" href="https://officialcloverdigital.com/portfolio.html">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -108,6 +118,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
   <button class="nav-mobile-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
 </nav>
 
+<main>
 <section class="page-hero">
   <h1 class="reveal">Our <em>Work</em></h1>
   <p class="page-hero-sub reveal">From brand identities to full-stack platforms â€” here's what we've built for our clients.</p>
@@ -140,6 +151,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
     </div>
   </div>
 </section>
+</main>
 
 <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
 <!-- ORIGINAL FOOTER â€” preserved as requested        -->
@@ -234,11 +246,12 @@ if(toggle){toggle.addEventListener('click',()=>{nav.classList.toggle('menu-open'
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="assets/js/supabase-config.js"></script>
+<script src="assets/js/escape-html.js"></script>
 <script>
 const CATEGORY_LABELS={web:'Web development',design:'UI design',marketing:'Marketing',graphic:'Graphic design'};
 let allProjects=[];
 async function fetchProjects(){const grid=document.getElementById('portfolio-grid');grid.innerHTML='<div class="no-projects"><i class="fas fa-spinner fa-spin"></i><p>Loading projects...</p></div>';try{const{data,error}=await supabaseClient.from('portfolio_projects').select('*').eq('status','published').order('created_at',{ascending:false});if(error)throw error;allProjects=data||[]}catch(e){console.error('Error fetching portfolio:',e);allProjects=[]}renderPortfolio('all')}
-function renderPortfolio(category){const grid=document.getElementById('portfolio-grid');let projects=allProjects;if(category&&category!=='all'){projects=projects.filter(p=>p.category===category)}const featuredCard=`<div class="card featured"><div class="featured-inner"><div class="featured-copy"><span class="live-dot">Live · click to explore</span><h3>Browse our builds, live</h3><p>Skip the screenshots — open any project we've shipped right here and click around it for yourself.</p><button class="featured-btn" onclick="document.getElementById('previewModal').classList.add('open')">Launch preview<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></button></div><div class="browser-frame"><div class="browser-chrome"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="browser-url">hararmart.vercel.app</span></div><div class="browser-body"><iframe src="https://hararmart.vercel.app/" loading="lazy" title="Live project preview thumbnail"></iframe></div></div></div></div>`;if(projects.length===0){grid.innerHTML=featuredCard+'<div class="no-projects"><i class="fas fa-folder-open"></i><p>No projects in this category yet.</p></div>';return}const projectCards=projects.map(p=>`<div class="card"><div class="card-thumb"><span class="tag">${CATEGORY_LABELS[p.category]||p.category}</span>${p.image?`<img src="${p.image}" alt="${p.title}" loading="lazy">`:'<div style="width:100%;height:100%;background:linear-gradient(160deg,#151515,#0a0a0a);display:flex;align-items:center;justify-content:center;"><i class="fas fa-image" style="font-size:2rem;color:rgba(255,255,255,0.3);"></i></div>'}</div><div class="card-body"><h3>${p.title}</h3><p>${p.description||''}</p></div></div>`).join('');grid.innerHTML=featuredCard+projectCards}
+function renderPortfolio(category){const grid=document.getElementById('portfolio-grid');let projects=allProjects;if(category&&category!=='all'){projects=projects.filter(p=>p.category===category)}const featuredCard=`<div class="card featured"><div class="featured-inner"><div class="featured-copy"><span class="live-dot">Live · click to explore</span><h3>Browse our builds, live</h3><p>Skip the screenshots — open any project we've shipped right here and click around it for yourself.</p><button class="featured-btn" onclick="document.getElementById('previewModal').classList.add('open')">Launch preview<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></button></div><div class="browser-frame"><div class="browser-chrome"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="browser-url">hararmart.vercel.app</span></div><div class="browser-body"><iframe src="https://hararmart.vercel.app/" loading="lazy" title="Live project preview thumbnail"></iframe></div></div></div></div>`;if(projects.length===0){grid.innerHTML=featuredCard+'<div class="no-projects"><i class="fas fa-folder-open"></i><p>No projects in this category yet.</p></div>';return}const projectCards=projects.map(p=>`<div class="card"><div class="card-thumb"><span class="tag">${escapeHtml(CATEGORY_LABELS[p.category]||p.category)}</span>${p.image?`<img src="${escapeHtml(p.image)}" alt="${escapeHtml(p.title)}" loading="lazy">`:'<div style="width:100%;height:100%;background:linear-gradient(160deg,#151515,#0a0a0a);display:flex;align-items:center;justify-content:center;"><i class="fas fa-image" style="font-size:2rem;color:rgba(255,255,255,0.3);"></i></div>'}</div><div class="card-body"><h3>${escapeHtml(p.title)}</h3><p>${escapeHtml(p.description||'')}</p></div></div>`).join('');grid.innerHTML=featuredCard+projectCards}
 document.querySelectorAll('.filter-btn').forEach(btn=>{btn.addEventListener('click',()=>{document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderPortfolio(btn.dataset.filter)})});
 fetchProjects();
 </script>

@@ -1,10 +1,9 @@
 /**
  * CLOVER DIGITAL - Admin Authentication System
- * Multi-user admin login via Supabase, with session management
+ * Multi-user admin login via Supabase Auth, with session management
  * 
- * SECURITY NOTE: This uses Supabase Auth under the hood.
- * For production, replace with Supabase Auth's built-in sign-in
- * (supabase.auth.signInWithPassword) instead of querying admin_users directly.
+ * SECURITY NOTE: This now uses Supabase Auth's built-in sign-in
+ * (supabase.auth.signInWithPassword) for secure authentication.
  */
 
 const AdminAuth = {
@@ -14,35 +13,44 @@ const AdminAuth = {
     SESSION_TIMEOUT: 8 * 60 * 60 * 1000,
 
     /**
-     * Validate credentials against Supabase admin_users table
-     * Note: In production, switch to supabase.auth.signInWithPassword()
-     * and store only a session token (never the password).
-     * @returns {Promise<object|null>} matched user object or null
+     * Validate credentials using Supabase Auth
+     * Uses secure server-side authentication via Supabase Auth
+     * @returns {Promise<object|null>} user object or null
      */
     async validateCredentials(email, password) {
         try {
-            // Query only non-sensitive fields first
-            const { data, error } = await supabaseClient
+            // Use Supabase Auth for secure authentication
+            const { data, error } = await supabaseClient.auth.signInWithPassword({
+                email: email.toLowerCase(),
+                password: password
+            });
+
+            if (error) {
+                console.error('Auth error:', error.message);
+                return null;
+            }
+
+            if (!data.user) return null;
+
+            // Fetch additional admin user data from admin_users table
+            const { data: adminData, error: adminError } = await supabaseClient
                 .from('admin_users')
-                .select('name, email, role')
+                .select('name, role')
                 .eq('email', email.toLowerCase())
                 .single();
 
-            if (error || !data) return null;
+            if (adminError || !adminData) {
+                // User authenticated but not in admin_users table
+                await supabaseClient.auth.signOut();
+                return null;
+            }
 
-            // NOTE: Password verification should happen server-side via RLS or Supabase Auth.
-            // This client-side approach is a temporary solution.
-            // In production, use: supabase.auth.signInWithPassword({ email, password })
-            const { data: authData, error: authError } = await supabaseClient
-                .from('admin_users')
-                .select('password')
-                .eq('email', email.toLowerCase())
-                .single();
-
-            if (authError || !authData) return null;
-            if (authData.password !== password) return null;
-
-            return { name: data.name, email: data.email, role: data.role };
+            return { 
+                name: adminData.name, 
+                email: data.user.email, 
+                role: adminData.role,
+                userId: data.user.id
+            };
         } catch (e) {
             console.error('Auth error:', e);
             return null;
@@ -118,6 +126,11 @@ const AdminAuth = {
         localStorage.removeItem(this.SESSION_KEY);
         localStorage.removeItem(this.SESSION_EXPIRY_KEY);
         localStorage.removeItem(this.REMEMBER_ME_KEY);
+        
+        // Also sign out from Supabase Auth
+        supabaseClient.auth.signOut().catch(e => {
+            console.error('Sign out error:', e);
+        });
     },
 
     requireLogin() {
