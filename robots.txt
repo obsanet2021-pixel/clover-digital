@@ -7,7 +7,5 @@ Allow: /
 # Sitemap
 Sitemap: https://officialcloverdigital.com/sitemap.xml
 
-# Disallow admin pages
-Disallow: /admin-dashboard.html
-Disallow: /admin-login.html
+# Disallow internal-only pages
 Disallow: /invoice.html

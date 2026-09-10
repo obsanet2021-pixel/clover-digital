@@ -169,8 +169,8 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
           <button class="featured-btn" onclick="openFeaturedPreview()">Launch preview<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M17 7H8M17 7v9"></path></svg></button>
         </div>
         <div class="browser-frame">
-          <div class="browser-chrome"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="browser-url">hararmart.vercel.app</span></div>
-          <div class="browser-body"><iframe src="https://hararmart.vercel.app/" loading="lazy" title="Live project preview thumbnail"></iframe></div>
+          <div class="browser-chrome"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="browser-url">Local portfolio preview</span></div>
+          <div class="browser-body"><img src="assets/images/portfolio/harar mart.jpg" alt="Harar Mart preview" loading="lazy" style="width:100%;height:100%;object-fit:cover;"></div>
         </div>
       </div>
     </div>
@@ -329,29 +329,21 @@ const toggle=document.querySelector('.nav-mobile-toggle');
 if(toggle){toggle.addEventListener('click',()=>{nav.classList.toggle('menu-open');toggle.classList.toggle('active')});nav.querySelectorAll('.nav-links a').forEach(link=>{link.addEventListener('click',()=>{nav.classList.remove('menu-open');toggle.classList.remove('active')})})}
 </script>
 <script type="module" src="https://cdnjs.cloudflare.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="assets/js/supabase-config.js"></script>
+<script src="assets/js/portfolio-data.js"></script>
 <script src="assets/js/escape-html.js"></script>
 <script>
 /* ---------- data ---------- */
 const CATEGORY_LABELS={web:'Web development',design:'UI design','3d':'3D design',marketing:'Marketing',graphic:'Graphic design'};
-let allProjects=[];
+let allProjects=Array.isArray(window.portfolioProjects) ? window.portfolioProjects.slice() : [];
 let currentProjects=[]; // the currently-filtered, currently-rendered project list (index-matched to cards)
 
-async function fetchProjects(){
+function fetchProjects(){
   const grid=document.getElementById('portfolio-grid');
   const featuredCard=grid.querySelector('.card.featured');
   grid.innerHTML='';
   if(featuredCard) grid.appendChild(featuredCard);
-  grid.insertAdjacentHTML('beforeend','<div class="no-projects" id="loadingMsg"><i class="fas fa-spinner fa-spin"></i><p>Loading projects...</p></div>');
-  try{
-    const{data,error}=await supabaseClient.from('portfolio_projects').select('*').eq('status','published').order('created_at',{ascending:false});
-    if(error)throw error;
-    allProjects=data||[];
-  }catch(e){
-    console.error('Error fetching portfolio:',e);
-    allProjects=[];
-  }
+
+  allProjects=Array.isArray(window.portfolioProjects) ? window.portfolioProjects.slice() : [];
   renderPortfolio('all');
 }
 
@@ -391,7 +383,7 @@ function renderPortfolio(category){
   const projects=(!category||category==='all')?allProjects:allProjects.filter(p=>p.category===category);
   currentProjects=projects;
   const showFeatured=(!category||category==='all'||category==='web');
-  const featuredCard=`<div class="card featured"><div class="featured-inner"><div class="featured-copy"><span class="live-dot">Live · click to explore</span><h3>Browse our builds, live</h3><p>Skip the screenshots — open any project we've shipped right here and click around it for yourself.</p><button class="featured-btn" onclick="openFeaturedPreview()">Launch preview<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></button></div><div class="browser-frame"><div class="browser-chrome"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="browser-url">hararmart.vercel.app</span></div><div class="browser-body"><iframe src="https://hararmart.vercel.app/" loading="lazy" title="Live project preview thumbnail"></iframe></div></div></div></div>`;
+  const featuredCard=`<div class="card featured"><div class="featured-inner"><div class="featured-copy"><span class="live-dot">Live · click to explore</span><h3>Browse our builds, live</h3><p>Skip the screenshots — open any project we've shipped right here and click around it for yourself.</p><button class="featured-btn" onclick="openFeaturedPreview()">Launch preview<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></button></div><div class="browser-frame"><div class="browser-chrome"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="browser-url">Local portfolio preview</span></div><div class="browser-body"><img src="assets/images/portfolio/harar mart.jpg" alt="Harar Mart preview" loading="lazy" style="width:100%;height:100%;object-fit:cover;"></div></div></div></div>`;
   if(projects.length===0){
     grid.innerHTML=(showFeatured?featuredCard:'')+'<div class="no-projects"><i class="fas fa-folder-open"></i><p>No projects in this category yet.</p></div>';
     return;
