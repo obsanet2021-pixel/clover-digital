@@ -65,6 +65,7 @@ window.portfolioProjects = [
     gallery: [
       'assets/images/portfolio/Screenshot 2026-06-03 170403.png'
     ],
+    model_url: 'assets/images/portfolio/3d/cube.glb',
     technologies: ['3D Design', 'Visualization']
   }
 ];
