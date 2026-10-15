@@ -1,0 +1,11 @@
+# CLOVER DIGITAL — Robots.txt
+# https://officialcloverdigital.com
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://officialcloverdigital.com/sitemap.xml
+
+# Disallow internal-only pages
+Disallow: /invoice.html

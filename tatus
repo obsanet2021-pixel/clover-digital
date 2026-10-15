@@ -1,0 +1,17 @@
+* [33mcb0a15a[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mdevin/1780988860-clover-digital-upgrade[m[33m, [m[1;31morigin/devin/1780988860-clover-digital-upgrade[m[33m)[m Merge remote main branch
+[31m|[m * [33m3850ad6[m[33m ([m[1;31morigin/cloudflare/workers-autoconfig[m[33m)[m Add Cloudflare Workers configuration
+[31m|[m[31m/[m  
+*   [33mdd15fd6[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m Merge pull request #4 from obsanet2021-pixel/devin/1780988860-clover-digital-upgrade
+[33m|[m[34m\[m  
+[33m|[m * [33maddcf6b[m Update logo and branding across all pages **Changes Summary:** - 15 files modified - 207 insertions, 61 deletions **CSS Updates (main.css + responsive.css):** - Enhanced logo styling (.logo, .logo-img classes) - Improved brand-logo and brand-logo-row styling - Updated footer-logo section with better typography - Responsive design improvements for logo on mobile **HTML Pages (12+ pages):** - Updated logo markup in header/footer sections - Consistent branding across: index, about, services, portfolio, pricing, contact, blog, 404, invoice, privacy, terms - Fixed logo paths and sizing **Admin Dashboard:** - Added logo to admin interface - Enhanced admin-dashboard.js with new functionality - Improved UI consistency **Result:** - Consistent logo placement and styling across all pages - Better responsive behavior on mobile devices - Professional branding throughout the site
+[33m|[m * [33m7b71e17[m Update services.html
+[33m|[m [34m|[m * [33mcdc5857[m[33m ([m[1;31morigin/devin/1781090090-portfolio-image-upload[m[33m)[m feat: add image upload option to admin portfolio section
+[33m|[m [34m|[m[33m/[m  
+[33m|[m[33m/[m[34m|[m   
+[33m|[m [34m|[m * [33m80f696f[m[33m ([m[1;32mcloudflare/workers-autoconfig[m[33m)[m Update services.html
+[33m|[m [34m|[m * [33me62c43b[m Add Cloudflare Workers configuration
+[33m|[m [34m|[m[33m/[m  
+[33m|[m[33m/[m[34m|[m   
+* [34m|[m [33mf6ba3c1[m[33m ([m[1;32mmain[m[33m)[m Merge pull request #2 from obsanet2021-pixel/devin/1780988860-clover-digital-upgrade
+[1;31m|[m[34m\[m[34m|[m 
+[1;31m|[m * [33m3333a6e[m fix: rename supabase client var to avoid CDN naming conflict
